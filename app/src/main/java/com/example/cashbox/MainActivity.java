@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
 
     private EditText phoneNumber, password;
     private TextView phoneNumberLbl;
+    private EditText editText;
     private Button joinButton, btn;
     private MaskImpl inputMask;
 
@@ -25,13 +26,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //phoneNumber.requestFocus();
+        editText = findViewById(R.id.editText);
+        editText.requestFocus();
         preparing();
     }
 
     private void preparing()
     {
-        joinButton = (Button)findViewById(R.id.joinButton);
+        phoneNumber = findViewById(R.id.phoneNumber);
+        password = findViewById(R.id.password);
+        joinButton = findViewById(R.id.joinButton);
         btn = findViewById(R.id.btn);
         joinButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,10 +48,10 @@ public class MainActivity extends AppCompatActivity {
         inputMask = MaskImpl.createTerminated(PredefinedSlots.RUS_PHONE_NUMBER);
         FormatWatcher formatWatcher = new MaskFormatWatcher(inputMask);
 
-        phoneNumber = findViewById(R.id.phoneNumber);
+
         phoneNumberLbl = findViewById(R.id.phoneNumberText);
         formatWatcher.installOn(phoneNumber);
-        phoneNumber.setSelection(phoneNumber.getText().length());
+        //phoneNumber.setSelection(phoneNumber.getText().length());
         View.OnClickListener onclkLst = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -58,17 +62,19 @@ public class MainActivity extends AppCompatActivity {
         };
         btn.setOnClickListener(onclkLst);
         phoneNumber.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
+                String phone = phoneNumber.getText().toString();
                 if (hasFocus) {
-                    String phone = phoneNumber.getText().toString();
                     if (phone.length() == 0) {
-                        phoneNumber.setText("+7 (");
+                        phoneNumber.setText("7");
                         //phoneNumber.requestFocus();
                     }
+                    phoneNumber.setSelection(phoneNumber.getText().length());
                 } else {
-                    phoneNumber.setText("");
+                    if (phone.length() == 4) {
+
+                    }
                 }
             }
         });
