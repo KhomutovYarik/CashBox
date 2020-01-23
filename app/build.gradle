@@ -37,4 +37,5 @@ dependencies {
     implementation 'com.android.support:design:28.+'
     implementation 'com.rengwuxian.materialedittext:library:2.1.4'
     implementation 'uk.co.chrisjenx:calligraphy:2.3.0'
+    implementation 'ru.tinkoff.decoro:decoro:1.1.1'
 }

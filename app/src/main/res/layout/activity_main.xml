@@ -35,7 +35,7 @@
             android:shadowRadius="4"
             android:text="@string/title"
             android:textAlignment="center"
-            android:textColor="@color/cardview_light_background"
+            android:textColor="@android:color/white"
             android:textSize="35sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -43,21 +43,26 @@
             app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
+            android:id="@+id/textInputLayout"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="55sp"
 
+            android:layout_marginTop="55sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/phoneNum"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:background="@drawable/fields"
                 android:layout_marginLeft="11sp"
                 android:layout_marginRight="11sp"
-                android:paddingLeft="10sp"
-                android:hint="+ 7 (____) ___-__-__"
+                android:background="@drawable/fields"
 
+                android:hint="@string/title"
+                android:paddingLeft="10sp"
+                android:paddingRight="10sp"
                 android:textColorHint="@android:color/black" />
         </com.google.android.material.textfield.TextInputLayout>
 
