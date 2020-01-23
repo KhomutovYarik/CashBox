@@ -60,11 +60,21 @@
                 android:layout_marginRight="11sp"
                 android:background="@drawable/fields"
 
-                android:hint="@string/title"
+                android:hint="@string/phone"
                 android:paddingLeft="10sp"
                 android:paddingRight="10sp"
                 android:textColorHint="@android:color/black" />
         </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="142dp"
+            android:text="@string/title"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
