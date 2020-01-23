@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    tools:ignore="MissingDefaultResource">
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/backColor"/>
+        </shape>
+    </item>
+    <item android:bottom="5sp">
+        <shape android:shape="rectangle"  >
+            <solid android:color="@color/colorPrimary"/>
+        </shape>
+    </item>
+</layer-list>
