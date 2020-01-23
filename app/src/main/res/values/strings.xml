@@ -17,4 +17,5 @@
     <string name="pass_mask">"* * * * * * * *"</string>
     <string name="login">"Войти"</string>
     <string name="pass">"Пароль"</string>
+    <string name="reg">"Ещё нет аккаунта? Создать"</string>
 </resources>

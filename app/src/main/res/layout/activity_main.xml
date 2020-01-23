@@ -54,11 +54,11 @@
         android:id="@+id/phoneNumber"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="84dp"
+        android:autofillHints="phone"
         android:background="@drawable/fields"
         android:ems="10"
-        android:autofillHints="phone"
         android:hint="@string/phone_mask"
+        android:layout_marginTop="65dp"
         android:inputType="phone"
         android:textColor="@color/textColor"
         app:layout_constraintEnd_toEndOf="parent"
@@ -80,13 +80,13 @@
         android:id="@+id/password"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
+        android:autofillHints="password"
+        android:layout_marginTop="35dp"
         android:background="@drawable/fields"
         android:ems="10"
         android:hint="@string/pass_mask"
         android:inputType="textPassword"
         android:textColor="@color/textColor"
-        android:autofillHints="password"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/phoneNumber" />
@@ -98,7 +98,12 @@
         android:layout_marginTop="53dp"
         android:background="@drawable/whitebuttonstyle"
         android:text="@string/login"
+        android:textSize="20sp"
         android:textColor="@color/colorPrimary"
+        android:shadowColor="#40000000"
+        android:shadowDx="0"
+        android:shadowDy="9"
+        android:shadowRadius="4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/password" />
@@ -126,5 +131,18 @@
         app:layout_constraintEnd_toStartOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/reg"
+        android:layout_marginTop="15sp"
+        android:textColor="@color/backColor"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/joinButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
