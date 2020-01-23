@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
 <!--    <item android:state_pressed="true" >-->
 <!--        <shape android:shape="rectangle"  >-->
 <!--            <corners android:radius="20dip" />-->
@@ -15,9 +15,21 @@
 <!--        </shape>-->
 <!--    </item>-->
     <item>
-        <shape android:shape="rectangle"  >
-            <corners android:radius="5sp" />
-            <solid android:color="@color/backColor"/>
+        <shape
+            android:shape="rectangle">
+            <padding
+                android:left="11sp"
+                android:right="11sp"/>
         </shape>
     </item>
-</selector>
+    <item>
+        <shape
+            android:shape="rectangle">
+            <corners android:radius="5sp"/>
+            <solid android:color="@color/backColor" />
+            <padding
+                android:left="10sp"
+                android:right="10sp"/>
+        </shape>
+    </item>
+</layer-list>
