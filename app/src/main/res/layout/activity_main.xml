@@ -51,7 +51,10 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:background="@android:color/white"
+                android:background="@drawable/fields"
+                android:layout_marginLeft="11sp"
+                android:layout_marginRight="11sp"
+                android:paddingLeft="10sp"
                 android:hint="+ 7 (____) ___-__-__"
 
                 android:textColorHint="@android:color/black" />
