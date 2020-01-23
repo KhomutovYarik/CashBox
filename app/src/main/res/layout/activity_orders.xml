@@ -10,7 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
-        android:style="?android:attr/buttonBarStyle"
         >
 
         <Button
@@ -21,7 +20,7 @@
             android:background="@drawable/changebuttonstyle"
             android:text="Активные заявки"
             android:textColor="@color/backColor"
-            android:style="?android:attr/buttonBarButtonStyle"/>
+           />
 
         <Button
             android:id="@+id/finishedOrdersButton"

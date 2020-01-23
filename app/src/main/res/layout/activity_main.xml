@@ -56,7 +56,8 @@
         android:layout_marginTop="84dp"
         android:background="@drawable/fields"
         android:ems="10"
-        android:hint="+ 7 (___) ___-__-__"
+
+        android:text="+7 ("
         android:inputType="phone"
         android:textColor="@color/textColor"
         app:layout_constraintEnd_toEndOf="parent"
@@ -99,5 +100,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/password" />
+
+    <Button
+        android:id="@+id/btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Button"
+        tools:layout_editor_absoluteX="18dp"
+        tools:layout_editor_absoluteY="584dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
