@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+<layer-list xmlns:tools="http://schemas.android.com/tools" xmlns:android="http://schemas.android.com/apk/res/android" tools:ignore="MissingDefaultResource">
 <!--    <item android:state_pressed="true" >-->
 <!--        <shape android:shape="rectangle"  >-->
 <!--            <corners android:radius="20dip" />-->
@@ -14,24 +14,19 @@
 <!--            <solid android:color="#cbd0d8"/>-->
 <!--        </shape>-->
 <!--    </item>-->
-    <item>
-        <shape
-            android:shape="rectangle">
-            <padding
-                android:left="11sp"
-                android:right="11sp"/>
+    <item android:state_focused="true">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/backColor"/>
+        </shape>
+    </item>
+    <item android:bottom="20sp" android:state_focused="true">
+        <shape android:shape="rectangle"  >
+            <solid android:color="@color/colorPrimary"/>
         </shape>
     </item>
     <item>
-        <shape
-            android:shape="rectangle">
-            <corners android:radius="5sp"/>
-            <solid android:color="@color/backColor" />
-            <padding
-                android:left="10sp"
-                android:right="10sp"/>
-            <size
-                android:height="50sp"/>
+        <shape android:shape="rectangle"  >
+            <solid android:color="@color/colorPrimary"/>
         </shape>
     </item>
 </layer-list>

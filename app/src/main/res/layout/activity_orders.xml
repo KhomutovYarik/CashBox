@@ -6,4 +6,32 @@
     android:layout_height="match_parent"
     tools:context=".OrdersActivity">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:style="?android:attr/buttonBarStyle"
+        >
+
+        <Button
+            android:id="@+id/activeOrdersButton"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:background="@drawable/changebuttonstyle"
+            android:text="Активные заявки"
+            android:textColor="@color/backColor"
+            android:style="?android:attr/buttonBarButtonStyle"/>
+
+        <Button
+            android:id="@+id/finishedOrdersButton"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:background="@drawable/changebuttonstyle"
+            android:textColor="@color/backColor"
+            android:text="Завершённые заявки"            />
+
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
