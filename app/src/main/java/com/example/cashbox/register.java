@@ -2,9 +2,12 @@ package com.example.cashbox;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -14,9 +17,10 @@ import ru.tinkoff.decoro.watchers.FormatWatcher;
 import ru.tinkoff.decoro.watchers.MaskFormatWatcher;
 
 public class register extends AppCompatActivity {
-    private EditText phoneNumber;
-    private TextView btnLog;
+    private EditText phoneNumber, code;
+    private TextView btnLog, codeLabel, phoneLabel;
     private MaskImpl inputMask;
+    private Button recCode, register, resend;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +31,12 @@ public class register extends AppCompatActivity {
 
     private void preparing()
     {
+        resend = findViewById(R.id.resend);
+        phoneLabel = findViewById(R.id.phoneNumberText);
+        codeLabel = findViewById(R.id.code2Label);
+        code = findViewById(R.id.code2);
+        recCode = findViewById(R.id.joinButton);
+        register = findViewById(R.id.regButton);
         phoneNumber = findViewById(R.id.phoneNumber);
         btnLog = findViewById(R.id.backToAuthButton);
         btnLog.setOnClickListener(new View.OnClickListener() {
@@ -61,5 +71,33 @@ public class register extends AppCompatActivity {
                 }
             }
         });
+        recCode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(register.this);
+                builder.setTitle("Код отправлен!")
+                        .setMessage("Код подтверждения отправлен на указанный Вами номер телефона")
+                        .setCancelable(false)
+                        .setNegativeButton("ОК",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        phoneNumber.setVisibility(View.INVISIBLE);
+                                        phoneLabel.setVisibility(View.INVISIBLE);
+                                        codeLabel.setVisibility(View.VISIBLE);
+                                        code.setVisibility(View.VISIBLE);
+                                        register.setVisibility(View.VISIBLE);
+                                        register.setTextColor(getResources().getColor(R.color.colorPrimary));
+                                        register.setBackground(getResources().getDrawable(R.drawable.whitebuttonstyle));
+                                        register.setEnabled(true);
+                                        recCode.setVisibility(View.INVISIBLE);
+                                        resend.setVisibility(View.VISIBLE);
+                                        dialog.cancel();
+                                    }
+                                });
+                AlertDialog alert = builder.create();
+                alert.show();
+            }
+        });
+
     }
 }

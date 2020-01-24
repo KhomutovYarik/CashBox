@@ -13,6 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
         android:fontFamily="sans-serif"
         android:shadowColor="#40000000"
         android:shadowDx="0"
@@ -23,7 +24,6 @@
         android:textColor="@color/backColor"
         android:textSize="35sp"
         android:textStyle="bold"
-        android:layout_marginTop="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -42,7 +42,7 @@
     <EditText
         android:id="@+id/name"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="45dp"
         android:layout_marginTop="40dp"
         android:autofillHints="name"
         android:background="@drawable/fields"
@@ -68,15 +68,41 @@
     <EditText
         android:id="@+id/phoneNumber"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="30dp"
         android:autofillHints="phone"
         android:background="@drawable/fields"
         android:ems="10"
         android:hint="@string/phone_mask"
         android:inputType="phone"
         android:textColor="@color/textColor"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/joinButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/name" />
+
+    <TextView
+        android:id="@+id/code2Label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:text="@string/codeLabel"
+        android:textColor="@color/backColor"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/code2"
+        app:layout_constraintStart_toStartOf="parent" />
+    <EditText
+        android:id="@+id/code2"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="30dp"
+        android:autofillHints="code"
+        android:background="@drawable/fields"
+        android:hint="@string/codeMask"
+        android:inputType="text"
+        android:textColor="@color/textColor"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toStartOf="@id/joinButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/name" />
 
@@ -94,8 +120,8 @@
     <EditText
         android:id="@+id/smsText"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="30dp"
         android:autofillHints="password"
         android:background="@drawable/fields"
         android:ems="10"
@@ -120,8 +146,8 @@
     <EditText
         android:id="@+id/email"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="30dp"
         android:autofillHints="email"
         android:background="@drawable/fields"
         android:ems="10"
@@ -134,19 +160,53 @@
 
     <Button
         android:id="@+id/getCodeButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="34dp"
+        android:layout_width="100sp"
+        android:layout_height="45dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:text="@string/codeLabel"
+        android:textColor="@color/backColor"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/code"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/code"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="30dp"
+        android:autofillHints="code"
+        android:background="@drawable/fields"
+        android:ems="6"
+        android:hint="@string/codeMask"
+        android:inputType="text"
+        android:textColor="@color/textColor"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/email" />
+
+    <Button
+        android:id="@+id/joinButton"
+        android:layout_width="100sp"
+        android:layout_height="45dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="10dp"
         android:background="@drawable/whitebuttonstyle"
         android:elevation="3dp"
         android:fontFamily="@font/roboto_medium"
         android:text="@string/code"
         android:textColor="@color/colorPrimary"
-        android:textSize="18sp"
+        android:textSize="12sp"
         android:translationZ="4dp"
         app:layout_constraintEnd_toEndOf="parent"
+
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/email" />
+        app:layout_constraintTop_toBottomOf="@+id/name" />
+    
 
     <EditText
         android:id="@+id/editText"
@@ -159,18 +219,52 @@
         app:layout_constraintEnd_toStartOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+    <Button
+        android:id="@+id/resend"
+        android:layout_width="100sp"
+        android:layout_height="45dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/whitebuttonstyle"
+        android:elevation="3dp"
+        android:fontFamily="@font/roboto_medium"
+        android:text="@string/resend"
+        android:textColor="@color/colorPrimary"
+        android:textSize="12sp"
+        android:translationZ="4dp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/name" />
 
     <TextView
         android:id="@+id/backToAuthButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="36dp"
+        android:layout_marginBottom="15dp"
         android:text="@string/log"
         android:textColor="@color/backColor"
         android:textSize="14sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/regButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="34dp"
+        android:background="@drawable/notenabledbutton"
+        android:elevation="3dp"
+        android:fontFamily="@font/roboto_medium"
+        android:text="@string/register"
+        android:textColor="@color/inactiveColor"
+        android:textSize="18sp"
+        android:translationZ="4dp"
+        android:enabled="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/getCodeButton" />

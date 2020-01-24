@@ -16,7 +16,9 @@
     <string name="phone_mask">"+7 (___) ___-__-__"</string>
     <string name="pass_mask">"* * * * * * * *"</string>
     <string name="login">"Войти"</string>
+    <string name="register">"Зарегистрироваться"</string>
     <string name="code">"Получить код"</string>
+    <string name="resend">"Отправить снова"</string>
     <string name="pass">"Пароль"</string>
     <string name="reg">"Ещё нет аккаунта? Создать"</string>
     <string name="title_activity_orders">Заявки</string>
@@ -29,4 +31,6 @@
     <string name="nameHint">"Андрей"</string>
     <string name="emailHint">"example@gmail.com"</string>
     <string name="forget_password"><u>Забыли пароль?</u></string>
+    <string name="codeLabel">"Введите код из SMS"</string>
+    <string name="codeMask">"* * * * * *"</string>
 </resources>
