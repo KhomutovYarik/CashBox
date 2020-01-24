@@ -96,16 +96,17 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="53dp"
         android:background="@drawable/whitebuttonstyle"
-        android:text="Войти"
-        android:textColor="@color/colorPrimary"
+        android:fontFamily="@font/roboto_medium"
         android:shadowColor="#40000000"
         android:shadowDx="0"
         android:shadowDy="9"
         android:shadowRadius="4"
+        android:text="@string/login"
+        android:textColor="@color/colorPrimary"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/password" />
 
     <Button
         android:id="@+id/btn"
@@ -113,9 +114,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginLeft="24dp"
-        android:layout_marginBottom="580dp"
+        android:layout_marginTop="8dp"
         android:text="@string/phone"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -135,11 +135,13 @@
         android:id="@+id/register"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/reg"
         android:layout_marginTop="15sp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/reg"
         android:textColor="@color/backColor"
         android:textSize="18sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/joinButton" />

@@ -70,10 +70,13 @@ public class MainActivity extends AppCompatActivity {
                         phoneNumber.setText("7");
                         //phoneNumber.requestFocus();
                     }
+                    else {
+                        phoneNumber.setTextColor(getResources().getColor(R.color.textColor));
+                    }
                     phoneNumber.setSelection(phoneNumber.getText().length());
                 } else {
                     if (phone.length() == 4) {
-
+                        phoneNumber.setTextColor(getResources().getColor(R.color.inactiveColor));
                     }
                 }
             }

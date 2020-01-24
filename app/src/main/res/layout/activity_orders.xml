@@ -17,7 +17,7 @@
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:layout_weight="1"
-            android:background="@drawable/changebuttonstyle"
+            android:background="@drawable/whitebuttonstyle"
             android:text="Активные заявки"
             android:textColor="@color/backColor"
            />
@@ -27,7 +27,7 @@
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:layout_weight="1"
-            android:background="@drawable/changebuttonstyle"
+            android:background="@drawable/nonfocuschangedbutton"
             android:textColor="@color/backColor"
             android:text="Завершённые заявки"            />
 
