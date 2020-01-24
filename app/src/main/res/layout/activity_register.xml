@@ -81,7 +81,7 @@
         app:layout_constraintTop_toBottomOf="@+id/name" />
 
     <TextView
-        android:id="@+id/code2Label"
+        android:id="@+id/codeLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -89,17 +89,17 @@
         android:text="@string/codeLabel"
         android:textColor="@color/backColor"
         android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/code2"
+        app:layout_constraintBottom_toTopOf="@+id/code"
         app:layout_constraintStart_toStartOf="parent" />
     <EditText
-        android:id="@+id/code2"
+        android:id="@+id/code"
         android:layout_width="0dp"
         android:layout_height="45dp"
         android:layout_marginTop="30dp"
         android:autofillHints="code"
         android:background="@drawable/fields"
         android:hint="@string/codeMask"
-        android:inputType="text"
+        android:inputType="number"
         android:textColor="@color/textColor"
         android:visibility="invisible"
         app:layout_constraintEnd_toStartOf="@id/joinButton"
@@ -107,18 +107,18 @@
         app:layout_constraintTop_toBottomOf="@+id/name" />
 
     <TextView
-        android:id="@+id/newPasswordLabel"
+        android:id="@+id/passwordLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:text="@string/pass"
         android:textColor="@color/backColor"
-        app:layout_constraintBottom_toTopOf="@+id/smsText"
+        app:layout_constraintBottom_toTopOf="@+id/password"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/smsText"
+        android:id="@+id/password"
         android:layout_width="0dp"
         android:layout_height="45dp"
         android:layout_marginTop="30dp"
@@ -156,37 +156,8 @@
         android:textColor="@color/textColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/smsText" />
+        app:layout_constraintTop_toBottomOf="@+id/password" />
 
-    <Button
-        android:id="@+id/getCodeButton"
-        android:layout_width="100sp"
-        android:layout_height="45dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:text="@string/codeLabel"
-        android:textColor="@color/backColor"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/code"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <EditText
-        android:id="@+id/code"
-        android:layout_width="0dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="30dp"
-        android:autofillHints="code"
-        android:background="@drawable/fields"
-        android:ems="6"
-        android:hint="@string/codeMask"
-        android:inputType="text"
-        android:textColor="@color/textColor"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/email" />
 
     <Button
         android:id="@+id/joinButton"
@@ -194,11 +165,11 @@
         android:layout_height="45dp"
         android:layout_marginTop="30dp"
         android:layout_marginRight="10dp"
-        android:background="@drawable/whitebuttonstyle"
+        android:background="@drawable/notenabledbutton"
         android:elevation="3dp"
         android:fontFamily="@font/roboto_medium"
         android:text="@string/code"
-        android:textColor="@color/colorPrimary"
+        android:textColor="@color/inactiveColor"
         android:textSize="12sp"
         android:translationZ="4dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -267,6 +238,6 @@
         android:enabled="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/getCodeButton" />
+        app:layout_constraintTop_toBottomOf="@+id/email" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
