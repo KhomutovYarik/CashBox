@@ -10,12 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".orders_tab"
-            android:label="@string/title_activity_orders_tab"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity
             android:name=".OrdersActivity"
-            android:label="Заявки"></activity>
+            android:label="@string/title_activity_orders"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".MainActivity"
             android:theme="@style/AppTheme2">

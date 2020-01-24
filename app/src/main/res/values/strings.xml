@@ -18,7 +18,7 @@
     <string name="login">"Войти"</string>
     <string name="pass">"Пароль"</string>
     <string name="reg">"Ещё нет аккаунта? Создать"</string>
-    <string name="title_activity_orders_tab">orders_tab</string>
+    <string name="title_activity_orders">Заявки</string>
     <string name="tab_text_1">Активные заявки</string>
     <string name="tab_text_2">Завершённые заявки</string>
 </resources>

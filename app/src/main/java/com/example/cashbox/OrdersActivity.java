@@ -1,39 +1,28 @@
 package com.example.cashbox;
 
+import android.os.Bundle;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.tabs.TabLayout;
+
+import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
+
+import com.example.cashbox.ui.main.SectionsPagerAdapter;
 
 public class OrdersActivity extends AppCompatActivity {
-    private Button activeButton, finishedButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_orders);
-        preparing();
-    }
-
-    private void preparing()
-    {
-        activeButton = findViewById(R.id.activeOrdersButton);
-        finishedButton = findViewById(R.id.finishedOrdersButton);
-        activeButton.setBackground(getResources().getDrawable(R.drawable.focuschangedbutton));
-        activeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                activeButton.setBackground(getResources().getDrawable(R.drawable.focuschangedbutton));
-                finishedButton.setBackground(getResources().getDrawable(R.drawable.nonfocuschangedbutton));
-            }
-        });
-        finishedButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                activeButton.setBackground(getResources().getDrawable(R.drawable.nonfocuschangedbutton));
-                finishedButton.setBackground(getResources().getDrawable(R.drawable.focuschangedbutton));
-            }
-        });
+        SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
+        ViewPager viewPager = findViewById(R.id.view_pager);
+        viewPager.setAdapter(sectionsPagerAdapter);
+        TabLayout tabs = findViewById(R.id.tabs);
+        tabs.setupWithViewPager(viewPager);
     }
 }

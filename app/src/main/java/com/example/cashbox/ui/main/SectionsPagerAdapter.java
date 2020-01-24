@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
+import com.example.cashbox.ActiveOrdersFragment;
+import com.example.cashbox.FinishedOrdersFragment;
 import com.example.cashbox.R;
 
 /**
@@ -27,9 +29,12 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        // getItem is called to instantiate the fragment for the given page.
-        // Return a PlaceholderFragment (defined as a static inner class below).
-        return PlaceholderFragment.newInstance(position + 1);
+        Fragment curFrag = null;
+        if (position == 0)
+            curFrag = new ActiveOrdersFragment();
+        else
+            curFrag = new FinishedOrdersFragment();
+        return curFrag;
     }
 
     @Nullable

@@ -45,15 +45,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        btn2 = findViewById(R.id.button);
-        btn2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent orders = new Intent(MainActivity.this, orders_tab.class);
-                startActivity(orders);
-            }
-        });
-
         inputMask = MaskImpl.createTerminated(PredefinedSlots.RUS_PHONE_NUMBER);
         FormatWatcher formatWatcher = new MaskFormatWatcher(inputMask);
 
