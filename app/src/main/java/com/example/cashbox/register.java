@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -14,61 +13,34 @@ import ru.tinkoff.decoro.slots.PredefinedSlots;
 import ru.tinkoff.decoro.watchers.FormatWatcher;
 import ru.tinkoff.decoro.watchers.MaskFormatWatcher;
 
-public class MainActivity extends AppCompatActivity {
-
-    private EditText phoneNumber, password;
-    private TextView phoneNumberLbl;
-    private EditText editText;
-    private Button joinButton, btn;
-    private  TextView btnRega;
+public class register extends AppCompatActivity {
+    private EditText phoneNumber;
+    private TextView btnLog;
     private MaskImpl inputMask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        editText = findViewById(R.id.editText);
-        editText.requestFocus();
+        setContentView(R.layout.activity_register);
         preparing();
     }
 
     private void preparing()
     {
         phoneNumber = findViewById(R.id.phoneNumber);
-        password = findViewById(R.id.password);
-        joinButton = findViewById(R.id.joinButton);
-        btn = findViewById(R.id.btn);
-        btnRega = findViewById(R.id.register);
-        joinButton.setOnClickListener(new View.OnClickListener() {
+        btnLog = findViewById(R.id.login);
+        btnLog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent orders = new Intent(MainActivity.this, OrdersActivity.class);
-                startActivity(orders);
+                Intent main = new Intent(register.this, MainActivity.class);
+                startActivity(main);
             }
         });
-        btnRega.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent reg = new Intent(MainActivity.this, register.class);
-                startActivity(reg);
-            }
-        });
+
         inputMask = MaskImpl.createTerminated(PredefinedSlots.RUS_PHONE_NUMBER);
         FormatWatcher formatWatcher = new MaskFormatWatcher(inputMask);
-
-
-        phoneNumberLbl = findViewById(R.id.phoneNumberText);
         formatWatcher.installOn(phoneNumber);
-        //phoneNumber.setSelection(phoneNumber.getText().length());
-        View.OnClickListener onclkLst = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
-                inputMask.insertFront(phoneNumber.getText());
-                phoneNumberLbl.setText(inputMask.toUnformattedString());
-            }
-        };
-        btn.setOnClickListener(onclkLst);
+        
         phoneNumber.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
