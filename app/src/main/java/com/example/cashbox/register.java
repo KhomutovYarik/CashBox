@@ -28,7 +28,7 @@ public class register extends AppCompatActivity {
     private void preparing()
     {
         phoneNumber = findViewById(R.id.phoneNumber);
-        btnLog = findViewById(R.id.login);
+        btnLog = findViewById(R.id.backToAuthButton);
         btnLog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

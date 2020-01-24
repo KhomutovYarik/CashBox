@@ -17,7 +17,7 @@ import ru.tinkoff.decoro.watchers.MaskFormatWatcher;
 public class MainActivity extends AppCompatActivity {
 
     private EditText phoneNumber, password;
-    private TextView phoneNumberLbl;
+    private TextView phoneNumberLbl, forgetPasswordLabel;
     private EditText editText;
     private Button joinButton, btn;
     private  TextView btnRega;
@@ -35,10 +35,11 @@ public class MainActivity extends AppCompatActivity {
     private void preparing()
     {
         phoneNumber = findViewById(R.id.phoneNumber);
-        password = findViewById(R.id.password);
-        joinButton = findViewById(R.id.joinButton);
+        password = findViewById(R.id.smsText);
+        joinButton = findViewById(R.id.getCodeButton);
         btn = findViewById(R.id.btn);
         btnRega = findViewById(R.id.register);
+        forgetPasswordLabel = findViewById(R.id.forgetPasswordButton);
         joinButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -53,6 +54,14 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(reg);
             }
         });
+        forgetPasswordLabel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent forgetPasswordPage = new Intent(MainActivity.this, ForgetPasswordActivity.class);
+                startActivity(forgetPasswordPage);
+            }
+        });
+
         inputMask = MaskImpl.createTerminated(PredefinedSlots.RUS_PHONE_NUMBER);
         FormatWatcher formatWatcher = new MaskFormatWatcher(inputMask);
 

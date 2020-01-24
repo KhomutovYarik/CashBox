@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
     tools:context=".MainActivity"
-    tools:layout_editor_absoluteY="81dp">
+    tools:layout_editor_absoluteY="25dp">
 
     <ImageView
         android:id="@+id/imageView"
@@ -20,7 +20,7 @@
         app:srcCompat="@drawable/logo" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/CBServiceLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
@@ -49,10 +49,21 @@
         app:layout_constraintBottom_toTopOf="@+id/phoneNumber"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <TextView
+        android:id="@+id/forgetPasswordButton"
+        android:layout_width="116sp"
+        android:layout_height="30sp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:text="@string/forget_password"
+        android:textColor="@color/backColor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/smsText" />
+
     <EditText
         android:id="@+id/phoneNumber"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="45dp"
         android:layout_marginTop="65dp"
         android:autofillHints="phone"
         android:background="@drawable/fields"
@@ -62,23 +73,23 @@
         android:textColor="@color/textColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/CBServiceLabel" />
 
     <TextView
-        android:id="@+id/passwordText"
+        android:id="@+id/newPasswordLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:text="@string/pass"
         android:textColor="@color/backColor"
-        app:layout_constraintBottom_toTopOf="@+id/password"
+        app:layout_constraintBottom_toTopOf="@+id/smsText"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/password"
+        android:id="@+id/smsText"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="45dp"
         android:layout_marginTop="40dp"
         android:autofillHints="password"
         android:background="@drawable/fields"
@@ -91,7 +102,7 @@
         app:layout_constraintTop_toBottomOf="@+id/phoneNumber" />
 
     <Button
-        android:id="@+id/joinButton"
+        android:id="@+id/getCodeButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="53dp"
@@ -104,7 +115,7 @@
         android:translationZ="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password" />
+        app:layout_constraintTop_toBottomOf="@+id/smsText" />
 
     <Button
         android:id="@+id/btn"
@@ -133,7 +144,6 @@
         android:id="@+id/register"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
         android:layout_marginBottom="36dp"
         android:text="@string/reg"
         android:textColor="@color/backColor"
@@ -142,6 +152,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/joinButton" />
+        app:layout_constraintTop_toBottomOf="@+id/getCodeButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

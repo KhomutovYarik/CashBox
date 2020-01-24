@@ -2,17 +2,48 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    tools:context=".register"
+    tools:context=".ForgetPasswordActivity"
     tools:layout_editor_absoluteY="81dp">
+
+    <TextView
+        android:id="@+id/newPasswordLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:text="@string/pass"
+        android:textColor="@color/backColor"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/newPassword"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/newPassword"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:autofillHints="password"
+        android:background="@drawable/fields"
+        android:ems="10"
+        android:hint="@string/pass_mask"
+        android:inputType="textPassword"
+        android:textColor="@color/textColor"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/smsText" />
 
     <TextView
         android:id="@+id/CBServiceLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="180dp"
         android:fontFamily="sans-serif"
         android:shadowColor="#40000000"
         android:shadowDx="0"
@@ -23,36 +54,10 @@
         android:textColor="@color/backColor"
         android:textSize="35sp"
         android:textStyle="bold"
-        android:layout_marginTop="15dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/nameLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:text="@string/name"
-        android:textColor="@color/backColor"
-        app:layout_constraintBottom_toTopOf="@+id/name"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <EditText
-        android:id="@+id/name"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:autofillHints="name"
-        android:background="@drawable/fields"
-        android:ems="10"
-        android:hint="@string/nameHint"
-        android:inputType="textPersonName"
-        android:textColor="@color/textColor"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/CBServiceLabel" />
 
     <TextView
         android:id="@+id/phoneNumberText"
@@ -69,7 +74,7 @@
         android:id="@+id/phoneNumber"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="44dp"
         android:autofillHints="phone"
         android:background="@drawable/fields"
         android:ems="10"
@@ -77,17 +82,19 @@
         android:inputType="phone"
         android:textColor="@color/textColor"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/name" />
+        app:layout_constraintTop_toBottomOf="@+id/CBServiceLabel" />
 
     <TextView
-        android:id="@+id/newPasswordLabel"
+        android:id="@+id/smsLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        android:text="@string/pass"
+        android:text="Введите код из SMS"
         android:textColor="@color/backColor"
+        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/smsText"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -95,50 +102,27 @@
         android:id="@+id/smsText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="32dp"
         android:autofillHints="password"
         android:background="@drawable/fields"
         android:ems="10"
         android:hint="@string/pass_mask"
-        android:inputType="textPassword"
+        android:inputType="number"
         android:textColor="@color/textColor"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/phoneNumber" />
-
-    <TextView
-        android:id="@+id/emailLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:text="@string/email"
-        android:textColor="@color/backColor"
-        app:layout_constraintBottom_toTopOf="@+id/email"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <EditText
-        android:id="@+id/email"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:autofillHints="email"
-        android:background="@drawable/fields"
-        android:ems="10"
-        android:hint="@string/emailHint"
-        android:inputType="textEmailAddress"
-        android:textColor="@color/textColor"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/smsText" />
 
     <Button
         android:id="@+id/getCodeButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="34dp"
+        android:layout_marginTop="32dp"
         android:background="@drawable/whitebuttonstyle"
         android:elevation="3dp"
+        android:enabled="false"
         android:fontFamily="@font/roboto_medium"
         android:text="@string/code"
         android:textColor="@color/colorPrimary"
@@ -146,7 +130,25 @@
         android:translationZ="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/email" />
+        app:layout_constraintTop_toBottomOf="@+id/phoneNumber" />
+
+    <Button
+        android:id="@+id/updatePasswordButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:background="@drawable/whitebuttonstyle"
+        android:elevation="3dp"
+        android:enabled="false"
+        android:fontFamily="@font/roboto_medium"
+        android:text="Обновить пароль"
+        android:textColor="@color/colorPrimary"
+        android:textSize="18sp"
+        android:translationZ="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/newPassword"
+        tools:visibility="invisible" />
 
     <EditText
         android:id="@+id/editText"
@@ -164,7 +166,6 @@
         android:id="@+id/backToAuthButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
         android:layout_marginBottom="36dp"
         android:text="@string/log"
         android:textColor="@color/backColor"
@@ -172,7 +173,6 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/getCodeButton" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

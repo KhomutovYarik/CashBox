@@ -28,4 +28,5 @@
     <string name="email">"e-mail (по желанию)"</string>
     <string name="nameHint">"Андрей"</string>
     <string name="emailHint">"example@gmail.com"</string>
+    <string name="forget_password"><u>Забыли пароль?</u></string>
 </resources>

@@ -12,6 +12,9 @@
         <activity android:name=".register"
             android:theme="@style/AppTheme2"
             ></activity>
+        <activity android:name=".ForgetPasswordActivity"
+            android:theme="@style/AppTheme2"
+            ></activity>
         <activity
             android:name=".OrdersActivity"
             android:label="@string/title_activity_orders"
