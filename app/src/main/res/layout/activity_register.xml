@@ -214,7 +214,7 @@
         android:id="@+id/backToAuthButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="15dp"
+        android:layout_marginBottom="25dp"
         android:text="@string/log"
         android:textColor="@color/backColor"
         android:textSize="14sp"
