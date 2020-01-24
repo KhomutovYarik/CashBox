@@ -1,5 +1,6 @@
 package com.example.cashbox;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -11,6 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import ru.tinkoff.decoro.MaskImpl;
@@ -50,29 +52,53 @@ public class ForgetPasswordActivity extends AppCompatActivity {
             }
         });
 
-        updatePasswordButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
-        updatePasswordButton.setVisibility(View.INVISIBLE);
-
         getCodeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getCodeButton.setVisibility(View.INVISIBLE);
-                smsLabel.setVisibility(View.VISIBLE);
-                smsText.setVisibility(View.VISIBLE);
-                newpasswordLabel.setVisibility(View.VISIBLE);
-                newPassword.setVisibility(View.VISIBLE);
-                updatePasswordButton.setVisibility(View.VISIBLE);
-                ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams)CBServiceLabel.getLayoutParams();
-                params.setMargins(0, 300, 0, 0);
-                CBServiceLabel.setLayoutParams(params);
-                phoneNumber.setEnabled(false);
+                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(ForgetPasswordActivity.this)
+                        .setCancelable(false)
+                        .setTitle("Код отправлен")
+                        .setMessage("Код отправлен на указанный Вами номер телефона")
+                        .setPositiveButton("ОК", new DialogInterface.OnClickListener()
+                        {
+                            public void onClick(DialogInterface dialog, int id)
+                            {
+                                getCodeButton.setVisibility(View.INVISIBLE);
+                                smsLabel.setVisibility(View.VISIBLE);
+                                smsText.setVisibility(View.VISIBLE);
+                                newpasswordLabel.setVisibility(View.VISIBLE);
+                                newPassword.setVisibility(View.VISIBLE);
+                                updatePasswordButton.setVisibility(View.VISIBLE);
+                                ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams)CBServiceLabel.getLayoutParams();
+                                params.setMargins(0, 300, 0, 0);
+                                CBServiceLabel.setLayoutParams(params);
+                                phoneNumber.setEnabled(false);
+                            }
+                        });
+                AlertDialog alert = dialogBuilder.create();
+                alert.show();
             }
         });
+
+        updatePasswordButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(ForgetPasswordActivity.this)
+                        .setCancelable(false)
+                        .setTitle("Пароль обновлён")
+                        .setMessage("Ваш пароль в системе был изменён")
+                        .setPositiveButton("ОК", new DialogInterface.OnClickListener()
+                        {
+                            public void onClick(DialogInterface dialog, int id)
+                            {
+                                finish();
+                            }
+                        });
+                AlertDialog alert = dialogBuilder.create();
+                alert.show();
+            }
+        });
+        updatePasswordButton.setVisibility(View.INVISIBLE);
 
         phoneNumber.addTextChangedListener(new TextWatcher() {
             @Override
