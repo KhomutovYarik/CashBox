@@ -96,12 +96,12 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="53dp"
         android:background="@drawable/whitebuttonstyle"
-        android:fontFamily="@font/roboto_medium"
         android:elevation="3dp"
-        android:translationZ="4dp"
+        android:fontFamily="@font/roboto_medium"
         android:text="@string/login"
         android:textColor="@color/colorPrimary"
         android:textSize="18sp"
+        android:translationZ="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/password" />
@@ -121,9 +121,9 @@
         android:id="@+id/editText"
         android:layout_width="0sp"
         android:layout_height="0sp"
+        android:autofillHints="username"
         android:ems="10"
         android:inputType="textPersonName"
-        android:autofillHints="username"
         app:layout_constraintBottom_toTopOf="parent"
         app:layout_constraintEnd_toStartOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -143,5 +143,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/joinButton" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginBottom="8dp"
+        android:text="Button"
+        app:layout_constraintBottom_toBottomOf="@+id/joinButton"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

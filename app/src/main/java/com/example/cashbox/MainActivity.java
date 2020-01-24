@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText phoneNumber, password;
     private TextView phoneNumberLbl;
     private EditText editText;
-    private Button joinButton, btn;
+    private Button joinButton, btn, btn2;
     private MaskImpl inputMask;
 
     @Override
@@ -41,6 +41,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent orders = new Intent(MainActivity.this, OrdersActivity.class);
+                startActivity(orders);
+            }
+        });
+
+        btn2 = findViewById(R.id.button);
+        btn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent orders = new Intent(MainActivity.this, orders_tab.class);
                 startActivity(orders);
             }
         });
