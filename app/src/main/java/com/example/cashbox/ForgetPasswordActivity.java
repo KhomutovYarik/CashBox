@@ -87,10 +87,16 @@ public class ForgetPasswordActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if (phoneNumber.getText().length() == 18)
+                if (phoneNumber.getText().length() == 18) {
+                    getCodeButton.setTextColor(getResources().getColor(R.color.colorPrimary));
+                    getCodeButton.setBackground(getResources().getDrawable(R.drawable.whitebuttonstyle));
                     getCodeButton.setEnabled(true);
-                else
+                }
+                else {
+                    getCodeButton.setTextColor(getResources().getColor(R.color.inactiveColor));
+                    getCodeButton.setBackground(getResources().getDrawable(R.drawable.notenabledbutton));
                     getCodeButton.setEnabled(false);
+                }
             }
         });
 
@@ -116,10 +122,16 @@ public class ForgetPasswordActivity extends AppCompatActivity {
                 }
                 else
                 {
-                    if (smsText.getText().length() == 6 && newPassword.getText().length() >= 8)
+                    if (smsText.getText().length() == 6 && newPassword.getText().length() >= 8) {
+                        updatePasswordButton.setTextColor(getResources().getColor(R.color.colorPrimary));
+                        updatePasswordButton.setBackground(getResources().getDrawable(R.drawable.whitebuttonstyle));
                         updatePasswordButton.setEnabled(true);
-                    else
+                    }
+                    else {
+                        updatePasswordButton.setTextColor(getResources().getColor(R.color.inactiveColor));
+                        updatePasswordButton.setBackground(getResources().getDrawable(R.drawable.notenabledbutton));
                         updatePasswordButton.setEnabled(false);
+                    }
                 }
             }
         });
@@ -146,10 +158,16 @@ public class ForgetPasswordActivity extends AppCompatActivity {
                 }
                 else
                 {
-                    if (smsText.getText().length() == 6 && newPassword.getText().length() >= 8)
+                    if (smsText.getText().length() == 6 && newPassword.getText().length() >= 8) {
+                        updatePasswordButton.setTextColor(getResources().getColor(R.color.colorPrimary));
+                        updatePasswordButton.setBackground(getResources().getDrawable(R.drawable.whitebuttonstyle));
                         updatePasswordButton.setEnabled(true);
-                    else
+                    }
+                    else {
+                        updatePasswordButton.setTextColor(getResources().getColor(R.color.inactiveColor));
+                        updatePasswordButton.setBackground(getResources().getDrawable(R.drawable.notenabledbutton));
                         updatePasswordButton.setEnabled(false);
+                    }
                 }
             }
         });
