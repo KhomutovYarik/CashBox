@@ -41,7 +41,7 @@
                     android:background="@color/backColor"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/removeButton" />
+                    app:srcCompat="@drawable/removeimage" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
@@ -97,7 +97,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                app:srcCompat="@drawable/offersImage" />
+                app:srcCompat="@drawable/offersimage" />
 
             <TextView
                 android:id="@+id/currentOffers"
@@ -114,7 +114,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:layout_marginLeft="20dp"
-                app:srcCompat="@drawable/cardImage" />
+                app:srcCompat="@drawable/cardimage" />
 
             <TextView
                 android:id="@+id/minPrice"

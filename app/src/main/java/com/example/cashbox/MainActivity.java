@@ -1,7 +1,9 @@
 package com.example.cashbox;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -35,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
     private void preparing()
     {
         phoneNumber = findViewById(R.id.phoneNumber);
-        password = findViewById(R.id.smsText);
+        password = findViewById(R.id.password);
         joinButton = findViewById(R.id.getCodeButton);
         btn = findViewById(R.id.btn);
         btnRega = findViewById(R.id.register);
@@ -43,8 +45,21 @@ public class MainActivity extends AppCompatActivity {
         joinButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent orders = new Intent(MainActivity.this, OrdersActivity.class);
-                startActivity(orders);
+                if (String.valueOf(password.getText()).equals("777777"))
+                {
+                    Intent orders = new Intent(MainActivity.this, OrdersActivity.class);
+                    startActivity(orders);
+                }
+                else
+                {
+                    AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(MainActivity.this)
+                            .setCancelable(false)
+                            .setTitle("Некорректные данные")
+                            .setMessage("Введён неверный номер телефона или пароль")
+                            .setPositiveButton("ОК", null);
+                    AlertDialog alert = dialogBuilder.create();
+                    alert.show();
+                }
             }
         });
         btnRega.setOnClickListener(new View.OnClickListener() {
