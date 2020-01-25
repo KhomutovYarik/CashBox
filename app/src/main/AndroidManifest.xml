@@ -9,6 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme2">
+        <activity android:name=".add_cashbox"
+            android:label="@string/title_add_cashbox"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme">
+        </activity>
         <activity
             android:name=".Register"
             android:theme="@style/AppTheme2" />
@@ -19,7 +24,7 @@
             android:name=".AddStore"
             android:label="@string/title_add_store"
             android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".OrdersActivity"
             android:label="@string/title_activity_orders"

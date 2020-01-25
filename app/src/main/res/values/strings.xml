@@ -46,6 +46,13 @@
     <string name="select_hint">Выберите</string>
     <string name="address_hint">ул. Ленина, д. 5</string>
     <string name="addressComment_hint">Вход со двора</string>
+    <string name="title_add_cashbox">Новый кассовый аппарат</string>
+    <string name="cashbox_name_label">"Условное наименование"</string>
+    <string name="cashbox_name_hint">"Касса №1"</string>
+    <string name="model_label">"Модель"</string>
+    <string name="model_hint">"АМС-300Ф"</string>
+    <string name="factory_number_label">"Заводской номер"</string>
+    <string name="factory_number_hint">"1234 5678 9012 3456 7890"</string>
     <string name="log">"Вернуться к форме авторизации"</string>
     <string name="tab_text_1">Активные заявки</string>
     <string name="tab_text_2">Завершённые заявки</string>
