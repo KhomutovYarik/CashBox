@@ -9,19 +9,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme2">
-
-        <activity android:name=".Register"
-            android:theme="@style/AppTheme2"
-            ></activity>
-        <activity android:name=".ForgetPasswordActivity"
-            android:theme="@style/AppTheme2"
-            ></activity>
-        <activity android:name=".AddStore"
+        <activity
+            android:name=".Register"
+            android:theme="@style/AppTheme2" />
+        <activity
+            android:name=".ForgetPasswordActivity"
+            android:theme="@style/AppTheme2" />
+        <activity
+            android:name=".AddStore"
             android:label="@string/title_add_store"
             android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme"
-            >
-        </activity>
+            android:theme="@style/AppTheme"></activity>
         <activity
             android:name=".OrdersActivity"
             android:label="@string/title_activity_orders"

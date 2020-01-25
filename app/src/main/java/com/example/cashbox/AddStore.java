@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+
 public class AddStore extends AppCompatActivity {
     EditText storeName, address, addressComment;
     TextView storeLabel, tempLabel, regionLabel, cityLabel, addressCommentLabel;
