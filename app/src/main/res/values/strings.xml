@@ -36,6 +36,7 @@
     <string name="reg">"Ещё нет аккаунта? Создать"</string>
     <string name="title_activity_orders">Заявки</string>
     <string name="title_edit">Редактирование</string>
+    <string name="title_add_store">Новая торговая точка</string>
     <string name="storeName_label">Название торговой точки</string>
     <string name="region_label">Регион</string>
     <string name="city_label">Город</string>
