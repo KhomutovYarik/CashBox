@@ -10,13 +10,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme2">
 
-        <activity android:name=".register"
+        <activity android:name=".Register"
             android:theme="@style/AppTheme2"
             ></activity>
         <activity android:name=".ForgetPasswordActivity"
             android:theme="@style/AppTheme2"
             ></activity>
-        <activity android:name=".edit_store"
+        <activity android:name=".AddStore"
             android:label="@string/title_edit"
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme"
