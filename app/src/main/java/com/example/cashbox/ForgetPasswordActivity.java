@@ -221,14 +221,21 @@ public class ForgetPasswordActivity extends AppCompatActivity {
                 }
             }
         });
+
+        String phoneNum = getIntent().getStringExtra("phone");
+        phoneNumber.setText(phoneNum);
     }
 
     @Override
     public void onBackPressed() {
         if (smsText.getVisibility()==View.VISIBLE) {
-            finish();
             Intent intent = new Intent(ForgetPasswordActivity.this, ForgetPasswordActivity.class);
+            if (phoneNumber.getText().length() > 4) {
+                intent.putExtra("phone", phoneNumber.getText().toString());
+            }
+            finish();
             startActivity(intent);
+
         }
         else {
             finish();

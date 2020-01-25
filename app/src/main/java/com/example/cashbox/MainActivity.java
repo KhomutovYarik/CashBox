@@ -71,13 +71,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(reg);
             }
         });
-        forgetPasswordLabel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent forgetPasswordPage = new Intent(MainActivity.this, ForgetPasswordActivity.class);
-                startActivity(forgetPasswordPage);
-            }
-        });
+
 
         inputMask = MaskImpl.createTerminated(PredefinedSlots.RUS_PHONE_NUMBER);
         FormatWatcher formatWatcher = new MaskFormatWatcher(inputMask);
@@ -165,6 +159,18 @@ public class MainActivity extends AppCompatActivity {
                     loginButton.setBackground(getResources().getDrawable(R.drawable.notenabledbutton));
                     loginButton.setEnabled(false);
                 }
+            }
+        });
+
+        forgetPasswordLabel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final Intent forgetPasswordPage = new Intent(MainActivity.this, ForgetPasswordActivity.class);
+                if (phoneNumber.getText().length()>4) {
+
+                    forgetPasswordPage.putExtra("phone", phoneNumber.getText().toString());
+                }
+                startActivity(forgetPasswordPage);
             }
         });
     }
