@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         btnRega = findViewById(R.id.register);
         forgetPasswordLabel = findViewById(R.id.forgetPasswordButton);
         phoneNumber.setText("+7 (924) 234-12-63");
-        password.setText("77777777");
+        password.setText("7777777");
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -185,6 +185,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        loginButton.performClick();
+        //loginButton.performClick();
     }
 }
