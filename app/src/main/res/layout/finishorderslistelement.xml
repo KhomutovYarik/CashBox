@@ -16,37 +16,30 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginTop="15dp">
 
                 <TextView
                     android:id="@+id/orderNumber"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
-                    android:layout_marginTop="15dp"
-                    android:text="#622351. Активная заявка"
+                    android:text="#241252. Завершённая заявка"
                     android:textAppearance="@style/TextAppearance.AppCompat.Large"
                     android:textSize="18sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageButton
-                    android:id="@+id/removeButton"
+                    android:id="@+id/statusImage"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
-                    android:layout_marginRight="30dp"
-                    android:layout_marginTop="12dp"
+                    android:layout_marginLeft="8dp"
                     android:background="@color/backColor"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/ic_removebutton" />
+                    app:srcCompat="@drawable/ic_success" />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
 
         <LinearLayout
@@ -90,43 +83,27 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingTop="5dp"
-            android:paddingBottom="20dp"
+            android:paddingBottom="13dp"
             >
 
-            <ImageView
-                android:id="@+id/offersImage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                app:srcCompat="@drawable/ic_offers"
-                android:layout_marginLeft="20dp"/>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/currentOffers"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                android:textSize="18sp"
-                android:text="3 предложения"
-                android:layout_marginLeft="10dp"/>
+                <RatingBar
+                    android:id="@+id/ratingBar"
+                    style="?android:attr/ratingBarStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginRight="16dp"
+                    android:numStars="5"
+                    android:stepSize="1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
-                android:id="@+id/cardImage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginLeft="20dp"
-                app:srcCompat="@drawable/ic_card" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <TextView
-                android:id="@+id/minPrice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                android:text="от 1500 ₽"
-                android:textSize="18sp"
-                android:layout_marginLeft="10dp"/>
         </LinearLayout>
 
     </LinearLayout>

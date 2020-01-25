@@ -1,47 +1,12 @@
 package com.example.cashbox;
 
-public class ActiveOrder {
-    private String number, cashboxName, storeName, problemDesc, offersNumber, minPrice;
+public class ActiveOrder extends Order {
+    private String offersNumber, minPrice;
 
     public ActiveOrder(String number, String cashboxName, String storeName, String problemDesc, String offersNumber, String minPrice) {
-        this.number = number;
-        this.cashboxName = cashboxName;
-        this.storeName = storeName;
-        this.problemDesc = problemDesc;
+        super(number, cashboxName, storeName, problemDesc);
         this.offersNumber = offersNumber;
         this.minPrice = minPrice;
-    }
-
-    public String getNumber() {
-        return number;
-    }
-
-    public void setNumber(String number) {
-        this.number = number;
-    }
-
-    public String getCashboxName() {
-        return cashboxName;
-    }
-
-    public void setCashboxName(String cashboxName) {
-        this.cashboxName = cashboxName;
-    }
-
-    public String getStoreName() {
-        return storeName;
-    }
-
-    public void setStoreName(String storeName) {
-        this.storeName = storeName;
-    }
-
-    public String getProblemDesc() {
-        return problemDesc;
-    }
-
-    public void setProblemDesc(String problemDesc) {
-        this.problemDesc = problemDesc;
     }
 
     public String getOffersNumber() {
