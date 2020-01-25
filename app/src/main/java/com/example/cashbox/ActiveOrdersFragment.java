@@ -30,6 +30,10 @@ public class ActiveOrdersFragment extends Fragment {
                 "Сломалось", "3 предложения", "от 1500 р"));
         activeOrdersList.add(new ActiveOrder("#6213654. Активная заявка", "Касса №2, ", "Партнер ККМ №2",
                 "Не работает", "1 предложение", "от 3000 р"));
+        activeOrdersList.add(new ActiveOrder("#312124. Активная заявка", "Касса №1, ", "Партнер ККМ №1",
+                "Сломалось", "3 предложения", "от 1500 р"));
+        activeOrdersList.add(new ActiveOrder("#6213654. Активная заявка", "Касса №2, ", "Партнер ККМ №2",
+                "Не работает", "1 предложение", "от 3000 р"));
 
         ordersList = view.findViewById(R.id.activeOrdersList);
         ActiveOrderAdapter adapter = new ActiveOrderAdapter(getActivity(), R.layout.orderslistelement, activeOrdersList);
@@ -46,7 +50,7 @@ public class ActiveOrdersFragment extends Fragment {
         removeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                
+
             }
         });
     }
