@@ -42,6 +42,15 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(test);
             }
         });
+
+        Button testbutton = findViewById(R.id.addCashBox);
+        testbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent test = new Intent(MainActivity.this, add_cashbox.class);
+                startActivity(test);
+            }
+        });
     }
     private void preparing()
     {
@@ -95,6 +104,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
+                inputMask.clear();
                 inputMask.insertFront(phoneNumber.getText());
                 phoneNumberLbl.setText(inputMask.toUnformattedString());
             }
