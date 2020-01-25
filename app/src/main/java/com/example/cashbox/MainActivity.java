@@ -32,8 +32,18 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         preparing();
+        test();
     }
-
+    private void test() {
+        Button testbtn = findViewById(R.id.test);
+        testbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent test = new Intent(MainActivity.this, edit_store.class);
+                startActivity(test);
+            }
+        });
+    }
     private void preparing()
     {
         editText = findViewById(R.id.editText);

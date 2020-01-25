@@ -1,4 +1,16 @@
 <resources>
+    <string-array name="region">
+        <item>Выберите регион</item>
+        <item>Ленинградская область</item>
+        <item>Московская область</item>
+        <item>Пермский край</item>
+    </string-array>
+    <string-array name="city">
+        <item>Выберите город</item>
+        <item>Санкт-Петербург</item>
+        <item>Москва</item>
+        <item>Пермь</item>
+    </string-array>
     <string name="app_name">CBService</string>
     <string name="button">Button</string>
     <string name="title_activity_login">Sign in</string>
@@ -22,6 +34,16 @@
     <string name="pass">"Пароль"</string>
     <string name="reg">"Ещё нет аккаунта? Создать"</string>
     <string name="title_activity_orders">Заявки</string>
+    <string name="title_edit">Редактирование</string>
+    <string name="storeName_label">Название торговой точки</string>
+    <string name="region_label">Регион</string>
+    <string name="city_label">Город</string>
+    <string name="address_label">Адрес</string>
+    <string name="addressComment_label">Комментарий к адресу</string>
+    <string name="storeName_hint">Магазин</string>
+    <string name="select_hint">Выберите</string>
+    <string name="address_hint">ул. Ленина, д. 5</string>
+    <string name="addressComment_hint">Вход со двора</string>
     <string name="log">"Вернуться к форме авторизации"</string>
     <string name="tab_text_1">Активные заявки</string>
     <string name="tab_text_2">Завершённые заявки</string>
