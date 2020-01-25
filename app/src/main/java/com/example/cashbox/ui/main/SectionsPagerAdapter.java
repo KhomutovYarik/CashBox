@@ -30,8 +30,9 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
         Fragment curFrag = null;
-        if (position == 0)
+        if (position == 0) {
             curFrag = new ActiveOrdersFragment();
+        }
         else
             curFrag = new FinishedOrdersFragment();
         return curFrag;
