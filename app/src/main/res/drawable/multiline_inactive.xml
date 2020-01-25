@@ -18,14 +18,13 @@
             </stroke>
             <corners android:radius="5sp"/>
             <solid android:color="@color/backColor" />
-
-            <size
-                android:height="50dp"
-                android:width="100dp"/>
             <padding
-                android:left="-5dp"
-                android:right="15dp"></padding>
+                android:left="10sp"
+                android:right="10sp"
+                android:top="7sp"
+                android:bottom="10sp"/>
+            <size
+                android:height="50sp"/>
         </shape>
     </item>
-    <item android:gravity="center|right" android:drawable="@drawable/ic_vector"></item>
 </layer-list>

@@ -22,7 +22,9 @@
             <size
                 android:height="50dp"
                 android:width="100dp"/>
-            <padding android:right="15dp"></padding>
+            <padding
+                android:left="-5dp"
+                android:right="15dp"></padding>
         </shape>
     </item>
     <item android:gravity="center|right" android:drawable="@drawable/ic_vector"></item>

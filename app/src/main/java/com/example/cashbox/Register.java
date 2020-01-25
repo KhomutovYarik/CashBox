@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -18,7 +17,7 @@ import ru.tinkoff.decoro.slots.PredefinedSlots;
 import ru.tinkoff.decoro.watchers.FormatWatcher;
 import ru.tinkoff.decoro.watchers.MaskFormatWatcher;
 
-public class register extends AppCompatActivity {
+public class Register extends AppCompatActivity {
     private EditText phoneNumber, code, name, password;
     private TextView btnLog, codeLabel, phoneLabel;
     private MaskImpl inputMask;
@@ -77,7 +76,7 @@ public class register extends AppCompatActivity {
         recCode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(register.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(Register.this);
                 builder.setTitle("Код отправлен!")
                         .setMessage("Код подтверждения отправлен на указанный Вами номер телефона")
                         .setCancelable(false)
@@ -102,7 +101,7 @@ public class register extends AppCompatActivity {
         resend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(register.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(Register.this);
                 builder.setTitle("Код отправлен!")
                         .setMessage("Код подтверждения отправлен на указанный Вами номер телефона")
                         .setCancelable(false)
@@ -253,7 +252,7 @@ public class register extends AppCompatActivity {
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(register.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(Register.this);
                 builder.setTitle("Поздравляем!")
                         .setMessage("Вы успешно зарегистрировались!")
                         .setCancelable(false)

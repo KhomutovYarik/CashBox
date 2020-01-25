@@ -3,7 +3,6 @@ package com.example.cashbox;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -39,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         testbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent test = new Intent(MainActivity.this, edit_store.class);
+                Intent test = new Intent(MainActivity.this, AddStore.class);
                 startActivity(test);
             }
         });
@@ -79,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
         btnRega.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent reg = new Intent(MainActivity.this, register.class);
+                Intent reg = new Intent(MainActivity.this, Register.class);
                 startActivity(reg);
             }
         });
