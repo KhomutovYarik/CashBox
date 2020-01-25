@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText phoneNumber, password;
     private TextView phoneNumberLbl, forgetPasswordLabel;
     private EditText editText;
-    private Button joinButton, btn;
+    private Button loginButton, btn;
     private  TextView btnRega;
     private MaskImpl inputMask;
 
@@ -29,23 +31,23 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        editText = findViewById(R.id.editText);
-        editText.requestFocus();
         preparing();
     }
 
     private void preparing()
     {
+        editText = findViewById(R.id.editText);
+        editText.requestFocus();
         phoneNumber = findViewById(R.id.phoneNumber);
         password = findViewById(R.id.password);
-        joinButton = findViewById(R.id.getCodeButton);
+        loginButton = findViewById(R.id.loginButton);
         btn = findViewById(R.id.btn);
         btnRega = findViewById(R.id.register);
         forgetPasswordLabel = findViewById(R.id.forgetPasswordButton);
-        joinButton.setOnClickListener(new View.OnClickListener() {
+        loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (String.valueOf(password.getText()).equals("777777"))
+                if (String.valueOf(password.getText()).equals("77777777"))
                 {
                     Intent orders = new Intent(MainActivity.this, OrdersActivity.class);
                     startActivity(orders);
@@ -110,6 +112,58 @@ public class MainActivity extends AppCompatActivity {
                     if (phone.length() == 4) {
                         phoneNumber.setTextColor(getResources().getColor(R.color.inactiveColor));
                     }
+                }
+            }
+        });
+
+        phoneNumber.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (phoneNumber.getText().length() == 18 && password.getText().length() >= 8) {
+                    loginButton.setTextColor(getResources().getColor(R.color.colorPrimary));
+                    loginButton.setBackground(getResources().getDrawable(R.drawable.whitebuttonstyle));
+                    loginButton.setEnabled(true);
+                }
+                else {
+                    loginButton.setTextColor(getResources().getColor(R.color.inactiveColor));
+                    loginButton.setBackground(getResources().getDrawable(R.drawable.notenabledbutton));
+                    loginButton.setEnabled(false);
+                }
+            }
+        });
+
+        password.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (phoneNumber.getText().length() == 18 && password.getText().length() >= 8) {
+                    loginButton.setTextColor(getResources().getColor(R.color.colorPrimary));
+                    loginButton.setBackground(getResources().getDrawable(R.drawable.whitebuttonstyle));
+                    loginButton.setEnabled(true);
+                }
+                else {
+                    loginButton.setTextColor(getResources().getColor(R.color.inactiveColor));
+                    loginButton.setBackground(getResources().getDrawable(R.drawable.notenabledbutton));
+                    loginButton.setEnabled(false);
                 }
             }
         });

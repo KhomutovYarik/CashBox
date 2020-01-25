@@ -32,7 +32,6 @@ public class ForgetPasswordActivity extends AppCompatActivity {
         setContentView(R.layout.activity_forgetpass);
         preparing();
     }
-
     private void preparing()
     {
         phoneNumber = findViewById(R.id.phoneNumber);
@@ -222,5 +221,17 @@ public class ForgetPasswordActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (smsText.getVisibility()==View.VISIBLE) {
+            finish();
+            Intent intent = new Intent(ForgetPasswordActivity.this, ForgetPasswordActivity.class);
+            startActivity(intent);
+        }
+        else {
+            finish();
+        }
     }
 }
