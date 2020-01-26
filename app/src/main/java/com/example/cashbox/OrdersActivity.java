@@ -16,9 +16,9 @@ import com.example.cashbox.ui.main.SectionsPagerAdapter;
 
 public class OrdersActivity extends AppCompatActivity {
 
-//    TextView ordersText, profileText;
-//    ImageView ordersIcon, profileIcon, addOrderButton;
-//    LinearLayout ordersSection, profileSection;
+    TextView ordersText, profileText;
+    ImageView ordersIcon, profileIcon, addOrderButton;
+    LinearLayout ordersSection, profileSection;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,46 +29,54 @@ public class OrdersActivity extends AppCompatActivity {
         viewPager.setAdapter(sectionsPagerAdapter);
         TabLayout tabs = findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
-        //preparing();
+        preparing();
     }
-
-    private void preparing()
+    private void preparing() {
+        addOrderButton = findViewById(R.id.fab);
+        addOrderButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent orders = new Intent(OrdersActivity.this, NewOrderActivity.class);
+                startActivity(orders);
+            }
+        });
+    }
+    /*private void preparing()
     {
+        ordersText = findViewById(R.id.myOrdersText);
+        profileText = findViewById(R.id.myProfileText);
+        ordersIcon = findViewById(R.id.ordersIcon);
+        profileIcon = findViewById(R.id.profileIcon);
+        addOrderButton = findViewById(R.id.addOrderButton);
+        ordersSection = findViewById(R.id.ordersSection);
+        profileSection = findViewById(R.id.profileSection);
 
-//        ordersText = findViewById(R.id.myOrdersText);
-//        profileText = findViewById(R.id.myProfileText);
-//        ordersIcon = findViewById(R.id.ordersIcon);
-//        profileIcon = findViewById(R.id.profileIcon);
-//        addOrderButton = findViewById(R.id.addOrderButton);
-//        ordersSection = findViewById(R.id.ordersSection);
-//        profileSection = findViewById(R.id.profileSection);
-//
-//        ordersSection.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                ordersText.setTextColor(getResources().getColor(R.color.colorPrimary));
-//                ordersIcon.setImageResource(R.drawable.ic_ordersactive);
-//                profileText.setTextColor(getResources().getColor(R.color.inactiveColor));
-//                profileIcon.setImageResource(R.drawable.ic_profile);
-//            }
-//        });
-//
-//        profileSection.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                profileText.setTextColor(getResources().getColor(R.color.colorPrimary));
-//                profileIcon.setImageResource(R.drawable.ic_profileactive);
-//                ordersText.setTextColor(getResources().getColor(R.color.inactiveColor));
-//                ordersIcon.setImageResource(R.drawable.ic_orders);
-//            }
-//        });
-//
-//        addOrderButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent newOrderPage = new Intent(OrdersActivity.this, NewOrderActivity.class);
-//                startActivity(newOrderPage);
-//            }
-//        });
-    }
+        ordersSection.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ordersText.setTextColor(getResources().getColor(R.color.colorPrimary));
+                ordersIcon.setImageResource(R.drawable.ic_ordersactive);
+                profileText.setTextColor(getResources().getColor(R.color.inactiveColor));
+                profileIcon.setImageResource(R.drawable.ic_profile);
+            }
+        });
+
+        profileSection.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                profileText.setTextColor(getResources().getColor(R.color.colorPrimary));
+                profileIcon.setImageResource(R.drawable.ic_profileactive);
+                ordersText.setTextColor(getResources().getColor(R.color.inactiveColor));
+                ordersIcon.setImageResource(R.drawable.ic_orders);
+            }
+        });
+
+        addOrderButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent newOrderPage = new Intent(OrdersActivity.this, NewOrderActivity.class);
+                startActivity(newOrderPage);
+            }
+        });
+    }*/
 }

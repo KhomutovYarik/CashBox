@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView phoneNumberLbl, forgetPasswordLabel;
     private EditText editText;
     private Button loginButton, btn;
-    private  TextView btnRega;
+    private TextView btnRega;
     private MaskImpl inputMask;
 
     @Override
