@@ -19,11 +19,11 @@ import android.widget.TextView;
 
 
 public class AddStore extends AppCompatActivity {
-    EditText storeName, address, addressComment;
-    TextView storeLabel, tempLabel, regionLabel, cityLabel, addressCommentLabel;
-    Spinner region, city;
-    ConstraintLayout myLayout;
-    Button saveButton;
+    private EditText storeName, address, addressComment;
+    private TextView storeLabel, tempLabel, regionLabel, cityLabel, addressCommentLabel;
+    private Spinner region, city;
+    private ConstraintLayout myLayout;
+    private Button saveButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,25 +31,26 @@ public class AddStore extends AppCompatActivity {
         prepare();
     }
     private void prepare() {
-        Spinner spinner = findViewById(R.id.region);
+        region = findViewById(R.id.region);
+        city = findViewById(R.id.city);
+
         ArrayAdapter<String> adapter = new ArrayAdapter<>(AddStore.this,
                 android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.region));
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
+        region.setAdapter(adapter);
 
-        Spinner spinner2 = findViewById(R.id.city);
         ArrayAdapter<String> adapter2 = new ArrayAdapter<>(AddStore.this,
                 android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.city));
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner2.setAdapter(adapter2);
+        city.setAdapter(adapter2);
         myLayout = findViewById(R.id.constraintLayout);
         storeName = findViewById(R.id.storeName);
         storeLabel = findViewById(R.id.storeName_label);
         address = findViewById(R.id.address);
         tempLabel = findViewById(R.id.address_label);
-        region = findViewById(R.id.region);
+
         regionLabel = findViewById(R.id.region_label);
-        city = findViewById(R.id.city);
+
         cityLabel = findViewById(R.id.city_label);
         addressComment = findViewById(R.id.addressComment);
         addressCommentLabel = findViewById(R.id.addressComment_label);
@@ -166,17 +167,7 @@ public class AddStore extends AppCompatActivity {
                 }
                 else
                 {
-                    if (storeName.getText().length() >= 3 && address.getText().length() >= 5 &&
-                    region.getSelectedItemId() != 0 && city.getSelectedItemId() != 0) {
-                        saveButton.setTextColor(getResources().getColor(R.color.colorPrimary));
-                        saveButton.setBackground(getResources().getDrawable(R.drawable.whitebuttonstyle));
-                        saveButton.setEnabled(true);
-                    }
-                    else {
-                        saveButton.setTextColor(getResources().getColor(R.color.inactiveColor));
-                        saveButton.setBackground(getResources().getDrawable(R.drawable.notenabledbutton));
-                        saveButton.setEnabled(false);
-                    }
+                    check();
                 }
             }
         });
@@ -203,35 +194,15 @@ public class AddStore extends AppCompatActivity {
                 }
                 else
                 {
-                    if (storeName.getText().length() >= 3 && address.getText().length() >= 5 &&
-                            region.getSelectedItemId() != 0 && city.getSelectedItemId() != 0) {
-                        saveButton.setTextColor(getResources().getColor(R.color.colorPrimary));
-                        saveButton.setBackground(getResources().getDrawable(R.drawable.whitebuttonstyle));
-                        saveButton.setEnabled(true);
-                    }
-                    else {
-                        saveButton.setTextColor(getResources().getColor(R.color.inactiveColor));
-                        saveButton.setBackground(getResources().getDrawable(R.drawable.notenabledbutton));
-                        saveButton.setEnabled(false);
-                    }
+                    check();
                 }
             }
         });
 
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        region.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if (storeName.getText().length() >= 3 && address.getText().length() >= 5 &&
-                        region.getSelectedItemId() != 0 && city.getSelectedItemId() != 0) {
-                    saveButton.setTextColor(getResources().getColor(R.color.colorPrimary));
-                    saveButton.setBackground(getResources().getDrawable(R.drawable.whitebuttonstyle));
-                    saveButton.setEnabled(true);
-                }
-                else {
-                    saveButton.setTextColor(getResources().getColor(R.color.inactiveColor));
-                    saveButton.setBackground(getResources().getDrawable(R.drawable.notenabledbutton));
-                    saveButton.setEnabled(false);
-                }
+                check();
             }
 
             @Override
@@ -240,20 +211,10 @@ public class AddStore extends AppCompatActivity {
             }
         });
 
-        spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        city.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if (storeName.getText().length() >= 3 && address.getText().length() >= 5 &&
-                        region.getSelectedItemId() != 0 && city.getSelectedItemId() != 0) {
-                    saveButton.setTextColor(getResources().getColor(R.color.colorPrimary));
-                    saveButton.setBackground(getResources().getDrawable(R.drawable.whitebuttonstyle));
-                    saveButton.setEnabled(true);
-                }
-                else {
-                    saveButton.setTextColor(getResources().getColor(R.color.inactiveColor));
-                    saveButton.setBackground(getResources().getDrawable(R.drawable.notenabledbutton));
-                    saveButton.setEnabled(false);
-                }
+                check();
             }
 
             @Override
@@ -261,5 +222,18 @@ public class AddStore extends AppCompatActivity {
 
             }
         });
+    }
+    private void check() {
+        if (storeName.getText().length() >= 3 && address.getText().length() >= 5 &&
+                region.getSelectedItemId() != 0 && city.getSelectedItemId() != 0) {
+            saveButton.setTextColor(getResources().getColor(R.color.colorPrimary));
+            saveButton.setBackground(getResources().getDrawable(R.drawable.whitebuttonstyle));
+            saveButton.setEnabled(true);
+        }
+        else {
+            saveButton.setTextColor(getResources().getColor(R.color.inactiveColor));
+            saveButton.setBackground(getResources().getDrawable(R.drawable.notenabledbutton));
+            saveButton.setEnabled(false);
+        }
     }
 }

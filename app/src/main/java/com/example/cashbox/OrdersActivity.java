@@ -29,9 +29,18 @@ public class OrdersActivity extends AppCompatActivity {
         viewPager.setAdapter(sectionsPagerAdapter);
         TabLayout tabs = findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
-        //preparing();
+        preparing();
     }
-
+    private void preparing() {
+        addOrderButton = findViewById(R.id.fab);
+        addOrderButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent orders = new Intent(OrdersActivity.this, NewOrderActivity.class);
+                startActivity(orders);
+            }
+        });
+    }
     /*private void preparing()
     {
         ordersText = findViewById(R.id.myOrdersText);

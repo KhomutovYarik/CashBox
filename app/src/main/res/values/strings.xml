@@ -11,6 +11,26 @@
         <item>Москва</item>
         <item>Пермь</item>
     </string-array>
+    <string-array name="store">
+        <item>Выберите торговую точку</item>
+        <item>Магазин №1</item>
+        <item>Магазин №2</item>
+        <item>Магазин №3</item>
+    </string-array>
+    <string-array name="cashbox">
+        <item>Выберите кассовый аппарат</item>
+        <item>Касса №1</item>
+        <item>Касса №2</item>
+        <item>Касса №3</item>
+    </string-array>
+    <string-array name="problem">
+        <item>Выберите случившуюся проблему</item>
+        <item>Чеки не отправляются в ОФД</item>
+        <item>Чеки не отрезаются</item>
+        <item>Компьютер не видит кассу</item>
+        <item>Чеки плохо пропечатываются</item>
+        <item>Другая причина (опишите проблему ниже)</item>
+    </string-array>
     <string name="app_name">CBService</string>
     <string name="button">Button</string>
     <string name="title_activity_login">Sign in</string>
@@ -64,4 +84,12 @@
     <string name="forget_password"><u>Забыли пароль?</u></string>
     <string name="codeLabel">"Введите код из SMS"</string>
     <string name="codeMask">"* * * * * *"</string>
+    <string name="newOrder">"Новая заявка"</string>
+    <string name="problemStore_label">"Выберите торговую точку, где произошла проблема"</string>
+    <string name="problemCashbox_label">"Выберите кассовый аппарат"</string>
+    <string name="problem_label">"Выберите краткую суть проблемы"</string>
+    <string name="problemDescription_label">"Опишите проблему детально"</string>
+    <string name="problemDescription_hint">"Введите описание проблемы"</string>
+    <string name="attach_label">"Прикрепите фотографии (по желанию)"</string>
+    <string name="continue_btn">"Продолжить"</string>
 </resources>

@@ -16,8 +16,9 @@
         <activity
             android:name=".NewOrderActivity"
             android:label="Новая заявка"
-            android:parentActivityName=".NewOrderActivity"
-            android:theme="@style/AppTheme" />
+            android:parentActivityName=".OrdersActivity"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateHidden|adjustPan"/>
         <activity
             android:name=".add_cashbox"
             android:label="@string/title_add_cashbox"
@@ -33,7 +34,8 @@
             android:name=".AddStore"
             android:label="@string/title_add_store"
             android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateHidden|adjustPan"/>
         <activity
             android:name=".OrdersActivity"
             android:label="@string/title_activity_orders"
