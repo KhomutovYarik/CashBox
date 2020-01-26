@@ -9,8 +9,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme2">
-        <activity android:name=".ProfileActivity"></activity>
-        <activity android:name=".NewOrderActivity"
+        <activity android:name=".bottom_navbar"
+            android:label="BottomNavBar"
+            android:theme="@style/AppTheme"></activity>
+        <activity android:name=".ProfileActivity" />
+        <activity
+            android:name=".NewOrderActivity"
             android:label="Новая заявка"
             android:parentActivityName=".NewOrderActivity"
             android:theme="@style/AppTheme" />
