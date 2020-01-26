@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         testbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent test = new Intent(MainActivity.this, bottom_navbar.class);
+                Intent test = new Intent(MainActivity.this, add_cashbox.class);
                 startActivity(test);
             }
         });
