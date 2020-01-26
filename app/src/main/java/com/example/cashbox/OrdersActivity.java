@@ -51,7 +51,7 @@ public class OrdersActivity extends AppCompatActivity {
         {
             if (resultCode == RESULT_OK)
             {
-                ActiveOrdersFragment.activeOrdersList.add(new ActiveOrder("#228228. Активная заявка", data.getStringExtra("cashbox") + ", ", data.getStringExtra("store"), data.getStringExtra("problem"), "5 предложений", "от 1000 р"));
+                ActiveOrdersFragment.activeOrdersList.add(0, new ActiveOrder("#228228", data.getStringExtra("cashbox") + ", ", data.getStringExtra("store"), data.getStringExtra("problem"), "5 предложений", "от 1000 р"));
                 ActiveOrdersFragment.adapter.notifyDataSetChanged();
             }
         }

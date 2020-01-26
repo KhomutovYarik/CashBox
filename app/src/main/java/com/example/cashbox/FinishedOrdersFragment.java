@@ -12,12 +12,15 @@ import android.widget.ListView;
 import java.util.ArrayList;
 
 public class FinishedOrdersFragment extends Fragment {
+
+    View view;
+    public static ArrayList<FinishedOrder> finishedOrdersList = new ArrayList<FinishedOrder>();
+    public static FinishedOrderAdapter adapter = null;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_finished_orders, container, false);
-
-        ArrayList<FinishedOrder> finishedOrdersList = new ArrayList<FinishedOrder>();
+        view = inflater.inflate(R.layout.fragment_finished_orders, container, false);
 
         finishedOrdersList.add(new FinishedOrder("#212124. Завершённая заявка", "Касса №2, ", "Партнер ККМ №1",
                 "Сломалось", 4, true));
@@ -25,7 +28,7 @@ public class FinishedOrdersFragment extends Fragment {
                 "Не работает", 0, false));
 
         ListView ordersList = view.findViewById(R.id.finishedOrdersList);
-        FinishedOrderAdapter adapter = new FinishedOrderAdapter(getActivity(), R.layout.finishorderslistelement, finishedOrdersList);
+        adapter = new FinishedOrderAdapter(getActivity(), R.layout.finishorderslistelement, finishedOrdersList);
         ordersList.setAdapter(adapter);
 
 

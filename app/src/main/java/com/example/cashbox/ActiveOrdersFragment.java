@@ -25,27 +25,24 @@ import java.util.ArrayList;
 public class ActiveOrdersFragment extends Fragment {
 
     View view;
-    public static ArrayList<ActiveOrder> activeOrdersList;
-    public static ActiveOrderAdapter adapter;
+    public static ArrayList<ActiveOrder> activeOrdersList = new ArrayList<ActiveOrder>();
+    public static ActiveOrderAdapter adapter = null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_active_orders, container, false);
 
-        activeOrdersList = new ArrayList<ActiveOrder>();
-
-        activeOrdersList.add(new ActiveOrder("#312124. Активная заявка", "Касса №1, ", "Партнер ККМ №1",
+        activeOrdersList.add(new ActiveOrder("#312124", "Касса №1, ", "Партнер ККМ №1",
                 "Сломалось", "3 предложения", "от 1500 р"));
-        activeOrdersList.add(new ActiveOrder("#6213654. Активная заявка", "Касса №2, ", "Партнер ККМ №2",
+        activeOrdersList.add(new ActiveOrder("#6213654", "Касса №2, ", "Партнер ККМ №2",
                 "Не работает", "1 предложение", "от 3000 р"));
-        activeOrdersList.add(new ActiveOrder("#312124. Активная заявка", "Касса №1, ", "Партнер ККМ №1",
+        activeOrdersList.add(new ActiveOrder("#321351", "Касса №1, ", "Партнер ККМ №1",
                 "Сломалось", "3 предложения", "от 1500 р"));
-        activeOrdersList.add(new ActiveOrder("#6213654. Активная заявка", "Касса №2, ", "Партнер ККМ №2",
+        activeOrdersList.add(new ActiveOrder("#345512", "Касса №2, ", "Партнер ККМ №2",
                 "Не работает", "1 предложение", "от 3000 р"));
 
         ListView ordersList = view.findViewById(R.id.activeOrdersList);
-
         adapter = new ActiveOrderAdapter(getActivity(), R.layout.orderslistelement, activeOrdersList);
         ordersList.setAdapter(adapter);
 

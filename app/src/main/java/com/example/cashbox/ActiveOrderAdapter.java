@@ -27,11 +27,13 @@ public class ActiveOrderAdapter extends ArrayAdapter<ActiveOrder> {
         this.resource = resource;
     }
 
-    private void setOnClick(final ImageButton btn, final ActiveOrderAdapter adapter, final int i){
+    private void setOnClick(final ImageButton btn, final int i, final String number, final String cashboxName, final String storeName, final String problemDesc){
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                adapter.remove(adapter.getItem(i));
+                ActiveOrdersFragment.adapter.remove(ActiveOrdersFragment.adapter.getItem(i));
+                FinishedOrdersFragment.finishedOrdersList.add(0, new FinishedOrder(number + ". Отменённая заявка", cashboxName, storeName, problemDesc, 0, false));
+                FinishedOrdersFragment.adapter.notifyDataSetChanged();
             }
         });
     }
@@ -62,13 +64,13 @@ public class ActiveOrderAdapter extends ArrayAdapter<ActiveOrder> {
         minPriceText = convertView.findViewById(R.id.minPrice);
         removeButton = convertView.findViewById(R.id.removeButton);
 
-        numText.setText(number);
+        numText.setText(number + ". Активная заявка");
         cashboxText.setText(cashboxName);
         storeText.setText(storeName);
         problemDescText.setText(problemDesc);
         offersNumberText.setText(offersNumber);
         minPriceText.setText(minPrice);
-        setOnClick(removeButton, this, position);
+        setOnClick(removeButton, position, number, cashboxName, storeName, problemDesc);
 
         return convertView;
     }
