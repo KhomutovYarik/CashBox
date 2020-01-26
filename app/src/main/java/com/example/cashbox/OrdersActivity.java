@@ -2,11 +2,13 @@ package com.example.cashbox;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
 
 import androidx.viewpager.widget.ViewPager;
@@ -40,6 +42,26 @@ public class OrdersActivity extends AppCompatActivity {
                 startActivity(orders);
             }
         });
+        final BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setOnNavigationItemSelectedListener(
+                new BottomNavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.myOrders:
+                                //bottomNavigationView.getMenu().findItem(R.id.myProfile).setChecked(true);
+                                break;
+                            case R.id.addOrder:
+                                addOrderButton.performClick();   //нажатие на пустое место за кнопкой
+                                break;
+                            case R.id.myProfile:
+                                Intent profile = new Intent(OrdersActivity.this, ProfileActivity.class);
+                                startActivity(profile);
+                                break;
+                        }
+                        return true;
+                    }
+                });
     }
 
     /*private void preparing()

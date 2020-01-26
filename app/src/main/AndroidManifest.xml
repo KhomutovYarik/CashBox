@@ -12,7 +12,10 @@
         <activity android:name=".bottom_navbar"
             android:label="BottomNavBar"
             android:theme="@style/AppTheme"></activity>
-        <activity android:name=".ProfileActivity" />
+        <activity android:name=".ProfileActivity"
+            android:label="@string/profile_label"
+            android:theme="@style/AppTheme"
+            />
         <activity
             android:name=".NewOrderActivity"
             android:label="Новая заявка"
