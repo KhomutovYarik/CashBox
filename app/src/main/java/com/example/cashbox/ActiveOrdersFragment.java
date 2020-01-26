@@ -25,13 +25,15 @@ import java.util.ArrayList;
 public class ActiveOrdersFragment extends Fragment {
 
     View view;
+    public static ArrayList<ActiveOrder> activeOrdersList;
+    public static ActiveOrderAdapter adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_active_orders, container, false);
 
-        ArrayList<ActiveOrder> activeOrdersList = new ArrayList<ActiveOrder>();
+        activeOrdersList = new ArrayList<ActiveOrder>();
 
         activeOrdersList.add(new ActiveOrder("#312124. Активная заявка", "Касса №1, ", "Партнер ККМ №1",
                 "Сломалось", "3 предложения", "от 1500 р"));
@@ -44,7 +46,7 @@ public class ActiveOrdersFragment extends Fragment {
 
         ListView ordersList = view.findViewById(R.id.activeOrdersList);
 
-        ActiveOrderAdapter adapter = new ActiveOrderAdapter(getActivity(), R.layout.orderslistelement, activeOrdersList);
+        adapter = new ActiveOrderAdapter(getActivity(), R.layout.orderslistelement, activeOrdersList);
         ordersList.setAdapter(adapter);
 
         return view;

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -182,7 +183,22 @@ public class NewOrderActivity extends AppCompatActivity {
                 check();
             }
         });
+
+        continue_Button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent allorders = new Intent();
+                allorders.putExtra("store", store.getSelectedItem().toString());
+                allorders.putExtra("cashbox", cashbox.getSelectedItem().toString());
+                allorders.putExtra("problem", problem.getSelectedItem().toString());
+                allorders.putExtra("problemdesc", String.valueOf(problemDescription.getText()));
+                setResult(RESULT_OK, allorders);
+                finish();
+            }
+        });
     }
+
+
     private void check () {
         if (store.getSelectedItemId() != 0 && cashbox.getSelectedItemId() != 0 &&
                 problem.getSelectedItemId() != 0 && (problem.getSelectedItemId() != 5  ||

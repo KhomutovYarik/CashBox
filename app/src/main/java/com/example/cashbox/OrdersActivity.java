@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
 
+import androidx.annotation.Nullable;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -33,13 +34,14 @@ public class OrdersActivity extends AppCompatActivity {
         tabs.setupWithViewPager(viewPager);
         preparing();
     }
+
     private void preparing() {
         addOrderButton = findViewById(R.id.fab);
         addOrderButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent orders = new Intent(OrdersActivity.this, NewOrderActivity.class);
-                startActivity(orders);
+                Intent neworder = new Intent(OrdersActivity.this, NewOrderActivity.class);
+                startActivityForResult(neworder, 1);
             }
         });
         final BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
@@ -62,6 +64,19 @@ public class OrdersActivity extends AppCompatActivity {
                         return true;
                     }
                 });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1)
+        {
+            if (resultCode == RESULT_OK)
+            {
+                ActiveOrdersFragment.activeOrdersList.add(new ActiveOrder("#228228. Активная заявка", data.getStringExtra("cashbox") + ", ", data.getStringExtra("store"), data.getStringExtra("problem"), "5 предложений", "от 1000 р"));
+                ActiveOrdersFragment.adapter.notifyDataSetChanged();
+            }
+        }
     }
 
     /*private void preparing()
