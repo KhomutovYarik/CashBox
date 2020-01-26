@@ -92,4 +92,9 @@
     <string name="problemDescription_hint">"Введите описание проблемы"</string>
     <string name="attach_label">"Прикрепите фотографии (по желанию)"</string>
     <string name="continue_btn">"Продолжить"</string>
+    <string name="profile_label">"Профиль"</string>
+    <string name="profile_name">"Андрей"</string>
+    <string name="profile_phone">"+7 (999) 777-77-77"</string>
+    <string name="my_stores">"Мои торговые точки"</string>
+    <string name="quit">"Выйти из профиля"</string>
 </resources>

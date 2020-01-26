@@ -31,12 +31,12 @@ public class bottom_navbar extends AppCompatActivity {
                     @Override
                     public boolean onNavigationItemSelected(MenuItem item) {
                         switch (item.getItemId()) {
-                            case R.id.action_chat:
+                            case R.id.myOrders:
                                 break;
                             case R.id.addOrder:
                                 fab.performClick();   //нажатие на пустое место за кнопкой
                                 break;
-                            case R.id.action_notifications:
+                            case R.id.myProfile:
                                 break;
                         }
                         return true;
