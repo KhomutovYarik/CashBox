@@ -29,10 +29,10 @@ public class OrdersActivity extends AppCompatActivity {
         viewPager.setAdapter(sectionsPagerAdapter);
         TabLayout tabs = findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
-        preparing();
+        //preparing();
     }
 
-    private void preparing()
+    /*private void preparing()
     {
         ordersText = findViewById(R.id.myOrdersText);
         profileText = findViewById(R.id.myProfileText);
@@ -69,5 +69,5 @@ public class OrdersActivity extends AppCompatActivity {
                 startActivity(newOrderPage);
             }
         });
-    }
+    }*/
 }
