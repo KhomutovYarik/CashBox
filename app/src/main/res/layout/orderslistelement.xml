@@ -2,16 +2,20 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:id="@+id/orderElement"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:descendantFocusability="blocksDescendants"
+    android:orientation="vertical"
     app:cardBackgroundColor="@color/backListColor">
 
     <LinearLayout
+        android:id="@+id/listElement"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:layout_marginBottom="5dp"
-        android:background="@drawable/ordersstyle">
+        android:background="@drawable/ordersstyle"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -39,9 +43,10 @@
                     android:id="@+id/removeButton"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
-                    android:layout_marginRight="30dp"
                     android:layout_marginTop="12dp"
+                    android:layout_marginRight="30dp"
                     android:background="@color/backColor"
+                    android:descendantFocusability="blocksDescendants"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/ic_removebutton" />
@@ -79,10 +84,10 @@
                 android:id="@+id/problemDescription"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:layout_marginLeft="20dp"
-                android:textSize="14sp"
-                android:text="Краткое описание проблемы" />
+                android:layout_weight="1"
+                android:text="Краткое описание проблемы"
+                android:textSize="14sp" />
 
         </LinearLayout>
 
@@ -91,42 +96,41 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:paddingTop="5dp"
-            android:paddingBottom="20dp"
-            >
+            android:paddingBottom="20dp">
 
             <ImageView
                 android:id="@+id/offersImage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
                 android:layout_marginTop="4dp"
-                app:srcCompat="@drawable/ic_offers"
-                android:layout_marginLeft="20dp"/>
+                app:srcCompat="@drawable/ic_offers" />
 
             <TextView
                 android:id="@+id/currentOffers"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                android:textSize="18sp"
+                android:layout_marginLeft="10dp"
                 android:text="3 предложения"
-                android:layout_marginLeft="10dp"/>
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textSize="18sp" />
 
             <ImageView
                 android:id="@+id/cardImage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
                 android:layout_marginLeft="20dp"
+                android:layout_marginTop="5dp"
                 app:srcCompat="@drawable/ic_card" />
 
             <TextView
                 android:id="@+id/minPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:layout_marginLeft="10dp"
                 android:text="от 1500 ₽"
-                android:textSize="18sp"
-                android:layout_marginLeft="10dp"/>
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textSize="18sp" />
         </LinearLayout>
 
     </LinearLayout>

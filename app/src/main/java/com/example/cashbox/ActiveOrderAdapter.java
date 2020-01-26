@@ -5,8 +5,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,6 +25,15 @@ public class ActiveOrderAdapter extends ArrayAdapter<ActiveOrder> {
         super(context, resource, objects);
         this.context = context;
         this.resource = resource;
+    }
+
+    private void setOnClick(final ImageButton btn, final ActiveOrderAdapter adapter, final int i){
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                adapter.remove(adapter.getItem(i));
+            }
+        });
     }
 
     @NonNull
@@ -40,17 +52,15 @@ public class ActiveOrderAdapter extends ArrayAdapter<ActiveOrder> {
         convertView = inflater.inflate(resource, parent, false);
 
         TextView numText, cashboxText, storeText, problemDescText, offersNumberText, minPriceText;
-//        ImageView offersImage, priceImage, cancelImage;
+        final ImageButton removeButton;
 
         numText = convertView.findViewById(R.id.orderNumber);
-        cashboxText =  convertView.findViewById(R.id.cashboxName);
-        storeText =  convertView.findViewById(R.id.storeName);
-        problemDescText =  convertView.findViewById(R.id.problemDescription);
-        offersNumberText =  convertView.findViewById(R.id.currentOffers);
-        minPriceText =  convertView.findViewById(R.id.minPrice);
-//        offersImage =  convertView.findViewById(R.id.offersImage);
-//        priceImage =  convertView.findViewById(R.id.cardImage);
-//        cancelImage =  convertView.findViewById(R.id.removeButton);
+        cashboxText = convertView.findViewById(R.id.cashboxName);
+        storeText = convertView.findViewById(R.id.storeName);
+        problemDescText = convertView.findViewById(R.id.problemDescription);
+        offersNumberText = convertView.findViewById(R.id.currentOffers);
+        minPriceText = convertView.findViewById(R.id.minPrice);
+        removeButton = convertView.findViewById(R.id.removeButton);
 
         numText.setText(number);
         cashboxText.setText(cashboxName);
@@ -58,9 +68,7 @@ public class ActiveOrderAdapter extends ArrayAdapter<ActiveOrder> {
         problemDescText.setText(problemDesc);
         offersNumberText.setText(offersNumber);
         minPriceText.setText(minPrice);
-//        offersImage.setImageResource(R.drawable.offersimage);
-//        priceImage.setImageResource(R.drawable.cardimage);
-//        cancelImage.setImageResource(R.drawable.removeimage);
+        setOnClick(removeButton, this, position);
 
         return convertView;
     }
