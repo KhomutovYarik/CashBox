@@ -41,6 +41,7 @@ public class OrdersActivity extends AppCompatActivity {
             }
         });
     }
+
     /*private void preparing()
     {
         ordersText = findViewById(R.id.myOrdersText);
