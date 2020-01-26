@@ -7,4 +7,5 @@
     <color name="ratingColor">#EB6E00</color>
     <color name="textColor">#000000</color>
     <color name="backColor">#FFFFFF</color>
+    <color name="backListColor">#EEEEEE</color>
 </resources>
