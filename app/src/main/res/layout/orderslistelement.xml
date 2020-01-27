@@ -12,7 +12,7 @@
     <LinearLayout
         android:id="@+id/listElement"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_marginBottom="5dp"
         android:background="@drawable/ordersstyle"
         android:orientation="vertical">
@@ -20,35 +20,37 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginTop="15dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_marginLeft="20dp">
 
                 <TextView
                     android:id="@+id/orderNumber"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="20dp"
                     android:text="#622351. Активная заявка"
                     android:textAppearance="@style/TextAppearance.AppCompat.Large"
                     android:textSize="18sp"
+                    android:layout_gravity="center"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintEnd_toStartOf="@id/removeButton"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent" />
 
-                <ImageButton
+                <ImageView
                     android:id="@+id/removeButton"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
-                    android:layout_marginTop="12dp"
-                    android:layout_marginRight="30dp"
-                    android:background="@color/backColor"
-                    android:descendantFocusability="blocksDescendants"
+                    android:layout_marginEnd="15dp"
+                    android:layout_gravity="center"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
+                    android:descendantFocusability="blocksDescendants"
                     app:srcCompat="@drawable/ic_removebutton" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
