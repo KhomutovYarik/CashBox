@@ -97,4 +97,7 @@
     <string name="profile_phone">"+7 (999) 777-77-77"</string>
     <string name="my_stores">"Мои торговые точки"</string>
     <string name="quit">"Выйти из профиля"</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

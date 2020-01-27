@@ -164,7 +164,7 @@ public class Register extends AppCompatActivity {
                 }
                 else
                 {
-                    if (name.getText().length() >= 3 && code.getText().length() == 6 && password.getText().length() >= 8) {
+                    if (name.getText().length() >= 3 && /*code.getText().length() == 6 &&*/ password.getText().length() >= 8) {
                         register.setTextColor(getResources().getColor(R.color.colorPrimary));
                         register.setBackground(getResources().getDrawable(R.drawable.whitebuttonstyle));
                         register.setEnabled(true);
@@ -200,7 +200,7 @@ public class Register extends AppCompatActivity {
                 }
                 else
                 {
-                    if (name.getText().length() >= 3 && code.getText().length() == 6 && password.getText().length() >= 8) {
+                    if (name.getText().length() >= 3 && /*code.getText().length() == 6 &&*/ password.getText().length() >= 8) {
                         register.setTextColor(getResources().getColor(R.color.colorPrimary));
                         register.setBackground(getResources().getDrawable(R.drawable.whitebuttonstyle));
                         register.setEnabled(true);
@@ -227,31 +227,32 @@ public class Register extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if (code.getText().length() > 6)
-                {
-                    String str = String.valueOf(code.getText());
-                    str = str.substring(0, 6);
-                    code.setText(str);
-                    code.setSelection(code.getText().length());
-                }
-                else
-                {
-                    if (code.getText().length() == 6 && password.getText().length() >= 8 && name.getText().length() >= 3) {
-                        register.setTextColor(getResources().getColor(R.color.colorPrimary));
-                        register.setBackground(getResources().getDrawable(R.drawable.whitebuttonstyle));
-                        register.setEnabled(true);
-                    }
-                    else {
-                        register.setTextColor(getResources().getColor(R.color.inactiveColor));
-                        register.setBackground(getResources().getDrawable(R.drawable.notenabledbutton));
-                        register.setEnabled(false);
-                    }
-                }
+//                if (code.getText().length() > 6)
+//                {
+//                    String str = String.valueOf(code.getText());
+//                    str = str.substring(0, 6);
+//                    code.setText(str);
+//                    code.setSelection(code.getText().length());
+//                }
+//                else
+//                {
+//                    if (code.getText().length() == 6 && password.getText().length() >= 8 && name.getText().length() >= 3) {
+//                        register.setTextColor(getResources().getColor(R.color.colorPrimary));
+//                        register.setBackground(getResources().getDrawable(R.drawable.whitebuttonstyle));
+//                        register.setEnabled(true);
+//                    }
+//                    else {
+//                        register.setTextColor(getResources().getColor(R.color.inactiveColor));
+//                        register.setBackground(getResources().getDrawable(R.drawable.notenabledbutton));
+//                        register.setEnabled(false);
+//                    }
+//                }
             }
         });
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 AlertDialog.Builder builder = new AlertDialog.Builder(Register.this);
                 builder.setTitle("Поздравляем!")
                         .setMessage("Вы успешно зарегистрировались!")
