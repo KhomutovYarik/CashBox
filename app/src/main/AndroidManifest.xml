@@ -9,19 +9,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme2">
-        <activity android:name=".bottom_navbar"
+        <activity android:name=".OrdersFragment"></activity>
+        <activity
+            android:name=".bottom_navbar"
             android:label="BottomNavBar"
-            android:theme="@style/AppTheme"></activity>
-        <activity android:name=".ProfileActivity"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".ProfileActivity"
             android:label="@string/profile_label"
-            android:theme="@style/AppTheme"
-            />
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".NewOrderActivity"
             android:label="Новая заявка"
             android:parentActivityName=".OrdersActivity"
             android:theme="@style/AppTheme"
-            android:windowSoftInputMode="stateHidden|adjustPan"/>
+            android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
             android:name=".add_cashbox"
             android:label="@string/title_add_cashbox"
@@ -38,7 +40,7 @@
             android:label="@string/title_add_store"
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme"
-            android:windowSoftInputMode="stateHidden|adjustPan"/>
+            android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
             android:name=".OrdersActivity"
             android:label="@string/title_activity_orders"

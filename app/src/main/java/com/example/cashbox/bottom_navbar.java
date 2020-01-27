@@ -1,9 +1,13 @@
 package com.example.cashbox;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,21 +28,30 @@ public class bottom_navbar extends AppCompatActivity {
         //bottomNavigationView.setItemIconTintList(null);
     }
     private void prepare(){
+        final Context context = bottom_navbar.this;
         fab = findViewById(R.id.fab);
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
                     @Override
-                    public boolean onNavigationItemSelected(MenuItem item) {
+                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                        Fragment selectedFragment = null;
                         switch (item.getItemId()) {
                             case R.id.myOrders:
+                                //selectedFragment = new OrdersFragment();
+                                Intent intent1 = new Intent(bottom_navbar.this, OrdersActivity.class);//ACTIVITY_NUM = 0
+                                startActivity(intent1);
                                 break;
                             case R.id.addOrder:
                                 fab.performClick();   //нажатие на пустое место за кнопкой
                                 break;
                             case R.id.myProfile:
+                                selectedFragment = new ProfileFragment();
+                                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                                        selectedFragment).commit();
                                 break;
                         }
+
                         return true;
                     }
                 });
