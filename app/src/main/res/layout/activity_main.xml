@@ -8,6 +8,90 @@
     tools:context=".MainActivity"
     tools:layout_editor_absoluteY="25dp">
 
+    <Button
+        android:id="@+id/signinButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="112dp"
+        android:layout_marginTop="116dp"
+        android:background="@drawable/whitebuttonstyle"
+        android:elevation="3dp"
+        android:enabled="true"
+        android:fontFamily="@font/roboto_medium"
+        android:text="@string/login"
+        android:textColor="@color/colorPrimary"
+        android:textSize="18sp"
+        android:translationZ="4dp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.024"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/phoneNumber" />
+
+    <Button
+        android:id="@+id/getCodeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:background="@drawable/notenabledbutton"
+        android:elevation="3dp"
+        android:enabled="false"
+        android:fontFamily="@font/roboto_medium"
+        android:text="@string/code"
+        android:textColor="@color/inactiveColor"
+        android:textSize="18sp"
+        android:translationZ="4dp"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/phoneNumber" />
+
+    <EditText
+        android:id="@+id/code"
+        android:layout_width="208dp"
+        android:layout_height="53dp"
+        android:layout_marginTop="44dp"
+        android:autofillHints="phone"
+        android:background="@drawable/fields"
+        android:ems="10"
+        android:hint="@string/codeMask"
+        android:inputType="phone"
+        android:textColor="@color/textColor"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/phoneNumber" />
+
+    <Button
+        android:id="@+id/resendCode"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="44dp"
+        android:background="@drawable/whitebuttonstyle"
+        android:elevation="3dp"
+        android:enabled="true"
+        android:fontFamily="@font/roboto_medium"
+        android:text="@string/resend"
+        android:textColor="@color/colorPrimary"
+        android:textSize="18sp"
+        android:translationZ="4dp"
+        android:visibility="invisible"
+        android:layout_marginRight="11sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/code"
+        app:layout_constraintTop_toBottomOf="@+id/phoneNumber" />
+
+    <TextView
+        android:id="@+id/codeLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="@string/codeLabel"
+        android:textColor="@color/backColor"
+        app:layout_constraintBottom_toTopOf="@+id/code"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:visibility="invisible" />
+
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="125dp"
@@ -39,7 +123,7 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <TextView
-        android:id="@+id/phoneNumberText"
+        android:id="@+id/phoneNumberLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -54,9 +138,9 @@
         android:layout_width="116sp"
         android:layout_height="30sp"
         android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
         android:text="@string/forget_password"
         android:textColor="@color/backColor"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/password" />
 
@@ -64,7 +148,7 @@
         android:id="@+id/phoneNumber"
         android:layout_width="0dp"
         android:layout_height="45dp"
-        android:layout_marginTop="65dp"
+        android:layout_marginTop="80dp"
         android:autofillHints="phone"
         android:background="@drawable/fields"
         android:ems="10"
@@ -72,6 +156,7 @@
         android:inputType="phone"
         android:textColor="@color/textColor"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/CBServiceLabel" />
 
@@ -80,9 +165,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
         android:text="@string/pass"
         android:textColor="@color/backColor"
+        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/password"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -90,14 +175,16 @@
         android:id="@+id/password"
         android:layout_width="0dp"
         android:layout_height="45dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="200dp"
         android:autofillHints="password"
         android:background="@drawable/fields"
         android:ems="10"
         android:hint="@string/pass_mask"
         android:inputType="textPassword"
         android:textColor="@color/textColor"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/phoneNumber" />
 
@@ -107,13 +194,14 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="53dp"
         android:background="@drawable/notenabledbutton"
-        android:enabled="false"
         android:elevation="3dp"
+        android:enabled="false"
         android:fontFamily="@font/roboto_medium"
         android:text="@string/login"
         android:textColor="@color/inactiveColor"
         android:textSize="18sp"
         android:translationZ="4dp"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
@@ -152,6 +240,7 @@
         android:textColor="@color/backColor"
         android:textSize="14sp"
         android:textStyle="bold"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -161,7 +250,10 @@
         android:id="@+id/test"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="20dp"
         android:text="Button"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn" />
 
@@ -170,6 +262,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Button"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

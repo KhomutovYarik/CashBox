@@ -55,7 +55,7 @@
         app:layout_constraintTop_toBottomOf="@+id/CBServiceLabel" />
 
     <TextView
-        android:id="@+id/phoneNumberText"
+        android:id="@+id/phoneNumberLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
