@@ -1,6 +1,7 @@
 package com.example.cashbox;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -10,14 +11,70 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import static android.app.Activity.RESULT_OK;
 
 
 public class ProfileFragment extends Fragment {
+    private LinearLayout myStores, quit;
+    private ImageView editButton;
 
     public View onCreateView (LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
+        myStores = view.findViewById(R.id.my_stores);
+        quit = view.findViewById(R.id.quit);
+        editButton = view.findViewById(R.id.edit_button);
+
+        editButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), ProfileEdit.class);
+                startActivityForResult(intent, 1);
+            }
+        });
+
+        myStores.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), MyStores.class);
+                startActivity(intent);
+            }
+        });
+
+        quit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), MainActivity.class);
+                startActivity(intent);
+                getActivity().finish();
+            }
+        });
+        //String name = getActivity().getIntent().getStringExtra("name");
+        //String email = getActivity().getIntent().getStringExtra("email");
+        //String new_password = getActivity().getIntent().getStringExtra("new_password");
+        //TextView test = view.findViewById(R.id.test);
+        //test.setText(name+" "+email+" "+new_password);
         return view;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1)
+        {
+            if (resultCode == RESULT_OK)
+            {
+                //String name = data.getStringExtra("name");
+                //String email = data.getStringExtra("email");
+                //String new_password = data.getStringExtra("new_password");
+                
+                ActiveOrdersFragment.activeOrdersList.add(0, new ActiveOrder("#228228", data.getStringExtra("name") + ", ", data.getStringExtra("email"), data.getStringExtra("new_password"), "5 предложений", "от 1000 р"));
+                ActiveOrdersFragment.adapter.notifyDataSetChanged();
+            }
+        }
     }
 //    // TODO: Rename parameter arguments, choose names that match
 //    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER

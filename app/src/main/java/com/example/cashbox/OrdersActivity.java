@@ -14,6 +14,7 @@ import com.google.android.material.tabs.TabLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -38,6 +39,8 @@ public class OrdersActivity extends AppCompatActivity {
     FirebaseUser user;
     DatabaseReference database;
 
+    BottomNavigationView bottomNavigationView;
+    LinearLayout ordersLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,6 +91,7 @@ public class OrdersActivity extends AppCompatActivity {
         //database.child(id).setValue(new User("sada", "asdas"));
 
 
+        ordersLayout = findViewById(R.id.linearLayout_forOrders);
         addOrderButton = findViewById(R.id.fab);
         addOrderButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,23 +100,29 @@ public class OrdersActivity extends AppCompatActivity {
                 startActivityForResult(neworder, 1);
             }
         });
-        final BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setSelectedItemId(R.id.myOrders);
         bottomNavigationView.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
                     @Override
                     public boolean onNavigationItemSelected(MenuItem item) {
+                        Fragment selectedFragment = null;
                         switch (item.getItemId()) {
                             case R.id.myOrders:
+                                ordersLayout.setVisibility(View.VISIBLE);
                                 //bottomNavigationView.getMenu().findItem(R.id.myProfile).setChecked(true);
                                 break;
                             case R.id.addOrder:
                                 addOrderButton.performClick();   //нажатие на пустое место за кнопкой
                                 break;
                             case R.id.myProfile:
-                                Intent profile = new Intent(OrdersActivity.this, ProfileActivity.class);
-                                startActivity(profile);
+                                ordersLayout.setVisibility(View.INVISIBLE);
+                                selectedFragment = new ProfileFragment();
+                                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                                        selectedFragment).commit();
                                 break;
                         }
+
                         return true;
                     }
                 });
