@@ -1,5 +1,6 @@
 package com.example.cashbox;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
@@ -11,6 +12,21 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseException;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.PhoneAuthCredential;
+import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.concurrent.TimeUnit;
 
 import ru.tinkoff.decoro.MaskImpl;
 import ru.tinkoff.decoro.slots.PredefinedSlots;
@@ -19,14 +35,22 @@ import ru.tinkoff.decoro.watchers.MaskFormatWatcher;
 
 public class Register extends AppCompatActivity {
     private EditText phoneNumber, code, name, password;
-    private TextView btnLog, codeLabel, phoneLabel;
+    private TextView btnLog, codeLabel, phoneLabel, email;
     private MaskImpl inputMask;
-    private Button recCode, register, resend;
+    private Button register, recCode, resend;
+
+    FirebaseAuth fbauth;
+    DatabaseReference database;
+    String sentCode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
+        fbauth = FirebaseAuth.getInstance();
+        database = FirebaseDatabase.getInstance().getReference("users");
+
         preparing();
     }
 
@@ -41,6 +65,7 @@ public class Register extends AppCompatActivity {
         password = findViewById(R.id.password);
         phoneNumber = findViewById(R.id.phoneNumber);
         name = findViewById(R.id.name);
+        email = findViewById(R.id.email);
         btnLog = findViewById(R.id.backToAuthButton);
         btnLog.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,7 +105,7 @@ public class Register extends AppCompatActivity {
                 builder.setTitle("Код отправлен!")
                         .setMessage("Код подтверждения отправлен на указанный Вами номер телефона")
                         .setCancelable(false)
-                        .setNegativeButton("ОК",
+                        .setPositiveButton("ОК",
                                 new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int id) {
                                         phoneNumber.setVisibility(View.INVISIBLE);
@@ -96,6 +121,7 @@ public class Register extends AppCompatActivity {
                                 });
                 AlertDialog alert = builder.create();
                 alert.show();
+                //sendVerificationCode();
             }
         });
         resend.setOnClickListener(new View.OnClickListener() {
@@ -105,7 +131,7 @@ public class Register extends AppCompatActivity {
                 builder.setTitle("Код отправлен!")
                         .setMessage("Код подтверждения отправлен на указанный Вами номер телефона")
                         .setCancelable(false)
-                        .setNegativeButton("ОК",
+                        .setPositiveButton("ОК",
                                 new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int id) {
                                         code.requestFocus();
@@ -252,21 +278,125 @@ public class Register extends AppCompatActivity {
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //String id = database.push().getKey();
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(Register.this);
-                builder.setTitle("Поздравляем!")
-                        .setMessage("Вы успешно зарегистрировались!")
-                        .setCancelable(false)
-                        .setNegativeButton("ОК",
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int id) {
-                                        dialog.cancel();
-                                        finish();
-                                    }
-                                });
-                AlertDialog alert = builder.create();
-                alert.show();
+                inputMask.clear();
+                inputMask.insertFront(phoneNumber.getText());
+                String phone = inputMask.toUnformattedString();
+                phone = phone.substring(2, 12);
+
+                User newUser = new User(phone, password.getText().toString(), name.getText().toString(), email.getText().toString());
+                database.push().setValue(newUser);
+                fbauth.createUserWithEmailAndPassword(phone, password.getText().toString());
+                //checkCode();
             }
         });
     }
+
+    private void sendVerificationCode()
+    {
+        PhoneAuthProvider.getInstance().verifyPhoneNumber(
+                phoneNumber.getText().toString(),        // Phone number to verify
+                120,                 // Timeout duration
+                TimeUnit.SECONDS,   // Unit of timeout
+                this,               // Activity (for callback binding)
+                mCallbacks);        // OnVerificationStateChangedCallbacks
+    }
+
+    PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+        @Override
+        public void onVerificationCompleted(PhoneAuthCredential phoneAuthCredential) {
+
+        }
+
+        @Override
+        public void onVerificationFailed(FirebaseException e) {
+
+        }
+
+        @Override
+        public void onCodeSent(String s, PhoneAuthProvider.ForceResendingToken forceResendingToken) {
+            super.onCodeSent(s, forceResendingToken);
+            sentCode = s;
+            AlertDialog.Builder builder = new AlertDialog.Builder(Register.this);
+            builder.setTitle("Код отправлен!")
+                    .setMessage("Код подтверждения отправлен на указанный Вами номер телефона")
+                    .setCancelable(false)
+                    .setPositiveButton("ОК",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    phoneNumber.setVisibility(View.INVISIBLE);
+                                    phoneLabel.setVisibility(View.INVISIBLE);
+                                    codeLabel.setVisibility(View.VISIBLE);
+                                    code.setVisibility(View.VISIBLE);
+
+                                    recCode.setVisibility(View.INVISIBLE);
+                                    resend.setVisibility(View.VISIBLE);
+                                    code.requestFocus();
+                                    dialog.cancel();
+                                }
+                            });
+            AlertDialog alert = builder.create();
+            alert.show();
+        }
+    };
+
+    private void checkCode()
+    {
+        PhoneAuthCredential credential = PhoneAuthProvider.getCredential(sentCode, code.getText().toString());
+        signInWithPhoneAuthCredential(credential);
+    }
+
+    private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
+        fbauth.signInWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            String id = database.push().getKey();
+
+                            inputMask.clear();
+                            inputMask.insertFront(phoneNumber.getText());
+                            String phone = inputMask.toUnformattedString();
+                            phone = phone.substring(2, 12);
+
+                            User newUser = new User(phone, password.getText().toString(), name.getText().toString(), email.getText().toString());
+                            database.child(id).setValue(newUser);
+
+                            AlertDialog.Builder builder = new AlertDialog.Builder(Register.this);
+                            builder.setTitle("Поздравляем!")
+                                    .setMessage("Вы успешно зарегистрировались!")
+                                    .setCancelable(false)
+                                    .setPositiveButton("ОК",
+                                            new DialogInterface.OnClickListener() {
+                                                public void onClick(DialogInterface dialog, int id) {
+                                                    dialog.cancel();
+                                                    finish();
+                                                }
+                                            });
+                            AlertDialog alert = builder.create();
+                            alert.show();
+//                            FirebaseUser user = task.getResult().getUser();
+
+                        } else {
+                            if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
+                                AlertDialog.Builder builder = new AlertDialog.Builder(Register.this);
+                                builder.setTitle("Введён неверный код!")
+                                        .setMessage("Вы ввели неверный код, попробуйте ещё раз")
+                                        .setCancelable(false)
+                                        .setPositiveButton("ОК",
+                                                new DialogInterface.OnClickListener() {
+                                                    public void onClick(DialogInterface dialog, int id) {
+                                                        dialog.cancel();
+                                                    }
+                                                });
+                                AlertDialog alert = builder.create();
+                                alert.show();
+                            }
+                        }
+                    }
+                });
+    }
+
+
 }

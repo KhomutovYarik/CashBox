@@ -103,7 +103,6 @@ public class MainActivity extends AppCompatActivity {
         View.OnClickListener onclkLst = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
                 inputMask.clear();
                 inputMask.insertFront(phoneNumber.getText());
                 phoneNumberLbl.setText(inputMask.toUnformattedString());
