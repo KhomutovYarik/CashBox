@@ -57,9 +57,9 @@ public class FinishedOrderAdapter extends ArrayAdapter<FinishedOrder> {
         problemDescText.setText(problemDesc);
         ratebar.setRating(rating);
         if (status)
-            statusImage.setImageResource(R.drawable.ic_success);
+            statusImage.setImageResource(R.drawable.ic_check_24px);
         else {
-            statusImage.setImageResource(R.drawable.ic_cross);
+            statusImage.setImageResource(R.drawable.ic_clear_24px);
             ratebar.setVisibility(View.INVISIBLE);
         }
 

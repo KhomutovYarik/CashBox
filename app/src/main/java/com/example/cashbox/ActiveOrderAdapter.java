@@ -27,7 +27,7 @@ public class ActiveOrderAdapter extends ArrayAdapter<ActiveOrder> {
         this.resource = resource;
     }
 
-    private void setOnClick(final ImageButton btn, final int i, final String number, final String cashboxName, final String storeName, final String problemDesc){
+    private void setOnClick(final ImageView btn, final int i, final String number, final String cashboxName, final String storeName, final String problemDesc){
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -54,7 +54,7 @@ public class ActiveOrderAdapter extends ArrayAdapter<ActiveOrder> {
         convertView = inflater.inflate(resource, parent, false);
 
         TextView numText, cashboxText, storeText, problemDescText, offersNumberText, minPriceText;
-        final ImageButton removeButton;
+        final ImageView removeButton;
 
         numText = convertView.findViewById(R.id.orderNumber);
         cashboxText = convertView.findViewById(R.id.cashboxName);

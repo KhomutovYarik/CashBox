@@ -2,9 +2,10 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardBackgroundColor="@color/backListColor">>
+    app:cardBackgroundColor="@color/backListColor">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,28 +19,35 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginTop="15dp">
-
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp">
                 <TextView
                     android:id="@+id/orderNumber"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
                     android:text="#241252. Завершённая заявка"
                     android:textAppearance="@style/TextAppearance.AppCompat.Large"
                     android:textSize="18sp"
+                    android:layout_gravity="center"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintEnd_toStartOf="@id/statusImage"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
 
-                <ImageButton
+                <ImageView
                     android:id="@+id/statusImage"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:layout_marginLeft="8dp"
-                    android:background="@color/backColor"
+                    android:layout_width="29dp"
+                    android:layout_height="29dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_gravity="center"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/ic_success" />
-
+                    app:srcCompat="@drawable/ic_check_24px" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
 
         <LinearLayout

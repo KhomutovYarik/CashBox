@@ -33,9 +33,9 @@ public class ActiveOrdersFragment extends Fragment {
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_active_orders, container, false);
 
-        activeOrdersList.add(new ActiveOrder("#312124", "Касса №1, ", "Партнер ККМ №1",
+        activeOrdersList.add(new ActiveOrder("#2", "Касса №1, ", "Партнер ККМ №1",
                 "Сломалось", "3 предложения", "от 1500 р"));
-        activeOrdersList.add(new ActiveOrder("#6213654", "Касса №2, ", "Партнер ККМ №2",
+        activeOrdersList.add(new ActiveOrder("#621133654", "Касса №2, ", "Партнер ККМ №2",
                 "Не работает", "1 предложение", "от 3000 р"));
         activeOrdersList.add(new ActiveOrder("#321351", "Касса №1, ", "Партнер ККМ №1",
                 "Сломалось", "3 предложения", "от 1500 р"));
