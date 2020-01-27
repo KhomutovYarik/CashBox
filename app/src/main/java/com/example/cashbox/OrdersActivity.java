@@ -7,15 +7,27 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.cashbox.ui.main.SectionsPagerAdapter;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import static com.example.cashbox.ActiveOrdersFragment.activeOrdersList;
+import static com.example.cashbox.FinishedOrdersFragment.finishedOrdersList;
 
 public class OrdersActivity extends AppCompatActivity {
 
@@ -23,9 +35,14 @@ public class OrdersActivity extends AppCompatActivity {
     ImageView ordersIcon, profileIcon, addOrderButton;
     LinearLayout ordersSection, profileSection;
 
+    FirebaseUser user;
+    DatabaseReference database;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ActiveOrdersFragment.adapter = new ActiveOrderAdapter(this, R.layout.orderslistelement, activeOrdersList);
+        FinishedOrdersFragment.adapter = new FinishedOrderAdapter(this, R.layout.finishorderslistelement, finishedOrdersList);
         setContentView(R.layout.activity_orders);
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
         ViewPager viewPager = findViewById(R.id.view_pager);
@@ -36,6 +53,41 @@ public class OrdersActivity extends AppCompatActivity {
     }
 
     private void preparing() {
+
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        database = FirebaseDatabase.getInstance().getReference().child("orders");
+        //String id = database.push().getKey();
+
+        //database.child(id).setValue(new User("sada", "asdas"));
+
+        database.addValueEventListener(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+
+                for (DataSnapshot ordersSnapshot : dataSnapshot.getChildren())
+                {
+                    String number = ordersSnapshot.child("number").getValue().toString();
+                    String storeName = ordersSnapshot.child("storeName").getValue().toString();
+                    String cbName = ordersSnapshot.child("cashboxName").getValue().toString();
+                    String problemDesc = ordersSnapshot.child("problemDesc").getValue().toString();
+                    String minPrice = ordersSnapshot.child("minPrice").getValue().toString();
+                    String offers = ordersSnapshot.child("offersNumber").getValue().toString();
+                    ActiveOrder order = new ActiveOrder(number, cbName, storeName, problemDesc, offers, minPrice);
+                    activeOrdersList.add(order);
+                    ActiveOrdersFragment.adapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        //database.child(id).setValue(new User("sada", "asdas"));
+
+
         addOrderButton = findViewById(R.id.fab);
         addOrderButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,7 +125,9 @@ public class OrdersActivity extends AppCompatActivity {
         {
             if (resultCode == RESULT_OK)
             {
-                ActiveOrdersFragment.activeOrdersList.add(0, new ActiveOrder("#228228", data.getStringExtra("cashbox") + ", ", data.getStringExtra("store"), data.getStringExtra("problem"), "5 предложений", "от 1000 р"));
+                ActiveOrder newOrder = new ActiveOrder("#228228", data.getStringExtra("cashbox") + ", ", data.getStringExtra("store"), data.getStringExtra("problem"), "5 предложений", "от 1000 р");
+                database.push().setValue(newOrder);
+                activeOrdersList.add(0, newOrder);
                 ActiveOrdersFragment.adapter.notifyDataSetChanged();
             }
         }

@@ -26,6 +26,7 @@ import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.database.DatabaseReference;
 
+import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 import ru.tinkoff.decoro.MaskImpl;
@@ -41,8 +42,6 @@ public class MainActivity extends AppCompatActivity {
     private MaskImpl inputMask;
 
     FirebaseAuth fbauth;
-    FirebaseUser user;
-    DatabaseReference database;
     String sentCode;
 
 
@@ -50,12 +49,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        ActiveOrdersFragment.activeOrdersList = new ArrayList<ActiveOrder>();
+        FinishedOrdersFragment.finishedOrdersList = new ArrayList<FinishedOrder>();
         fbauth = FirebaseAuth.getInstance();
-        user = fbauth.getCurrentUser();
-        fbauth.signOut();
 
-        if (user != null)
+
+        if (fbauth.getCurrentUser() != null)
         {
             Intent ordersActivity = new Intent(MainActivity.this, OrdersActivity.class);
             startActivity(ordersActivity);
@@ -170,7 +169,7 @@ public class MainActivity extends AppCompatActivity {
             super.onCodeSent(s, forceResendingToken);
             sentCode = s;
             android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(MainActivity.this);
-            builder.setTitle("Код отправлен!")
+            builder.setTitle("Код отправлен")
                     .setMessage("Код подтверждения отправлен на указанный Вами номер телефона")
                     .setCancelable(false)
                     .setPositiveButton("ОК",
@@ -203,25 +202,26 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                            builder.setTitle("Поздравляем!")
-                                    .setMessage("Вы успешно зарегистрировались!")
-                                    .setCancelable(false)
-                                    .setPositiveButton("ОК",
-                                            new DialogInterface.OnClickListener() {
-                                                public void onClick(DialogInterface dialog, int id) {
-                                                    dialog.cancel();
-                                                    Intent ordersActivity = new Intent(MainActivity.this, OrdersActivity.class);
-                                                    startActivity(ordersActivity);
-                                                    finish();
-                                                }
-                                            });
-                            AlertDialog alert = builder.create();
-                            alert.show();
+//                            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+//                            builder.setTitle("Вход выполнен")
+//                                    .setMessage("Вы вошли в систему")
+//                                    .setCancelable(false)
+//                                    .setPositiveButton("ОК",
+//                                            new DialogInterface.OnClickListener() {
+//                                                public void onClick(DialogInterface dialog, int id) {
+//                                                    dialog.cancel();
+//
+//                                                }
+//                                            });
+//                            AlertDialog alert = builder.create();
+//                            alert.show();
+                            Intent ordersActivity = new Intent(MainActivity.this, OrdersActivity.class);
+                            startActivity(ordersActivity);
+                            finish();
                         } else {
                             if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
                                 AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                                builder.setTitle("Введён неверный код!")
+                                builder.setTitle("Введён неверный код")
                                         .setMessage("Вы ввели неверный код, попробуйте ещё раз")
                                         .setCancelable(false)
                                         .setPositiveButton("ОК",

@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class FinishedOrdersFragment extends Fragment {
 
     View view;
-    public static ArrayList<FinishedOrder> finishedOrdersList = new ArrayList<FinishedOrder>();
+    public static ArrayList<FinishedOrder> finishedOrdersList;
     public static FinishedOrderAdapter adapter = null;
 
     @Override
@@ -28,7 +28,6 @@ public class FinishedOrdersFragment extends Fragment {
                 "Не работает", 0, false));
 
         ListView ordersList = view.findViewById(R.id.finishedOrdersList);
-        adapter = new FinishedOrderAdapter(getActivity(), R.layout.finishorderslistelement, finishedOrdersList);
         ordersList.setAdapter(adapter);
 
 

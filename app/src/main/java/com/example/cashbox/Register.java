@@ -283,7 +283,7 @@ public class Register extends AppCompatActivity {
                 String phone = inputMask.toUnformattedString();
                 phone = phone.substring(2, 12);
 
-                User newUser = new User(phone, password.getText().toString(), name.getText().toString(), email.getText().toString());
+                User newUser = new User(name.getText().toString(), email.getText().toString());
                 database.push().setValue(newUser);
                 fbauth.createUserWithEmailAndPassword(phone, password.getText().toString());
                 //checkCode();
@@ -358,7 +358,7 @@ public class Register extends AppCompatActivity {
                             String phone = inputMask.toUnformattedString();
                             phone = phone.substring(2, 12);
 
-                            User newUser = new User(phone, password.getText().toString(), name.getText().toString(), email.getText().toString());
+                            User newUser = new User(name.getText().toString(), email.getText().toString());
                             database.child(id).setValue(newUser);
 
                             AlertDialog.Builder builder = new AlertDialog.Builder(Register.this);
