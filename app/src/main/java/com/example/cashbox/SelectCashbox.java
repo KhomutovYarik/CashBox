@@ -12,11 +12,12 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 public class SelectCashbox extends AppCompatActivity {
-    ArrayList<String> names;
+    private ArrayList<String> cashboxModels, cashboxModelsCopy;
     private ListView listOfModels;
     private EditText filter;
     private ArrayAdapter<String> adapter;
@@ -29,21 +30,24 @@ public class SelectCashbox extends AppCompatActivity {
         prepare();
     }
     private void prepare() {
-        names = new ArrayList<>();
-        names.add("1"); names.add("2"); names.add("3"); names.add("4"); names.add("5"); names.add("6");
+        Intent myIntent = getIntent();
+        cashboxModels = myIntent.getStringArrayListExtra("cashboxModels");
+        //cashboxModels.add("Один"); cashboxModels.add("Два");
         listOfModels = findViewById(R.id.listOfModels);
         filter = findViewById(R.id.input);
 
         adapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_1, names);
+                android.R.layout.simple_list_item_1, cashboxModels);
 
         listOfModels.setAdapter(adapter);
         listOfModels.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                //TODO Переделать эту хуйню на кастом адаптер
+                String s = adapter.getItem(position);
+                //Toast.makeText(SelectCashbox.this,s,Toast.LENGTH_SHORT).show();
                 intent = new Intent();
-
-                intent.putExtra("model_id", String.valueOf(position));
+                intent.putExtra("model_name", s);
                 setResult(RESULT_OK, intent);
                 finish();
             }
