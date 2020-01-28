@@ -104,6 +104,7 @@
     <string name="old_pass">"Старый пароль"</string>
     <string name="new_pass">"Новый пароль"</string>
     <string name="new_pass_again">"Повторите новый пароль"</string>
+    <string name="add">"Добавить"</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->

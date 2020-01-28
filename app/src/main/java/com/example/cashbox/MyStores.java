@@ -6,6 +6,8 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -47,6 +49,10 @@ public class MyStores extends AppCompatActivity {
             case android.R.id.home:
                 onBackPressed();
                 return true;
+            case R.id.action_add:
+                Intent intent = new Intent(this, AddStore.class);
+                startActivity(intent);
+                break;
         }
         return false;
     }
@@ -55,4 +61,12 @@ public class MyStores extends AppCompatActivity {
     public void onBackPressed() {
         finish();
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.appbar_add, menu);
+        return true;
+    }
+
 }

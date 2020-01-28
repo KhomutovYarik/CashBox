@@ -6,6 +6,8 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="actionButtonStyle">@style/MyActionButtonStyle</item>
+        <item name="android:actionButtonStyle">@style/MyActionButtonStyle</item>
     </style>
     <!-- Base application theme. -->
     <style name="AppTheme2" parent="Theme.AppCompat.Light.NoActionBar">
@@ -25,6 +27,11 @@
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
     <style name="spinner">
         <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="MyActionButtonStyle" parent="Widget.AppCompat.ActionButton">
+        <item name="android:minWidth">65dp</item>
+        <item name="android:padding">0dp</item>
     </style>
 
 </resources>
