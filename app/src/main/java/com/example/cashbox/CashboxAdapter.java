@@ -7,18 +7,20 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.example.cashbox.Cashbox;
+import com.example.cashbox.R;
+
 import java.util.ArrayList;
 
-public class StoresAdapter extends ArrayAdapter<Store> {
+public class CashboxAdapter extends ArrayAdapter<Cashbox> {
     Context context;
     int resource;
 
-    public StoresAdapter(@NonNull Context context, int resource, @NonNull ArrayList<Store> objects) {
+    public CashboxAdapter(@NonNull Context context, int resource, @NonNull ArrayList<Cashbox> objects) {
         super(context, resource, objects);
         this.context = context;
         this.resource = resource;
@@ -38,33 +40,25 @@ public class StoresAdapter extends ArrayAdapter<Store> {
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         String name = getItem(position).getName();
-        String region = getItem(position).getRegion();
-        String city = getItem(position).getCity();
-        String address = getItem(position).getAddress();
-        String comment = getItem(position).getComment();
+        String model = getItem(position).getModel();
+        String serialNumber = getItem(position).getSerialNumber();
 
-        Store store = new Store(name, region, city, address, comment);
+        Cashbox store = new Cashbox(name, model, serialNumber);
 
         LayoutInflater inflater = LayoutInflater.from(context);
         convertView = inflater.inflate(resource, parent, false);
 
-        TextView storeName, storeAddress;
+        TextView cbName, cbModel;
         final ImageView editButton, removeButton;
 
-        storeName = convertView.findViewById(R.id.storeName);
-        storeAddress = convertView.findViewById(R.id.storeAddress);
+        cbName = convertView.findViewById(R.id.cbName);
+        cbModel = convertView.findViewById(R.id.cbModel);
         editButton = convertView.findViewById(R.id.editButton);
         removeButton = convertView.findViewById(R.id.removeButton);
 
-        storeName.setText(name);
-        storeAddress.setText("г. " + city + ", " + address);
+        cbName.setText(name);
+        cbModel.setText(model);
         setOnClick(removeButton, position);
-        editButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
 
         return convertView;
     }

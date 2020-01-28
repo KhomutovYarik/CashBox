@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -55,6 +56,20 @@ public class AddStore extends AppCompatActivity {
         addressComment = findViewById(R.id.addressComment);
         addressCommentLabel = findViewById(R.id.addressComment_label);
         saveButton = findViewById(R.id.saveButton);
+
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent allStore = new Intent();
+                allStore.putExtra("name", storeName.getText().toString());
+                allStore.putExtra("region", region.getSelectedItem().toString());
+                allStore.putExtra("city", city.getSelectedItem().toString());
+                allStore.putExtra("address", address.getText().toString());
+                allStore.putExtra("comment", addressComment.getText().toString());
+                setResult(RESULT_OK, allStore);
+                finish();
+            }
+        });
 
         storeName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override

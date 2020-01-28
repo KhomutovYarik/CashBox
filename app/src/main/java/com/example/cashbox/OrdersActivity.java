@@ -53,7 +53,6 @@ public class OrdersActivity extends AppCompatActivity {
         TabLayout tabs = findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
         preparing();
-        Toast.makeText(this, "sdasd", Toast.LENGTH_LONG).show();
     }
 
     private void preparing() {
@@ -137,8 +136,8 @@ public class OrdersActivity extends AppCompatActivity {
             {
                 ActiveOrder newOrder = new ActiveOrder("#228228", data.getStringExtra("cashbox") + ", ", data.getStringExtra("store"), data.getStringExtra("problem"), "5 предложений", "от 1000 р");
                 database.push().setValue(newOrder);
-                activeOrdersList.add(0, newOrder);
-                ActiveOrdersFragment.adapter.notifyDataSetChanged();
+//                activeOrdersList.add(0, newOrder);
+//                ActiveOrdersFragment.adapter.notifyDataSetChanged();
             }
         }
     }

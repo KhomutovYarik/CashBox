@@ -1,5 +1,6 @@
 package com.example.cashbox;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
@@ -10,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -26,6 +28,7 @@ public class MyStores extends AppCompatActivity {
     ListView storeList;
 
     ArrayList<Store> storesArray;
+    StoresAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,8 +42,31 @@ public class MyStores extends AppCompatActivity {
         storeList = findViewById(R.id.myStoresList);
         storesArray = new ArrayList<Store>();
         storesArray.add(new Store("Партнер ККМ №1", "Пермский край", "Пермь", "ул. Шоссе Космонавтов 65", "Вход со двора"));
-        StoresAdapter adapter = new StoresAdapter(this, R.layout.storeelement, storesArray);
+        adapter = new StoresAdapter(this, R.layout.storeelement, storesArray);
         storeList.setAdapter(adapter);
+
+        storeList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent myCashboxes = new Intent(MyStores.this, MyCashboxes.class);
+                myCashboxes.putExtra("title", adapter.getItem(i).getName());
+                startActivity(myCashboxes);
+            }
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1)
+        {
+            if (resultCode == RESULT_OK)
+            {
+                Store newStore = new Store(data.getStringExtra("name"), data.getStringExtra("region"), data.getStringExtra("city"), data.getStringExtra("address"), data.getStringExtra("comment"));
+                storesArray.add(newStore);
+                adapter.notifyDataSetChanged();
+            }
+        }
     }
 
     @Override
@@ -50,16 +76,11 @@ public class MyStores extends AppCompatActivity {
                 onBackPressed();
                 return true;
             case R.id.action_add:
-                Intent intent = new Intent(this, AddStore.class);
-                startActivity(intent);
+                Intent newStore = new Intent(MyStores.this, AddStore.class);
+                startActivityForResult(newStore, 1);
                 break;
         }
         return false;
-    }
-
-    @Override
-    public void onBackPressed() {
-        finish();
     }
 
     @Override
