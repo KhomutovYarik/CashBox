@@ -100,6 +100,7 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
 
     <LinearLayout
+        android:id="@+id/linearLayout4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -115,56 +116,59 @@
                 android:id="@+id/cart"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
                 android:layout_gravity="center"
+                android:layout_marginStart="10dp"
                 app:srcCompat="@drawable/ic_shopping_cart" />
 
             <TextView
                 android:id="@+id/my_stores_text"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_marginStart="10dp"
                 android:layout_weight="1"
-                android:layout_gravity="center"
-                android:textSize="16sp"
-                android:text="@string/my_stores" />
+                android:text="@string/my_stores"
+                android:textSize="16sp" />
 
         </LinearLayout>
+
         <View
             android:id="@+id/divider2"
             android:layout_width="match_parent"
             android:layout_height="3dp"
-            android:background="?android:attr/listDivider"/>
+            android:background="?android:attr/listDivider" />
+
         <LinearLayout
+            android:id="@+id/quit"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:orientation="horizontal"
-            android:id="@+id/quit">
+            android:orientation="horizontal">
 
             <ImageView
                 android:id="@+id/exit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
                 android:layout_gravity="center"
+                android:layout_marginStart="10dp"
                 app:srcCompat="@drawable/ic_exit" />
 
             <TextView
                 android:id="@+id/quit_text"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
                 android:layout_gravity="center"
-                android:textSize="16sp"
+                android:layout_marginStart="10dp"
                 android:layout_weight="1"
-                android:text="@string/quit" />
+                android:text="@string/quit"
+                android:textSize="16sp" />
 
         </LinearLayout>
+
         <View
             android:id="@+id/divider3"
             android:layout_width="match_parent"
             android:layout_height="3dp"
-            android:background="?android:attr/listDivider"/>
+            android:background="?android:attr/listDivider" />
     </LinearLayout>
 
     <ImageView
@@ -177,5 +181,14 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/appbar"
         app:srcCompat="@drawable/ic_edit" />
+
+    <Button
+        android:id="@+id/test"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout4" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

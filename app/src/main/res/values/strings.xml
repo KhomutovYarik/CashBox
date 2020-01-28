@@ -105,6 +105,8 @@
     <string name="new_pass">"Новый пароль"</string>
     <string name="new_pass_again">"Повторите новый пароль"</string>
     <string name="add">"Добавить"</string>
+    <string name="select_model">"Выберите модель"</string>
+    <string name="enter_name_hint">"Введите название"</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->

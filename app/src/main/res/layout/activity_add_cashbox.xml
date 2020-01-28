@@ -49,13 +49,13 @@
         app:layout_constraintBottom_toTopOf="@+id/model"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Spinner
+    <EditText
         android:id="@+id/model"
         android:layout_width="0dp"
         android:layout_height="45dp"
         android:layout_marginTop="30dp"
-        android:background="@drawable/spinner_inactive"
-        android:prompt="@string/select_hint"
+        android:background="@drawable/fields2_inactive"
+        android:hint="@string/select_model"
         android:spinnerMode="dropdown"
         android:theme="@style/spinner"
         app:layout_constraintEnd_toEndOf="parent"

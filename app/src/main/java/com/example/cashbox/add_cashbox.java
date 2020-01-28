@@ -1,14 +1,19 @@
 package com.example.cashbox;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import ru.tinkoff.decoro.MaskImpl;
 import ru.tinkoff.decoro.parser.UnderscoreDigitSlotsParser;
@@ -19,9 +24,10 @@ import ru.tinkoff.decoro.watchers.MaskFormatWatcher;
 public class add_cashbox extends AppCompatActivity {
 
     private MaskImpl mi;
-    TextView cashbox_name_label, factory_number_label;
+    TextView cashbox_name_label, factory_number_label, model_label;
     EditText cashbox_name, factory_number;
     Button saveButton;
+    EditText model;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +41,16 @@ public class add_cashbox extends AppCompatActivity {
         factory_number = findViewById(R.id.factory_number);
         factory_number_label = findViewById(R.id.factory_number_label);
         saveButton = findViewById(R.id.saveButton);
+        model = findViewById(R.id.model);
+        model_label = findViewById(R.id.model_label);
+
+        model.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(add_cashbox.this, SelectCashbox.class);
+                startActivityForResult(intent, 1);
+            }
+        });
 
         Slot[] slots = new UnderscoreDigitSlotsParser().parseSlots("____ ____ ____ ____ ____");
         mi = MaskImpl.createTerminated(slots);
@@ -63,6 +79,23 @@ public class add_cashbox extends AppCompatActivity {
                 else {
                     factory_number_label.setTextColor(getResources().getColor(R.color.inactiveColor));
                     factory_number.setBackground(getResources().getDrawable(R.drawable.fields2_inactive));
+                }
+            }
+        });
+
+        model.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    model.setInputType(InputType.TYPE_NULL);
+                    model_label.setTextColor(getResources().getColor(R.color.colorPrimary));
+                    model.setSelection(model.getText().length());
+                    model.setBackground(getResources().getDrawable(R.drawable.fields2_active));
+                    model.performClick();
+                }
+                else {
+                    model_label.setTextColor(getResources().getColor(R.color.inactiveColor));
+                    model.setBackground(getResources().getDrawable(R.drawable.fields2_inactive));
                 }
             }
         });
@@ -143,5 +176,16 @@ public class add_cashbox extends AppCompatActivity {
                 }
             }
         });
+    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1)
+        {
+            if (resultCode == RESULT_OK)
+            {
+                Toast.makeText(this, data.getStringExtra("model_id"), Toast.LENGTH_LONG).show();
+            }
+        }
     }
 }
