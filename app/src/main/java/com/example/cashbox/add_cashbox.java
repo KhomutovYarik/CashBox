@@ -15,6 +15,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 import ru.tinkoff.decoro.MaskImpl;
 import ru.tinkoff.decoro.parser.UnderscoreDigitSlotsParser;
 import ru.tinkoff.decoro.slots.Slot;
@@ -22,7 +24,7 @@ import ru.tinkoff.decoro.watchers.FormatWatcher;
 import ru.tinkoff.decoro.watchers.MaskFormatWatcher;
 
 public class add_cashbox extends AppCompatActivity {
-
+    private ArrayList<String> cashboxModels;
     private MaskImpl mi;
     TextView cashbox_name_label, factory_number_label, model_label;
     EditText cashbox_name, factory_number;
@@ -36,6 +38,8 @@ public class add_cashbox extends AppCompatActivity {
     }
 
     private void prepare () {
+        cashboxModels = new ArrayList<>();
+        cashboxModels.add("1"); cashboxModels.add("2"); cashboxModels.add("3"); cashboxModels.add("4"); cashboxModels.add("5"); cashboxModels.add("6");
         cashbox_name = findViewById(R.id.cashboxName);
         cashbox_name_label = findViewById(R.id.cashboxName_label);
         factory_number = findViewById(R.id.factory_number);
@@ -48,6 +52,7 @@ public class add_cashbox extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(add_cashbox.this, SelectCashbox.class);
+                intent.putExtra("cashboxModels", cashboxModels);
                 startActivityForResult(intent, 1);
             }
         });
@@ -137,7 +142,8 @@ public class add_cashbox extends AppCompatActivity {
                 }
                 else
                 {
-                    if (cashbox_name.getText().length() >= 3 && factory_number.getText().length() == 24) {
+                    if (model.getText().length() > 0 && cashbox_name.getText().length() >= 3 &&
+                            factory_number.getText().length() == 24) {
                         saveButton.setTextColor(getResources().getColor(R.color.colorPrimary));
                         saveButton.setBackground(getResources().getDrawable(R.drawable.whitebuttonstyle));
                         saveButton.setEnabled(true);
@@ -164,7 +170,35 @@ public class add_cashbox extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if (cashbox_name.getText().length() >= 3 && factory_number.getText().length() == 24) {
+                if (model.getText().length() > 0 && cashbox_name.getText().length() >= 3 &&
+                        factory_number.getText().length() == 24) {
+                    saveButton.setTextColor(getResources().getColor(R.color.colorPrimary));
+                    saveButton.setBackground(getResources().getDrawable(R.drawable.whitebuttonstyle));
+                    saveButton.setEnabled(true);
+                }
+                else {
+                    saveButton.setTextColor(getResources().getColor(R.color.inactiveColor));
+                    saveButton.setBackground(getResources().getDrawable(R.drawable.notenabledbutton));
+                    saveButton.setEnabled(false);
+                }
+            }
+        });
+
+        model.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (model.getText().length() > 0 && cashbox_name.getText().length() >= 3 &&
+                        factory_number.getText().length() == 24) {
                     saveButton.setTextColor(getResources().getColor(R.color.colorPrimary));
                     saveButton.setBackground(getResources().getDrawable(R.drawable.whitebuttonstyle));
                     saveButton.setEnabled(true);
@@ -184,8 +218,11 @@ public class add_cashbox extends AppCompatActivity {
         {
             if (resultCode == RESULT_OK)
             {
-                Toast.makeText(this, data.getStringExtra("model_id"), Toast.LENGTH_LONG).show();
+                String modelName = data.getStringExtra("model_name");
+                Toast.makeText(this,modelName,Toast.LENGTH_SHORT).show();
+                model.setText(modelName);
             }
+
         }
     }
 }

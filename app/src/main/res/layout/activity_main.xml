@@ -12,7 +12,6 @@
         android:id="@+id/signinButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="112dp"
         android:layout_marginTop="116dp"
         android:background="@drawable/whitebuttonstyle"
         android:elevation="3dp"
@@ -24,7 +23,6 @@
         android:translationZ="4dp"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.024"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/phoneNumber" />
 
@@ -48,7 +46,7 @@
 
     <EditText
         android:id="@+id/code"
-        android:layout_width="208dp"
+        android:layout_width="185dp"
         android:layout_height="53dp"
         android:layout_marginTop="44dp"
         android:autofillHints="phone"
@@ -64,7 +62,7 @@
     <Button
         android:id="@+id/resendCode"
         android:layout_width="0dp"
-        android:layout_height="45dp"
+        android:layout_height="53dp"
         android:layout_marginTop="44dp"
         android:background="@drawable/whitebuttonstyle"
         android:elevation="3dp"
