@@ -87,8 +87,6 @@ public class ProfileFragment extends Fragment {
                 //String email = data.getStringExtra("email");
                 //String new_password = data.getStringExtra("new_password");
 
-                ActiveOrdersFragment.activeOrdersList.add(0, new ActiveOrder("#228228", data.getStringExtra("name") + ", ", data.getStringExtra("email"), data.getStringExtra("new_password"), "5 предложений", "от 1000 р"));
-                ActiveOrdersFragment.adapter.notifyDataSetChanged();
             }
         }
     }

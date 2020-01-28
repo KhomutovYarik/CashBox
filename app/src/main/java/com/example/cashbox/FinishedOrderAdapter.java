@@ -31,11 +31,12 @@ public class FinishedOrderAdapter extends ArrayAdapter<FinishedOrder> {
         String number = getItem(position).getNumber();
         String cashboxName = getItem(position).getCashboxName();
         String storeName = getItem(position).getStoreName();
+        String problem = getItem(position).getProblem();
         String problemDesc = getItem(position).getProblemDesc();
+        String status = getItem(position).getStatus();
         int rating = getItem(position).getRating();
-        boolean status = getItem(position).getStatus();
 
-        FinishedOrder order = new FinishedOrder(number, cashboxName, storeName, problemDesc, rating, status);
+        FinishedOrder order = new FinishedOrder(number, cashboxName, storeName, problem, problemDesc, status, rating);
 
         LayoutInflater inflater = LayoutInflater.from(context);
         convertView = inflater.inflate(resource, parent, false);
@@ -56,8 +57,9 @@ public class FinishedOrderAdapter extends ArrayAdapter<FinishedOrder> {
         storeText.setText(storeName);
         problemDescText.setText(problemDesc);
         ratebar.setRating(rating);
-        if (status)
+        if (status.equals("2")) {
             statusImage.setImageResource(R.drawable.ic_check_24px);
+        }
         else {
             statusImage.setImageResource(R.drawable.ic_clear_24px);
             ratebar.setVisibility(View.INVISIBLE);

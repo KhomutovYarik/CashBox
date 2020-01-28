@@ -4,8 +4,8 @@ public class FinishedOrder extends Order{
     private int rating;
     private boolean status;
 
-    public FinishedOrder(String number, String cashboxName, String storeName, String problemDesc, int rating, boolean status) {
-        super(number, cashboxName, storeName, problemDesc);
+    public FinishedOrder(String number, String cashboxName, String storeName, String problem, String problemDesc, String Status, int rating) {
+        super(number, cashboxName, storeName, problem, problemDesc, Status);
         this.rating = rating;
         this.status = status;
     }
@@ -16,13 +16,5 @@ public class FinishedOrder extends Order{
 
     public void setRating(int rating) {
         this.rating = rating;
-    }
-
-    public boolean getStatus() {
-        return status;
-    }
-
-    public void setStatus(boolean status) {
-        this.status = status;
     }
 }

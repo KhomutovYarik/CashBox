@@ -58,7 +58,7 @@ public class OrdersActivity extends AppCompatActivity {
     private void preparing() {
 
         user = FirebaseAuth.getInstance().getCurrentUser();
-        database = FirebaseDatabase.getInstance().getReference().child("orders");
+        database = FirebaseDatabase.getInstance().getReference(user.getUid()).child("orders");
         //String id = database.push().getKey();
 
         //database.child(id).setValue(new User("sada", "asdas"));
@@ -73,10 +73,11 @@ public class OrdersActivity extends AppCompatActivity {
                     String number = ordersSnapshot.child("number").getValue().toString();
                     String storeName = ordersSnapshot.child("storeName").getValue().toString();
                     String cbName = ordersSnapshot.child("cashboxName").getValue().toString();
+                    String problem = ordersSnapshot.child("problem").getValue().toString();
                     String problemDesc = ordersSnapshot.child("problemDesc").getValue().toString();
-                    String minPrice = ordersSnapshot.child("minPrice").getValue().toString();
-                    String offers = ordersSnapshot.child("offersNumber").getValue().toString();
-                    ActiveOrder order = new ActiveOrder(number, cbName, storeName, problemDesc, offers, minPrice);
+//                    String minPrice = ordersSnapshot.child("minPrice").getValue().toString();
+//                    String offers = ordersSnapshot.child("offersNumber").getValue().toString();
+                    ActiveOrder order = new ActiveOrder(number , cbName, storeName, problem, problemDesc, "1",null, null);
                     activeOrdersList.add(order);
                     ActiveOrdersFragment.adapter.notifyDataSetChanged();
                 }
@@ -134,10 +135,16 @@ public class OrdersActivity extends AppCompatActivity {
         {
             if (resultCode == RESULT_OK)
             {
-                ActiveOrder newOrder = new ActiveOrder("#228228", data.getStringExtra("cashbox") + ", ", data.getStringExtra("store"), data.getStringExtra("problem"), "5 предложений", "от 1000 р");
+                double number = Math.random() * 1000000;
+                int num = (int)number;
+                ActiveOrder newOrder = new ActiveOrder(String.valueOf(num), data.getStringExtra("cashbox") + ", ", data.getStringExtra("store"), data.getStringExtra("problem"), data.getStringExtra("problemDesc"), "1", null, null);
                 database.push().setValue(newOrder);
+
 //                activeOrdersList.add(0, newOrder);
 //                ActiveOrdersFragment.adapter.notifyDataSetChanged();
+
+//                JavaMailAPI sendMessage = new JavaMailAPI(this, "game210mk@gmail.com", "Ваша заявка была создана", "Заявка была создана:\n\nОписание проблемы: " + data.getStringExtra("problem"));
+//                sendMessage.execute();
             }
         }
     }

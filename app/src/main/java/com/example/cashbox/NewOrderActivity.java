@@ -193,7 +193,7 @@ public class NewOrderActivity extends AppCompatActivity {
                 allorders.putExtra("store", store.getSelectedItem().toString());
                 allorders.putExtra("cashbox", cashbox.getSelectedItem().toString());
                 allorders.putExtra("problem", problem.getSelectedItem().toString());
-                allorders.putExtra("problemdesc", String.valueOf(problemDescription.getText()));
+                allorders.putExtra("problemDesc", String.valueOf(problemDescription.getText()));
                 setResult(RESULT_OK, allorders);
                 finish();
             }
