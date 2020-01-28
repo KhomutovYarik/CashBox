@@ -53,7 +53,6 @@ public class MainActivity extends AppCompatActivity {
         FinishedOrdersFragment.finishedOrdersList = new ArrayList<FinishedOrder>();
         fbauth = FirebaseAuth.getInstance();
 
-
         if (fbauth.getCurrentUser() != null)
         {
             Intent ordersActivity = new Intent(MainActivity.this, OrdersActivity.class);
@@ -130,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                sendVerificationCode();
+                    sendVerificationCode();
             }
         });
 
@@ -182,6 +181,7 @@ public class MainActivity extends AppCompatActivity {
             AlertDialog alert = builder.create();
             alert.show();
 
+            phoneNumber.setEnabled(false);
             send.setVisibility(View.INVISIBLE);
             codeLbl.setVisibility(View.VISIBLE);
             code.setVisibility(View.VISIBLE);

@@ -53,6 +53,7 @@ public class OrdersActivity extends AppCompatActivity {
         TabLayout tabs = findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
         preparing();
+        Toast.makeText(this, "sdasd", Toast.LENGTH_LONG).show();
     }
 
     private void preparing() {
@@ -67,8 +68,7 @@ public class OrdersActivity extends AppCompatActivity {
 
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-
+                activeOrdersList.clear();
                 for (DataSnapshot ordersSnapshot : dataSnapshot.getChildren())
                 {
                     String number = ordersSnapshot.child("number").getValue().toString();

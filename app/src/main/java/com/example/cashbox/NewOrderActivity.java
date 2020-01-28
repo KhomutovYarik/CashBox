@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -31,6 +32,7 @@ public class NewOrderActivity extends AppCompatActivity {
         setContentView(R.layout.activity_new_order);
         prepare();
     }
+
     private void prepare() {
         store_label = findViewById(R.id.problemStore_label);
         cashbox_label = findViewById(R.id.cashbox_label);
@@ -212,5 +214,20 @@ public class NewOrderActivity extends AppCompatActivity {
             continue_Button.setBackground(getResources().getDrawable(R.drawable.notenabledbutton));
             continue_Button.setEnabled(false);
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+        return false;
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
     }
 }
