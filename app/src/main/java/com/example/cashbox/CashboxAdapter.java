@@ -13,6 +13,8 @@ import androidx.annotation.Nullable;
 
 import com.example.cashbox.Cashbox;
 import com.example.cashbox.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
@@ -26,12 +28,11 @@ public class CashboxAdapter extends ArrayAdapter<Cashbox> {
         this.resource = resource;
     }
 
-    private void setOnClick(final ImageView btn, final int i){
+    private void setOnClick(final ImageView btn, final String id, final String parentId){
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                remove(getItem(i));
-                notifyDataSetChanged();
+                FirebaseDatabase.getInstance().getReference(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("stores").child(parentId).child("cashboxes").child(id).removeValue();
             }
         });
     }
@@ -39,11 +40,13 @@ public class CashboxAdapter extends ArrayAdapter<Cashbox> {
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+        String id = getItem(position).getId();
+        String parentId = getItem(position).getParentId();
         String name = getItem(position).getName();
         String model = getItem(position).getModel();
         String serialNumber = getItem(position).getSerialNumber();
 
-        Cashbox store = new Cashbox(name, model, serialNumber);
+        Cashbox store = new Cashbox(id, parentId, name, model, serialNumber);
 
         LayoutInflater inflater = LayoutInflater.from(context);
         convertView = inflater.inflate(resource, parent, false);
@@ -58,7 +61,7 @@ public class CashboxAdapter extends ArrayAdapter<Cashbox> {
 
         cbName.setText(name);
         cbModel.setText(model);
-        setOnClick(removeButton, position);
+        setOnClick(removeButton, id, parentId);
 
         return convertView;
     }

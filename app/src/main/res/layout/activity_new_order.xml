@@ -64,6 +64,7 @@
             android:prompt="@string/select_hint"
             android:spinnerMode="dropdown"
             android:theme="@style/spinner"
+            android:clickable="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/problemStore" />

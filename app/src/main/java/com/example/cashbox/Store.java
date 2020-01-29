@@ -2,14 +2,23 @@ package com.example.cashbox;
 
 public class Store
 {
-    private String name, region, city, address, comment;
+    private String id, name, region, city, address, comment;
 
-    public Store(String name, String region, String city, String address, String comment) {
+    public Store(String id, String name, String region, String city, String address, String comment) {
+        this.id = id;
         this.name = name;
         this.region = region;
         this.city = city;
         this.address = address;
         this.comment = comment;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {

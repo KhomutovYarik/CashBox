@@ -39,7 +39,10 @@ public class add_cashbox extends AppCompatActivity {
 
     private void prepare () {
         cashboxModels = new ArrayList<>();
-        cashboxModels.add("1"); cashboxModels.add("2"); cashboxModels.add("3"); cashboxModels.add("4"); cashboxModels.add("5"); cashboxModels.add("6");
+        cashboxModels.add("АЗУР-01Ф"); cashboxModels.add("АМС-300.1Ф"); cashboxModels.add("АМС-300Ф");
+        cashboxModels.add("АМС-700Ф"); cashboxModels.add("АМС-100Ф"); cashboxModels.add("МЕРКУРИЙ-МФ");
+        cashboxModels.add("МЕРКУРИЙ-119Ф"); cashboxModels.add("МЕРКУРИЙ-130Ф"); cashboxModels.add("МЕРКУРИЙ-180Ф");
+        cashboxModels.add("МЕРКУРИЙ-115Ф"); cashboxModels.add("МЕРКУРИЙ-185Ф"); cashboxModels.add("АТОЛ 20Ф");
         cashbox_name = findViewById(R.id.cashboxName);
         cashbox_name_label = findViewById(R.id.cashboxName_label);
         factory_number = findViewById(R.id.factory_number);
@@ -69,7 +72,12 @@ public class add_cashbox extends AppCompatActivity {
             public void onClick(View view) {
                 mi.clear();
                 mi.insertFront(factory_number.getText());
-                factory_number_label.setText(mi.toUnformattedString());
+                Intent allCashboxes = new Intent();
+                allCashboxes.putExtra("name", cashbox_name.getText().toString());
+                allCashboxes.putExtra("model", model.getText().toString());
+                allCashboxes.putExtra("serial", mi.toUnformattedString());
+                setResult(RESULT_OK, allCashboxes);
+                finish();
             }
         });
 
@@ -219,7 +227,6 @@ public class add_cashbox extends AppCompatActivity {
             if (resultCode == RESULT_OK)
             {
                 String modelName = data.getStringExtra("model_name");
-                Toast.makeText(this,modelName,Toast.LENGTH_SHORT).show();
                 model.setText(modelName);
             }
 

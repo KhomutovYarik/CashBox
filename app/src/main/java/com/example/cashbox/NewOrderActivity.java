@@ -1,5 +1,6 @@
 package com.example.cashbox;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
@@ -18,6 +19,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 public class NewOrderActivity extends AppCompatActivity {
     private TextView store_label, cashbox_label, problem_label, problemDescription_label;
@@ -25,6 +36,11 @@ public class NewOrderActivity extends AppCompatActivity {
     private Spinner cashbox, problem, store;
     private Button continue_Button;
     private ConstraintLayout myLayout;
+
+    DatabaseReference database;
+    ArrayList<String> storesList, cbsList;
+    ArrayList<String> [] allLists;
+    ArrayAdapter<String> store_adapter, cashbox_adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +50,9 @@ public class NewOrderActivity extends AppCompatActivity {
     }
 
     private void prepare() {
+        storesList = new ArrayList<String>();
+        cbsList = new ArrayList<String>();
+
         store_label = findViewById(R.id.problemStore_label);
         cashbox_label = findViewById(R.id.cashbox_label);
         problem_label = findViewById(R.id.problem_label);
@@ -41,17 +60,18 @@ public class NewOrderActivity extends AppCompatActivity {
         store = findViewById(R.id.problemStore);
         problemDescription = findViewById(R.id.problemDescription);
         cashbox = findViewById(R.id.cashbox);
+        cashbox.setEnabled(false);
         problem = findViewById(R.id.problem);
         continue_Button = findViewById(R.id.continueButton);
         myLayout = findViewById(R.id.constraintLayout);
 
-        ArrayAdapter<String> store_adapter = new ArrayAdapter<>(NewOrderActivity.this,
-                android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.store));
+        store_adapter = new ArrayAdapter<String>(NewOrderActivity.this,
+                android.R.layout.simple_list_item_1, storesList);
         store_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         store.setAdapter(store_adapter);
 
-        ArrayAdapter<String> cashbox_adapter = new ArrayAdapter<>(NewOrderActivity.this,
-                android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.cashbox));
+        cashbox_adapter = new ArrayAdapter<String>(NewOrderActivity.this,
+                android.R.layout.simple_list_item_1, cbsList);
         cashbox_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         cashbox.setAdapter(cashbox_adapter);
 
@@ -59,6 +79,42 @@ public class NewOrderActivity extends AppCompatActivity {
                 android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.problem));
         problem_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         problem.setAdapter(problem_adapter);
+
+        database = FirebaseDatabase.getInstance().getReference(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("stores");
+
+        database.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                storesList.clear();
+                cbsList.clear();
+                storesList.add("Выберите торговую точку");
+                cbsList.add("Выберите кассовый аппарат");
+                int i = (int)dataSnapshot.getChildrenCount();
+                allLists = new ArrayList[i];
+                for (int j = 0; j < i; j++)
+                {
+                    allLists[j] = new ArrayList<String>();
+                }
+                int j = 0;
+                for (DataSnapshot snap1 : dataSnapshot.getChildren())
+                {
+                    String id = snap1.child("id").getValue().toString();
+                    storesList.add(snap1.child("name").getValue().toString());
+                    for (DataSnapshot snap2 : dataSnapshot.child(id).child("cashboxes").getChildren())
+                    {
+                        allLists[j].add(snap2.child("name").getValue().toString());
+                    }
+                    j++;
+                }
+                store_adapter.notifyDataSetChanged();
+                cashbox_adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
         problemDescription.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -136,7 +192,18 @@ public class NewOrderActivity extends AppCompatActivity {
         store.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                check();
+                cbsList.clear();
+                cbsList.add("Выберите кассовый аппарат");
+                if (i!=0) {
+                    cbsList.addAll(allLists[i - 1]);
+                    cashbox.setEnabled(true);
+                    check();
+                }
+                else
+                {
+                    cashbox.setEnabled(false);
+                }
+                cashbox_adapter.notifyDataSetChanged();
             }
 
             @Override

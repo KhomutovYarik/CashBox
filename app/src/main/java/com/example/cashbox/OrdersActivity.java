@@ -27,6 +27,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Collections;
+
 import static com.example.cashbox.ActiveOrdersFragment.activeOrdersList;
 import static com.example.cashbox.FinishedOrdersFragment.finishedOrdersList;
 
@@ -36,7 +38,6 @@ public class OrdersActivity extends AppCompatActivity {
     ImageView ordersIcon, profileIcon, addOrderButton;
     LinearLayout ordersSection, profileSection;
 
-    FirebaseUser user;
     DatabaseReference database;
 
     BottomNavigationView bottomNavigationView;
@@ -57,8 +58,7 @@ public class OrdersActivity extends AppCompatActivity {
 
     private void preparing() {
 
-        user = FirebaseAuth.getInstance().getCurrentUser();
-        database = FirebaseDatabase.getInstance().getReference(user.getUid()).child("orders");
+        database = FirebaseDatabase.getInstance().getReference(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("orders");
         //String id = database.push().getKey();
 
         //database.child(id).setValue(new User("sada", "asdas"));
@@ -68,19 +68,33 @@ public class OrdersActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 activeOrdersList.clear();
+                finishedOrdersList.clear();
                 for (DataSnapshot ordersSnapshot : dataSnapshot.getChildren())
                 {
+                    String id = ordersSnapshot.child("id").getValue().toString();
                     String number = ordersSnapshot.child("number").getValue().toString();
                     String storeName = ordersSnapshot.child("storeName").getValue().toString();
                     String cbName = ordersSnapshot.child("cashboxName").getValue().toString();
                     String problem = ordersSnapshot.child("problem").getValue().toString();
                     String problemDesc = ordersSnapshot.child("problemDesc").getValue().toString();
+                    String status = ordersSnapshot.child("status").getValue().toString();
 //                    String minPrice = ordersSnapshot.child("minPrice").getValue().toString();
 //                    String offers = ordersSnapshot.child("offersNumber").getValue().toString();
-                    ActiveOrder order = new ActiveOrder(number , cbName, storeName, problem, problemDesc, "1",null, null);
-                    activeOrdersList.add(order);
-                    ActiveOrdersFragment.adapter.notifyDataSetChanged();
+                    if (status.equals("1"))
+                    {
+                        ActiveOrder order = new ActiveOrder(id, number , cbName, storeName, problem, problemDesc, "1",null, null);
+                        activeOrdersList.add(order);
+                    }
+                    else
+                    {
+                        FinishedOrder order = new FinishedOrder(id, number, cbName, storeName, problem, problemDesc, status, 0);
+                        finishedOrdersList.add(order);
+                    }
                 }
+                Collections.reverse(activeOrdersList);
+                Collections.reverse(finishedOrdersList);
+                ActiveOrdersFragment.adapter.notifyDataSetChanged();
+                FinishedOrdersFragment.adapter.notifyDataSetChanged();
             }
 
             @Override
@@ -137,14 +151,15 @@ public class OrdersActivity extends AppCompatActivity {
             {
                 double number = Math.random() * 1000000;
                 int num = (int)number;
-                ActiveOrder newOrder = new ActiveOrder(String.valueOf(num), data.getStringExtra("cashbox") + ", ", data.getStringExtra("store"), data.getStringExtra("problem"), data.getStringExtra("problemDesc"), "1", null, null);
-                database.push().setValue(newOrder);
+                String id = database.push().getKey();
+                Order newOrder = new Order(id, String.valueOf(num), data.getStringExtra("cashbox"), data.getStringExtra("store"), data.getStringExtra("problem"), data.getStringExtra("problemDesc"), "1");
+                database.child(id).setValue(newOrder);
 
 //                activeOrdersList.add(0, newOrder);
 //                ActiveOrdersFragment.adapter.notifyDataSetChanged();
 
-//                JavaMailAPI sendMessage = new JavaMailAPI(this, "game210mk@gmail.com", "Ваша заявка была создана", "Заявка была создана:\n\nОписание проблемы: " + data.getStringExtra("problem"));
-//                sendMessage.execute();
+                JavaMailAPI sendMessage = new JavaMailAPI(this, "game210mk@gmail.com", "Ваша заявка была создана", "Заявка была создана:\n\nОписание проблемы: " + data.getStringExtra("problem"));
+                sendMessage.execute();
             }
         }
     }

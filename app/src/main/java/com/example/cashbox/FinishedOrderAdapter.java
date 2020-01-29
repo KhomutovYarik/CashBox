@@ -28,6 +28,7 @@ public class FinishedOrderAdapter extends ArrayAdapter<FinishedOrder> {
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+        String id = getItem(position).getId();
         String number = getItem(position).getNumber();
         String cashboxName = getItem(position).getCashboxName();
         String storeName = getItem(position).getStoreName();
@@ -36,7 +37,7 @@ public class FinishedOrderAdapter extends ArrayAdapter<FinishedOrder> {
         String status = getItem(position).getStatus();
         int rating = getItem(position).getRating();
 
-        FinishedOrder order = new FinishedOrder(number, cashboxName, storeName, problem, problemDesc, status, rating);
+        FinishedOrder order = new FinishedOrder(id, number, cashboxName, storeName, problem, problemDesc, status, rating);
 
         LayoutInflater inflater = LayoutInflater.from(context);
         convertView = inflater.inflate(resource, parent, false);
@@ -52,15 +53,16 @@ public class FinishedOrderAdapter extends ArrayAdapter<FinishedOrder> {
         ratebar = convertView.findViewById(R.id.ratingBar);
         statusImage = convertView.findViewById(R.id.statusImage);
 
-        numText.setText(number);
         cashboxText.setText(cashboxName);
         storeText.setText(storeName);
-        problemDescText.setText(problemDesc);
+        problemDescText.setText(problem);
         ratebar.setRating(rating);
-        if (status.equals("2")) {
+        if (status.equals("3")) {
+            numText.setText("#" + number + ". Завершённая заявка");
             statusImage.setImageResource(R.drawable.ic_check_24px);
         }
         else {
+            numText.setText("#" + number + ". Отменённая заявка");
             statusImage.setImageResource(R.drawable.ic_clear_24px);
             ratebar.setVisibility(View.INVISIBLE);
         }

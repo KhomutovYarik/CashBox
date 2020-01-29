@@ -33,7 +33,6 @@ public class ProfileFragment extends Fragment {
         myStores = view.findViewById(R.id.my_stores);
         quit = view.findViewById(R.id.quit);
         editButton = view.findViewById(R.id.edit_button);
-        test = view.findViewById(R.id.test);
 
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,14 +57,6 @@ public class ProfileFragment extends Fragment {
                 Intent intent = new Intent(getActivity(), MainActivity.class);
                 startActivity(intent);
                 getActivity().finish();
-            }
-        });
-
-        test.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), add_cashbox.class);
-                startActivity(intent);
             }
         });
         //String name = getActivity().getIntent().getStringExtra("name");

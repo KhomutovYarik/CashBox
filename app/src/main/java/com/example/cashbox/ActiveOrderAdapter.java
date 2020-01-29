@@ -14,6 +14,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,13 +30,11 @@ public class ActiveOrderAdapter extends ArrayAdapter<ActiveOrder> {
         this.resource = resource;
     }
 
-    private void setOnClick(final ImageView btn, final int i, final String number, final String cashboxName, final String storeName, final String problem, final String problemDesc){
+    private void setOnClick(final ImageView btn, final String id, final String number, final String cashboxName, final String storeName, final String problem, final String problemDesc){
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ActiveOrdersFragment.adapter.remove(ActiveOrdersFragment.adapter.getItem(i));
-                FinishedOrdersFragment.finishedOrdersList.add(0, new FinishedOrder("#" + number + ". Отменённая заявка", cashboxName, storeName, problem, problemDesc, "3", 0));
-                FinishedOrdersFragment.adapter.notifyDataSetChanged();
+                FirebaseDatabase.getInstance().getReference(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("orders").child(id).setValue(new Order(id, number, cashboxName, storeName, problem, problemDesc, "2"));
             }
         });
     }
@@ -41,6 +42,7 @@ public class ActiveOrderAdapter extends ArrayAdapter<ActiveOrder> {
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+        String id = getItem(position).getId();
         String number = getItem(position).getNumber();
         String cashboxName = getItem(position).getCashboxName();
         String storeName = getItem(position).getStoreName();
@@ -49,7 +51,7 @@ public class ActiveOrderAdapter extends ArrayAdapter<ActiveOrder> {
         String offersNumber = getItem(position).getOffersNumber();
         String minPrice = getItem(position).getMinPrice();
 
-        ActiveOrder order = new ActiveOrder(number, cashboxName, storeName, problem, problemDesc, "1", offersNumber, minPrice);
+        ActiveOrder order = new ActiveOrder(id, number, cashboxName, storeName, problem, problemDesc, "1", offersNumber, minPrice);
 
         LayoutInflater inflater = LayoutInflater.from(context);
         convertView = inflater.inflate(resource, parent, false);
@@ -68,7 +70,7 @@ public class ActiveOrderAdapter extends ArrayAdapter<ActiveOrder> {
         cardImage = convertView.findViewById(R.id.cardImage);
 
         numText.setText("#" + number + ". Активная заявка");
-        cashboxText.setText(cashboxName);
+        cashboxText.setText(cashboxName + ", ");
         storeText.setText(storeName);
         problemDescText.setText(problemDesc);
         if (offersNumber == null)
@@ -84,7 +86,7 @@ public class ActiveOrderAdapter extends ArrayAdapter<ActiveOrder> {
             offersNumberText.setText(offersNumber);
             minPriceText.setText(minPrice);
         }
-        setOnClick(removeButton, position, number, cashboxName, storeName, problem, problemDesc);
+        setOnClick(removeButton, id, number, cashboxName, storeName, problem, problemDesc);
 
         return convertView;
     }
