@@ -1,5 +1,6 @@
 package com.example.cashbox;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -19,6 +20,12 @@ import android.widget.ListView;
 import com.example.cashbox.ui.main.SectionsPagerAdapter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -29,6 +36,7 @@ public class MyStores extends AppCompatActivity {
 
     ArrayList<Store> storesArray;
     StoresAdapter adapter;
+    DatabaseReference database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,14 +49,39 @@ public class MyStores extends AppCompatActivity {
         storesLayout = findViewById(R.id.linearLayout_forStores);
         storeList = findViewById(R.id.myStoresList);
         storesArray = new ArrayList<Store>();
-        storesArray.add(new Store("Партнер ККМ №1", "Пермский край", "Пермь", "ул. Шоссе Космонавтов 65", "Вход со двора"));
         adapter = new StoresAdapter(this, R.layout.storeelement, storesArray);
         storeList.setAdapter(adapter);
+
+        database = FirebaseDatabase.getInstance().getReference(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("stores");
+
+        database.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                storesArray.clear();
+                for (DataSnapshot storesSnapshot : dataSnapshot.getChildren())
+                {
+                    String id = storesSnapshot.child("id").getValue().toString();
+                    String name = storesSnapshot.child("name").getValue().toString();
+                    String region = storesSnapshot.child("region").getValue().toString();
+                    String city = storesSnapshot.child("city").getValue().toString();
+                    String address = storesSnapshot.child("address").getValue().toString();
+                    String comment = storesSnapshot.child("comment").getValue().toString();
+                    storesArray.add(new Store(id, name, region, city, address, comment));
+                }
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
         storeList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent myCashboxes = new Intent(MyStores.this, MyCashboxes.class);
+                myCashboxes.putExtra("parentId", adapter.getItem(i).getId());
                 myCashboxes.putExtra("title", adapter.getItem(i).getName());
                 startActivity(myCashboxes);
             }
@@ -62,9 +95,9 @@ public class MyStores extends AppCompatActivity {
         {
             if (resultCode == RESULT_OK)
             {
-                Store newStore = new Store(data.getStringExtra("name"), data.getStringExtra("region"), data.getStringExtra("city"), data.getStringExtra("address"), data.getStringExtra("comment"));
-                storesArray.add(newStore);
-                adapter.notifyDataSetChanged();
+                String id = database.push().getKey();
+                Store newStore = new Store(id, data.getStringExtra("name"), data.getStringExtra("region"), data.getStringExtra("city"), data.getStringExtra("address"), data.getStringExtra("comment"));
+                database.child(id).setValue(newStore);
             }
         }
     }

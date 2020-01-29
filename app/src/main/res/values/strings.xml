@@ -11,18 +11,6 @@
         <item>Москва</item>
         <item>Пермь</item>
     </string-array>
-    <string-array name="store">
-        <item>Выберите торговую точку</item>
-        <item>Магазин №1</item>
-        <item>Магазин №2</item>
-        <item>Магазин №3</item>
-    </string-array>
-    <string-array name="cashbox">
-        <item>Выберите кассовый аппарат</item>
-        <item>Касса №1</item>
-        <item>Касса №2</item>
-        <item>Касса №3</item>
-    </string-array>
     <string-array name="problem">
         <item>Выберите случившуюся проблему</item>
         <item>Чеки не отправляются в ОФД</item>

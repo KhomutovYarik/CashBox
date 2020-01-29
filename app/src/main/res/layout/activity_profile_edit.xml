@@ -150,14 +150,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:visibility="invisible"
         app:layout_constraintTop_toBottomOf="@id/divider2">
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/change_pass"
             android:layout_marginStart="10dp"
             android:layout_marginBottom="15dp"
-            android:textSize="16sp"/>
+            android:text="@string/change_pass"
+            android:textSize="16sp" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
@@ -167,25 +170,26 @@
                 android:id="@+id/lock"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_marginStart="10dp"
                 android:padding="2dp"
-                android:layout_gravity="center"
                 app:srcCompat="@drawable/ic_lock" />
 
             <EditText
                 android:id="@+id/old_password"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="25dp"
-                android:layout_gravity="center"
-                android:textSize="16sp"
                 android:layout_weight="1"
-                android:inputType="textPassword"
                 android:background="@drawable/fields_profile_inactive"
-                android:hint="@string/old_pass" />
+                android:hint="@string/old_pass"
+                android:inputType="textPassword"
+                android:textSize="16sp" />
 
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
@@ -196,25 +200,26 @@
                 android:id="@+id/lock2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_marginStart="10dp"
                 android:padding="2dp"
-                android:layout_gravity="center"
                 app:srcCompat="@drawable/ic_lock" />
 
             <EditText
                 android:id="@+id/new_password"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="25dp"
-                android:layout_gravity="center"
-                android:textSize="16sp"
-                android:inputType="textPassword"
                 android:layout_weight="1"
                 android:background="@drawable/fields_profile_inactive"
-                android:hint="@string/new_pass" />
+                android:hint="@string/new_pass"
+                android:inputType="textPassword"
+                android:textSize="16sp" />
 
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
@@ -225,33 +230,35 @@
                 android:id="@+id/lock3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_marginStart="10dp"
                 android:padding="2dp"
-                android:layout_gravity="center"
                 app:srcCompat="@drawable/ic_lock" />
 
             <EditText
                 android:id="@+id/new_password_again"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="25dp"
-                android:layout_gravity="center"
-                android:textSize="16sp"
-                android:inputType="textPassword"
                 android:layout_weight="1"
                 android:background="@drawable/fields_profile_inactive"
-                android:hint="@string/new_pass_again" />
+                android:hint="@string/new_pass_again"
+                android:inputType="textPassword"
+                android:textSize="16sp" />
 
         </LinearLayout>
     </LinearLayout>
+
     <View
         android:id="@+id/divider3"
         android:layout_width="match_parent"
         android:layout_height="3dp"
         android:layout_marginTop="10dp"
         android:background="?android:attr/listDivider"
-        app:layout_constraintTop_toBottomOf="@id/change_pass_layout"/>
+        android:visibility="invisible"
+        app:layout_constraintTop_toBottomOf="@id/change_pass_layout" />
     <Button
         android:id="@+id/saveButton"
         android:layout_width="wrap_content"

@@ -12,6 +12,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.ArrayList;
 
 public class StoresAdapter extends ArrayAdapter<Store> {
@@ -24,12 +27,11 @@ public class StoresAdapter extends ArrayAdapter<Store> {
         this.resource = resource;
     }
 
-    private void setOnClick(final ImageView btn, final int i){
+    private void setOnClick(final ImageView btn, final String id){
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                remove(getItem(i));
-                notifyDataSetChanged();
+                FirebaseDatabase.getInstance().getReference(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("stores").child(id).removeValue();
             }
         });
     }
@@ -37,13 +39,14 @@ public class StoresAdapter extends ArrayAdapter<Store> {
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+        String id = getItem(position).getId();
         String name = getItem(position).getName();
         String region = getItem(position).getRegion();
         String city = getItem(position).getCity();
         String address = getItem(position).getAddress();
         String comment = getItem(position).getComment();
 
-        Store store = new Store(name, region, city, address, comment);
+        Store store = new Store(id, name, region, city, address, comment);
 
         LayoutInflater inflater = LayoutInflater.from(context);
         convertView = inflater.inflate(resource, parent, false);
@@ -58,7 +61,7 @@ public class StoresAdapter extends ArrayAdapter<Store> {
 
         storeName.setText(name);
         storeAddress.setText("г. " + city + ", " + address);
-        setOnClick(removeButton, position);
+        setOnClick(removeButton, id);
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

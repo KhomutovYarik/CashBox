@@ -33,7 +33,6 @@ public class ProfileFragment extends Fragment {
         myStores = view.findViewById(R.id.my_stores);
         quit = view.findViewById(R.id.quit);
         editButton = view.findViewById(R.id.edit_button);
-        test = view.findViewById(R.id.test);
 
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,14 +59,6 @@ public class ProfileFragment extends Fragment {
                 getActivity().finish();
             }
         });
-
-        test.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), add_cashbox.class);
-                startActivity(intent);
-            }
-        });
         //String name = getActivity().getIntent().getStringExtra("name");
         //String email = getActivity().getIntent().getStringExtra("email");
         //String new_password = getActivity().getIntent().getStringExtra("new_password");
@@ -87,8 +78,6 @@ public class ProfileFragment extends Fragment {
                 //String email = data.getStringExtra("email");
                 //String new_password = data.getStringExtra("new_password");
 
-                ActiveOrdersFragment.activeOrdersList.add(0, new ActiveOrder("#228228", data.getStringExtra("name") + ", ", data.getStringExtra("email"), data.getStringExtra("new_password"), "5 предложений", "от 1000 р"));
-                ActiveOrdersFragment.adapter.notifyDataSetChanged();
             }
         }
     }
