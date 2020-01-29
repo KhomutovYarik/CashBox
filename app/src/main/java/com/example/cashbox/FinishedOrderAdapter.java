@@ -53,7 +53,7 @@ public class FinishedOrderAdapter extends ArrayAdapter<FinishedOrder> {
         ratebar = convertView.findViewById(R.id.ratingBar);
         statusImage = convertView.findViewById(R.id.statusImage);
 
-        cashboxText.setText(cashboxName);
+        cashboxText.setText(cashboxName + ", ");
         storeText.setText(storeName);
         problemDescText.setText(problem);
         ratebar.setRating(rating);
