@@ -2,11 +2,12 @@ package com.example.cashbox;
 
 public class User
 {
-    String name, email;
+    private static String name, phone, email;
 
-    public User(String name, String email)
+    public User(String name, String phone, String email)
     {
         this.name = name;
+        this.phone = phone;
         this.email = email;
     }
 
@@ -16,6 +17,14 @@ public class User
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public static String getPhone() {
+        return phone;
+    }
+
+    public static void setPhone(String phone) {
+        User.phone = phone;
     }
 
     public String getEmail() {

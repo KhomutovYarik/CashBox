@@ -79,7 +79,7 @@
         android:layout_height="45dp"
         android:layout_marginTop="30dp"
         android:background="@drawable/spinner_inactive"
-        android:spinnerMode="dialog"
+        android:spinnerMode="dropdown"
         android:theme="@style/spinner"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

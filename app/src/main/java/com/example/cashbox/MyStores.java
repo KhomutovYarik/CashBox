@@ -100,6 +100,16 @@ public class MyStores extends AppCompatActivity {
                 database.child(id).setValue(newStore);
             }
         }
+        else
+        {
+            if (requestCode == 2)
+            {
+                if (resultCode == RESULT_OK)
+                {
+                    database.child(data.getStringExtra("id")).setValue(new Store(data.getStringExtra("id"), data.getStringExtra("name"), data.getStringExtra("region"), data.getStringExtra("city"), data.getStringExtra("address"), data.getStringExtra("comment")));
+                }
+            }
+        }
     }
 
     @Override

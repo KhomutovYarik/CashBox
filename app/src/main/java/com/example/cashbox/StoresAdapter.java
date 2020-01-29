@@ -1,6 +1,8 @@
 package com.example.cashbox;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,11 +29,29 @@ public class StoresAdapter extends ArrayAdapter<Store> {
         this.resource = resource;
     }
 
-    private void setOnClick(final ImageView btn, final String id){
+    private void removeClick(final ImageView btn, final String id){
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FirebaseDatabase.getInstance().getReference(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("stores").child(id).removeValue();
+            }
+        });
+    }
+
+    private void editClick(final ImageView btn, final String id, final String name, final String region, final String city, final String address, final String comment)
+    {
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent editStore = new Intent(context, AddStore.class);
+                editStore.putExtra("title", "Редактирование");
+                editStore.putExtra("id", id);
+                editStore.putExtra("name", name);
+                editStore.putExtra("region", region);
+                editStore.putExtra("city", city);
+                editStore.putExtra("address", address);
+                editStore.putExtra("comment", comment);
+                ((Activity) context).startActivityForResult(editStore, 2);
             }
         });
     }
@@ -61,13 +81,8 @@ public class StoresAdapter extends ArrayAdapter<Store> {
 
         storeName.setText(name);
         storeAddress.setText("г. " + city + ", " + address);
-        setOnClick(removeButton, id);
-        editButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
+        removeClick(removeButton, id);
+        editClick(editButton, id, name, region, city, address, comment);
 
         return convertView;
     }

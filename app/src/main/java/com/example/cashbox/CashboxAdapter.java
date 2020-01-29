@@ -1,6 +1,8 @@
 package com.example.cashbox;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,11 +30,27 @@ public class CashboxAdapter extends ArrayAdapter<Cashbox> {
         this.resource = resource;
     }
 
-    private void setOnClick(final ImageView btn, final String id, final String parentId){
+    private void removeClick(final ImageView btn, final String id, final String parentId){
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FirebaseDatabase.getInstance().getReference(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("stores").child(parentId).child("cashboxes").child(id).removeValue();
+            }
+        });
+    }
+
+    private void editClick(final ImageView btn, final String id, final String name, final String model, final String serial)
+    {
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent editCB = new Intent(context, add_cashbox.class);
+                editCB.putExtra("title", "Редактирование");
+                editCB.putExtra("id", id);
+                editCB.putExtra("name", name);
+                editCB.putExtra("model", model);
+                editCB.putExtra("serial", serial);
+                ((Activity) context).startActivityForResult(editCB, 2);
             }
         });
     }
@@ -61,7 +79,8 @@ public class CashboxAdapter extends ArrayAdapter<Cashbox> {
 
         cbName.setText(name);
         cbModel.setText(model);
-        setOnClick(removeButton, id, parentId);
+        removeClick(removeButton, id, parentId);
+        editClick(editButton, id, name, model, serialNumber);
 
         return convertView;
     }

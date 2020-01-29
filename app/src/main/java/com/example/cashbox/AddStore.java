@@ -18,6 +18,11 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.ArrayList;
+
 
 public class AddStore extends AppCompatActivity {
     private EditText storeName, address, addressComment;
@@ -32,23 +37,36 @@ public class AddStore extends AppCompatActivity {
         prepare();
     }
     private void prepare() {
+        ArrayList<String> regionList = new ArrayList<String>();
+        ArrayList<String> cityList = new ArrayList<String>();
+
+        regionList.add("Выберите регион");
+        regionList.add("Ленинградская область");
+        regionList.add("Московская область");
+        regionList.add("Пермский край");
+
+        cityList.add("Выберите город");
+        cityList.add("Санкт-Петербург");
+        cityList.add("Москва");
+        cityList.add("Пермь");
+
         region = findViewById(R.id.region);
         city = findViewById(R.id.city);
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(AddStore.this,
-                android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.region));
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        region.setAdapter(adapter);
-
-        ArrayAdapter<String> adapter2 = new ArrayAdapter<>(AddStore.this,
-                android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.city));
-        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        city.setAdapter(adapter2);
         myLayout = findViewById(R.id.constraintLayout);
         storeName = findViewById(R.id.storeName);
         storeLabel = findViewById(R.id.storeName_label);
         address = findViewById(R.id.address);
         tempLabel = findViewById(R.id.address_label);
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(AddStore.this,
+                android.R.layout.simple_list_item_1, regionList);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        region.setAdapter(adapter);
+
+        ArrayAdapter<String> adapter2 = new ArrayAdapter<>(AddStore.this,
+                android.R.layout.simple_list_item_1, cityList);
+        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        city.setAdapter(adapter2);
 
         regionLabel = findViewById(R.id.region_label);
 
@@ -56,6 +74,15 @@ public class AddStore extends AppCompatActivity {
         addressComment = findViewById(R.id.addressComment);
         addressCommentLabel = findViewById(R.id.addressComment_label);
         saveButton = findViewById(R.id.saveButton);
+
+        if (getIntent().getStringExtra("title") != null) {
+            this.setTitle(getIntent().getStringExtra("title"));
+            storeName.setText(getIntent().getStringExtra("name"));
+            region.setSelection(regionList.indexOf(getIntent().getStringExtra("region")));
+            city.setSelection(cityList.indexOf(getIntent().getStringExtra("city")));
+            address.setText(getIntent().getStringExtra("address"));
+            addressComment.setText(getIntent().getStringExtra("comment"));
+        }
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,6 +93,8 @@ public class AddStore extends AppCompatActivity {
                 allStore.putExtra("city", city.getSelectedItem().toString());
                 allStore.putExtra("address", address.getText().toString());
                 allStore.putExtra("comment", addressComment.getText().toString());
+                if (getIntent().getStringExtra("id") != null)
+                    allStore.putExtra("id", getIntent().getStringExtra("id"));
                 setResult(RESULT_OK, allStore);
                 finish();
             }
@@ -105,6 +134,7 @@ public class AddStore extends AppCompatActivity {
                 return false;
             }
         });
+
         city.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -238,6 +268,7 @@ public class AddStore extends AppCompatActivity {
             }
         });
     }
+
     private void check() {
         if (storeName.getText().length() >= 3 && address.getText().length() >= 5 &&
                 region.getSelectedItemId() != 0 && city.getSelectedItemId() != 0) {

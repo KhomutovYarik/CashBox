@@ -1,6 +1,8 @@
 package com.example.cashbox;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -53,10 +55,28 @@ public class ProfileFragment extends Fragment {
         quit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FirebaseAuth.getInstance().signOut();
-                Intent intent = new Intent(getActivity(), MainActivity.class);
-                startActivity(intent);
-                getActivity().finish();
+                final AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
+                dialog.setTitle("Выход из системы")
+                        .setMessage("Вы действительно хотите выйти из системы?")
+                        .setCancelable(false)
+                        .setPositiveButton("Да", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                FirebaseAuth.getInstance().signOut();
+                                dialogInterface.cancel();
+                                Intent intent = new Intent(getActivity(), MainActivity.class);
+                                startActivity(intent);
+                                getActivity().finish();
+                            }
+                        })
+                        .setNegativeButton("Нет", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.cancel();
+                            }
+                        });
+                AlertDialog diag = dialog.create();
+                diag.show();
             }
         });
         //String name = getActivity().getIntent().getStringExtra("name");

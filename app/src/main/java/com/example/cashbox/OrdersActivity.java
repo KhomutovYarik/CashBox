@@ -59,9 +59,6 @@ public class OrdersActivity extends AppCompatActivity {
     private void preparing() {
 
         database = FirebaseDatabase.getInstance().getReference(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("orders");
-        //String id = database.push().getKey();
-
-        //database.child(id).setValue(new User("sada", "asdas"));
 
         database.addValueEventListener(new ValueEventListener() {
 

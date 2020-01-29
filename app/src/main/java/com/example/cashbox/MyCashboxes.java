@@ -104,6 +104,16 @@ public class MyCashboxes extends AppCompatActivity {
                 database.child(id).setValue(newCashbox);
             }
         }
+        else
+        {
+            if (requestCode == 2)
+            {
+                if (resultCode == RESULT_OK)
+                {
+                    database.child(data.getStringExtra("id")).setValue(new Cashbox(data.getStringExtra("id"), getIntent().getStringExtra("parentId"), data.getStringExtra("name"), data.getStringExtra("model"), data.getStringExtra("serial")));
+                }
+            }
+        }
     }
 
 }

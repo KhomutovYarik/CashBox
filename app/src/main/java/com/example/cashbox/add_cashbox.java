@@ -51,6 +51,14 @@ public class add_cashbox extends AppCompatActivity {
         model = findViewById(R.id.model);
         model_label = findViewById(R.id.model_label);
 
+        if (getIntent().getStringExtra("title") != null)
+        {
+            this.setTitle(getIntent().getStringExtra("title"));
+            cashbox_name.setText(getIntent().getStringExtra("name"));
+            model.setText(getIntent().getStringExtra("model"));
+            factory_number.setText(getIntent().getStringExtra("serial"));
+        }
+
         model.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -76,6 +84,10 @@ public class add_cashbox extends AppCompatActivity {
                 allCashboxes.putExtra("name", cashbox_name.getText().toString());
                 allCashboxes.putExtra("model", model.getText().toString());
                 allCashboxes.putExtra("serial", mi.toUnformattedString());
+                if (getIntent().getStringExtra("id") != null)
+                {
+                    allCashboxes.putExtra("id", getIntent().getStringExtra("id"));
+                }
                 setResult(RESULT_OK, allCashboxes);
                 finish();
             }
