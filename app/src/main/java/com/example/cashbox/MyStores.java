@@ -16,7 +16,6 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.example.cashbox.ui.main.SectionsPagerAdapter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;

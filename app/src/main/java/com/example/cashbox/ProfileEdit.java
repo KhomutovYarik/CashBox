@@ -84,8 +84,6 @@ public class ProfileEdit extends AppCompatActivity {
 
         phoneNumber.setText(User.phone);
 
-        profile_name.setSelection(profile_name.getText().length());
-
         profile_email.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
