@@ -58,24 +58,7 @@ public class OrdersActivity extends AppCompatActivity {
     }
 
     private void preparing() {
-        final DatabaseReference userInfo = FirebaseDatabase.getInstance().getReference(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("userInfo");
-
         User.phone = phoneTransform(FirebaseAuth.getInstance().getCurrentUser().getPhoneNumber());
-
-        userInfo.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.child("name").exists())
-                    User.name = dataSnapshot.child("name").getValue().toString();
-                if (dataSnapshot.child("email").exists())
-                    User.email = dataSnapshot.child("email").getValue().toString();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
 
         database = FirebaseDatabase.getInstance().getReference(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("orders");
 

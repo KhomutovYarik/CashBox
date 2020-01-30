@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
@@ -19,7 +20,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.w3c.dom.Text;
 
@@ -40,8 +45,31 @@ public class ProfileFragment extends Fragment {
         quit = view.findViewById(R.id.quit);
         editButton = view.findViewById(R.id.edit_button);
 
-        if (User.name != null)
-            profileName.setText(User.name);
+        DatabaseReference userInfo = FirebaseDatabase.getInstance().getReference(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("userInfo");
+
+        userInfo.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.child("name").exists()) {
+                    User.name = dataSnapshot.child("name").getValue().toString();
+                    profileName.setText(User.name);
+                }
+                else {
+                    User.name = null;
+                    profileName.setText("Пользователь");
+                }
+                if (dataSnapshot.child("email").exists())
+                    User.email = dataSnapshot.child("email").getValue().toString();
+                else
+                    User.email = null;
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
         profilePhone.setText(User.phone);
 
         editButton.setOnClickListener(new View.OnClickListener() {

@@ -1,5 +1,6 @@
 package com.example.cashbox;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageView;
 
@@ -16,22 +17,27 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.regex.Pattern;
 
 public class ProfileEdit extends AppCompatActivity {
 
     EditText profile_name, profile_email, old_password, new_password, new_password_again;
+    TextView phoneNumber;
     Button saveButton;
     String name;
     Intent intent;
     AppCompatImageView lock1, lock2, lock3;
 
-    DatabaseReference database;
+    DatabaseReference userInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +49,7 @@ public class ProfileEdit extends AppCompatActivity {
     private void prepare() {
         profile_name = findViewById(R.id.profile_name);
         name = profile_name.getText().toString();
+        phoneNumber = findViewById(R.id.phoneNumber);
         saveButton = findViewById(R.id.saveButton);
         profile_email = findViewById(R.id.profile_email);
         old_password = findViewById(R.id.old_password);
@@ -52,13 +59,30 @@ public class ProfileEdit extends AppCompatActivity {
         lock2 = findViewById(R.id.lock2);
         lock3 = findViewById(R.id.lock3);
 
-        database = FirebaseDatabase.getInstance().getReference(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("userInfo");
+        userInfo = FirebaseDatabase.getInstance().getReference(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("userInfo");
 
-        if (User.name != null)
-            profile_name.setText(User.name);
+        userInfo.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.child("name").exists()) {
+                    profile_name.setText(dataSnapshot.child("name").getValue().toString());
+                }
+                else {
+                    profile_name.setText("");
+                }
+                if (dataSnapshot.child("email").exists())
+                    profile_email.setText(dataSnapshot.child("email").getValue().toString());
+                else
+                    profile_email.setText("");
+            }
 
-        if (User.email != null)
-            profile_email.setText(User.email);
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        phoneNumber.setText(User.phone);
 
         profile_name.setSelection(profile_name.getText().length());
 
@@ -323,7 +347,7 @@ public class ProfileEdit extends AppCompatActivity {
                     newEmail = profile_email.getText().toString();
                 }
 
-                database.setValue(new UserInfo(newName, newEmail));
+                userInfo.setValue(new UserInfo(newName, newEmail));
 
                 setResult(RESULT_OK, intent);
                 finish();
