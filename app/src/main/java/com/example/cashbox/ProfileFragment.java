@@ -21,20 +21,28 @@ import android.widget.TextView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
+import org.w3c.dom.Text;
+
 import static android.app.Activity.RESULT_OK;
 
 
 public class ProfileFragment extends Fragment {
     private LinearLayout myStores, quit;
     private ImageView editButton;
-    private Button test;
-
+    public TextView profileName;
+    private TextView profilePhone;
 
     public View onCreateView (LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
+        profileName = view.findViewById(R.id.profile_name);
+        profilePhone = view.findViewById(R.id.profile_phone);
         myStores = view.findViewById(R.id.my_stores);
         quit = view.findViewById(R.id.quit);
         editButton = view.findViewById(R.id.edit_button);
+
+        if (User.name != null)
+            profileName.setText(User.name);
+        profilePhone.setText(User.phone);
 
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,10 +102,8 @@ public class ProfileFragment extends Fragment {
         {
             if (resultCode == RESULT_OK)
             {
-                //String name = data.getStringExtra("name");
-                //String email = data.getStringExtra("email");
-                //String new_password = data.getStringExtra("new_password");
-
+                if (data.getStringExtra("name") != null)
+                    profileName.setText(data.getStringExtra("name"));
             }
         }
     }

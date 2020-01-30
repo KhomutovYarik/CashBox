@@ -2,6 +2,7 @@ package com.example.cashbox;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -57,6 +58,24 @@ public class OrdersActivity extends AppCompatActivity {
     }
 
     private void preparing() {
+        final DatabaseReference userInfo = FirebaseDatabase.getInstance().getReference(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("userInfo");
+
+        User.phone = phoneTransform(FirebaseAuth.getInstance().getCurrentUser().getPhoneNumber());
+
+        userInfo.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.child("name").exists())
+                    User.name = dataSnapshot.child("name").getValue().toString();
+                if (dataSnapshot.child("email").exists())
+                    User.email = dataSnapshot.child("email").getValue().toString();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
         database = FirebaseDatabase.getInstance().getReference(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("orders");
 
@@ -75,8 +94,6 @@ public class OrdersActivity extends AppCompatActivity {
                     String problem = ordersSnapshot.child("problem").getValue().toString();
                     String problemDesc = ordersSnapshot.child("problemDesc").getValue().toString();
                     String status = ordersSnapshot.child("status").getValue().toString();
-//                    String minPrice = ordersSnapshot.child("minPrice").getValue().toString();
-//                    String offers = ordersSnapshot.child("offersNumber").getValue().toString();
                     if (status.equals("1"))
                     {
                         ActiveOrder order = new ActiveOrder(id, number , cbName, storeName, problem, problemDesc, "1",null, null);
@@ -99,8 +116,6 @@ public class OrdersActivity extends AppCompatActivity {
 
             }
         });
-        //database.child(id).setValue(new User("sada", "asdas"));
-
 
         ordersLayout = findViewById(R.id.linearLayout_forOrders);
         addOrderButton = findViewById(R.id.fab);
@@ -154,11 +169,21 @@ public class OrdersActivity extends AppCompatActivity {
 
 //                activeOrdersList.add(0, newOrder);
 //                ActiveOrdersFragment.adapter.notifyDataSetChanged();
-
-                JavaMailAPI sendMessage = new JavaMailAPI(this, "game210mk@gmail.com", "Ваша заявка была создана", "Заявка была создана:\n\nОписание проблемы: " + data.getStringExtra("problem"));
-                sendMessage.execute();
+                if (User.email != null) {
+                    JavaMailAPI sendMessage = new JavaMailAPI(this, User.email, "Ваша заявка была создана", "Заявка была создана:\n\nОписание проблемы: " + data.getStringExtra("problem"));
+                    sendMessage.execute();
+                }
             }
         }
+    }
+
+    private String phoneTransform(String number)
+    {
+        String newNumber = "+7 (";
+        char [] num = new char[number.length()];
+        number.getChars(0, number.length(), num, 0);
+        newNumber = newNumber + num[2] + num[3] + num[4] + ") " + num[5] + num[6] + num[7] + "-" + num[8] + num[9] + "-" + num[10] + num[11];
+        return newNumber;
     }
 
     /*private void preparing()

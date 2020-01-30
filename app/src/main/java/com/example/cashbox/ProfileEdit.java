@@ -17,6 +17,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.regex.Pattern;
 
 public class ProfileEdit extends AppCompatActivity {
@@ -26,6 +30,8 @@ public class ProfileEdit extends AppCompatActivity {
     String name;
     Intent intent;
     AppCompatImageView lock1, lock2, lock3;
+
+    DatabaseReference database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +51,14 @@ public class ProfileEdit extends AppCompatActivity {
         lock1 = findViewById(R.id.lock);
         lock2 = findViewById(R.id.lock2);
         lock3 = findViewById(R.id.lock3);
+
+        database = FirebaseDatabase.getInstance().getReference(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("userInfo");
+
+        if (User.name != null)
+            profile_name.setText(User.name);
+
+        if (User.email != null)
+            profile_email.setText(User.email);
 
         profile_name.setSelection(profile_name.getText().length());
 
@@ -259,7 +273,7 @@ public class ProfileEdit extends AppCompatActivity {
                     }
                     else {
                         AlertDialog.Builder builder = new AlertDialog.Builder(ProfileEdit.this);
-                        builder.setTitle("Введён неверный email!")
+                        builder.setTitle("Введён некорректный email!")
                                 .setMessage("Проверьте ввод и повторите ещё раз")
                                 .setCancelable(false)
                                 .setPositiveButton("ОК",
@@ -274,32 +288,45 @@ public class ProfileEdit extends AppCompatActivity {
                     }
                 }
 
-                if (old_password.getText().length() != 0 && new_password.getText().length() != 0 &&
-                        new_password_again.getText().length() != 0
-                        && new_password.getText().toString().equals(new_password_again.getText().toString())) {
-                    if (isPassChanged()) {
-                        intent.putExtra("new_password", new_password.getText().toString());
-                    }
-                    else {
-                        AlertDialog.Builder builder = new AlertDialog.Builder(ProfileEdit.this);
-                        builder.setTitle("Вы ошиблись при вводе пароля!")
-                                .setMessage("Проверьте ввод и повторите ещё раз")
-                                .setCancelable(false)
-                                .setPositiveButton("ОК",
-                                        new DialogInterface.OnClickListener() {
-                                            public void onClick(DialogInterface dialog, int id) {
-                                                dialog.cancel();
-                                            }
-                                        });
-                        AlertDialog alert = builder.create();
-                        alert.show();
-                        return;
-                    }
+//                if (old_password.getText().length() != 0 && new_password.getText().length() != 0 &&
+//                        new_password_again.getText().length() != 0
+//                        && new_password.getText().toString().equals(new_password_again.getText().toString())) {
+//                    if (isPassChanged()) {
+//                        intent.putExtra("new_password", new_password.getText().toString());
+//                    }
+//                    else {
+//                        AlertDialog.Builder builder = new AlertDialog.Builder(ProfileEdit.this);
+//                        builder.setTitle("Вы ошиблись при вводе пароля!")
+//                                .setMessage("Проверьте ввод и повторите ещё раз")
+//                                .setCancelable(false)
+//                                .setPositiveButton("ОК",
+//                                        new DialogInterface.OnClickListener() {
+//                                            public void onClick(DialogInterface dialog, int id) {
+//                                                dialog.cancel();
+//                                            }
+//                                        });
+//                        AlertDialog alert = builder.create();
+//                        alert.show();
+//                        return;
+//                    }
+//                }
+                String newName = null;
+                String newEmail = null;
+
+                if (profile_name.getText().length() != 0)
+                {
+                    newName = profile_name.getText().toString();
+                    getIntent().putExtra("name", newName);
                 }
+                if (profile_email.getText().length() != 0)
+                {
+                    newEmail = profile_email.getText().toString();
+                }
+
+                database.setValue(new UserInfo(newName, newEmail));
 
                 setResult(RESULT_OK, intent);
                 finish();
-
             }
         });
 

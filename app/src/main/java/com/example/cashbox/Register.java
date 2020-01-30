@@ -278,14 +278,14 @@ public class Register extends AppCompatActivity {
             public void onClick(View view) {
                 //String id = database.push().getKey();
 
-                inputMask.clear();
-                inputMask.insertFront(phoneNumber.getText());
-                String phone = inputMask.toUnformattedString();
-                phone = phone.substring(2, 12);
-
-                User newUser = new User(name.getText().toString(), email.getText().toString());
-                database.push().setValue(newUser);
-                fbauth.createUserWithEmailAndPassword(phone, password.getText().toString());
+//                inputMask.clear();
+//                inputMask.insertFront(phoneNumber.getText());
+//                String phone = inputMask.toUnformattedString();
+//                phone = phone.substring(2, 12);
+//
+//                User newUser = new User(name.getText().toString(), email.getText().toString());
+//                database.push().setValue(newUser);
+//                fbauth.createUserWithEmailAndPassword(phone, password.getText().toString());
                 //checkCode();
             }
         });
@@ -358,8 +358,8 @@ public class Register extends AppCompatActivity {
                             String phone = inputMask.toUnformattedString();
                             phone = phone.substring(2, 12);
 
-                            User newUser = new User(name.getText().toString(), email.getText().toString());
-                            database.child(id).setValue(newUser);
+//                            User newUser = new User(name.getText().toString(), email.getText().toString());
+//                            database.child(id).setValue(newUser);
 
                             AlertDialog.Builder builder = new AlertDialog.Builder(Register.this);
                             builder.setTitle("Поздравляем!")
