@@ -29,6 +29,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class NewOrderActivity extends AppCompatActivity {
     private TextView store_label, cashbox_label, problem_label, problemDescription_label;
@@ -40,6 +41,8 @@ public class NewOrderActivity extends AppCompatActivity {
     DatabaseReference database;
     ArrayList<String> storesList, cbsList;
     ArrayList<String> [] allLists;
+    ArrayList<Store> stores;
+    ArrayList<String> cashboxes;
     ArrayAdapter<String> store_adapter, cashbox_adapter;
 
     @Override
@@ -50,8 +53,10 @@ public class NewOrderActivity extends AppCompatActivity {
     }
 
     private void prepare() {
-        storesList = new ArrayList<String>();
-        cbsList = new ArrayList<String>();
+        storesList = new ArrayList<>();
+        cbsList = new ArrayList<>();
+        stores = new ArrayList<>();
+        cashboxes = new ArrayList<>();
 
         store_label = findViewById(R.id.problemStore_label);
         cashbox_label = findViewById(R.id.cashbox_label);
@@ -87,6 +92,8 @@ public class NewOrderActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 storesList.clear();
                 cbsList.clear();
+                stores.clear();
+                cashboxes.clear();
                 storesList.add("Выберите торговую точку");
                 cbsList.add("Выберите кассовый аппарат");
                 int i = (int)dataSnapshot.getChildrenCount();
@@ -100,9 +107,11 @@ public class NewOrderActivity extends AppCompatActivity {
                 {
                     String id = snap1.child("id").getValue().toString();
                     storesList.add(snap1.child("name").getValue().toString());
+                    stores.add(new Store(null, null, null, snap1.child("city").getValue().toString(), snap1.child("address").getValue().toString(), null));
                     for (DataSnapshot snap2 : dataSnapshot.child(id).child("cashboxes").getChildren())
                     {
                         allLists[j].add(snap2.child("name").getValue().toString());
+                        cashboxes.add(snap2.child("model").getValue().toString());
                     }
                     j++;
                 }
@@ -261,6 +270,9 @@ public class NewOrderActivity extends AppCompatActivity {
                 allorders.putExtra("cashbox", cashbox.getSelectedItem().toString());
                 allorders.putExtra("problem", problem.getSelectedItem().toString());
                 allorders.putExtra("problemDesc", String.valueOf(problemDescription.getText()));
+                allorders.putExtra("city", stores.get(store.getSelectedItemPosition() - 1).getCity());
+                allorders.putExtra("address", stores.get(store.getSelectedItemPosition() - 1).getAddress());
+                allorders.putExtra("model", cashboxes.get(cashbox.getSelectedItemPosition() - 1));
                 setResult(RESULT_OK, allorders);
                 finish();
             }

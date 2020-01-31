@@ -1,4 +1,186 @@
 <resources>
+    <string-array name="models">
+        <item>АЗУР-01Ф</item>
+        <item>АМС-300.1Ф</item>
+        <item>АМС-300Ф</item>
+        <item>АМС-700Ф</item>
+        <item>АМС-100Ф</item>
+        <item>Меркурий-МФ</item>
+        <item>Меркурий-119Ф</item>
+        <item>Меркурий-130Ф</item>
+        <item>Меркурий-180Ф</item>
+        <item>Меркурий-115Ф</item>
+        <item>Меркурий-185Ф</item>
+        <item>АТОЛ 20Ф</item>
+        <item>АТОЛ 50Ф</item>
+        <item>АТОЛ 91Ф</item>
+        <item>АТОЛ 1Ф</item>
+        <item>АТОЛ 27Ф</item>
+        <item>АТОЛ Sigma 8Ф</item>
+        <item>АТОЛ Sigma 7Ф</item>
+        <item>АТОЛ 92Ф</item>
+        <item>АТОЛ 150Ф</item>
+        <item>АТОЛ 42ФС</item>
+        <item>АТОЛ 60Ф</item>
+        <item>АТОЛ 15Ф</item>
+        <item>АТОЛ 90Ф</item>
+        <item>АТОЛ 55Ф</item>
+        <item>АТОЛ 52Ф</item>
+        <item>АТОЛ 25Ф</item>
+        <item>АТОЛ 77Ф</item>
+        <item>АТОЛ 30Ф</item>
+        <item>АТОЛ 11Ф</item>
+        <item>АТОЛ FPrint-22ПТК</item>
+        <item>WNJI-003Ф</item>
+        <item>ПОРТ-100Ф</item>
+        <item>ПОРТ-1000Ф</item>
+        <item>ПОРТ-600Ф</item>
+        <item>ВИКИ ПРИНТ 80 ПЛЮС Ф</item>
+        <item>Viki Tower F</item>
+        <item>Спутник Ф</item>
+        <item>Касса Ф</item>
+        <item>Пульс ФА</item>
+        <item>Дримкас-Ф</item>
+        <item>ВИКИ МИНИ Ф</item>
+        <item>ВИКИ ПРИНТ 57 Ф</item>
+        <item>ВИКИ ПРИНТ 57 ПЛЮС Ф</item>
+        <item>САЛЮТ-08Ф</item>
+        <item>САЛЮТ-10Ф</item>
+        <item>САЛЮТ-12Ф</item>
+        <item>Электроника 30Ф</item>
+        <item>Меркурий-105Ф</item>
+        <item>FN-1.online/ФАС</item>
+        <item>МИКРО 106-Ф</item>
+        <item>МИКРО 35G-Ф</item>
+        <item>Уникум-ФА</item>
+        <item>NEW8210-Ф</item>
+        <item>Облако-1Ф</item>
+        <item>НЕВА-01-Ф</item>
+        <item>CUSTOM TK302-ФБ</item>
+        <item>CUSTOM Q3X-Ф</item>
+        <item>КАЗНАЧЕЙ ФА</item>
+        <item>КИТ Онлайн-Ф</item>
+        <item>КИТ ШОП-Ф</item>
+        <item>Терминал-ФА</item>
+        <item>Касби-02Ф</item>
+        <item>СПАРК-130-Ф</item>
+        <item>СПАРК-115-Ф</item>
+        <item>ПИРИТ 2СФ</item>
+        <item>ПИРИТ 2Ф</item>
+        <item>ПИРИТ 1Ф</item>
+        <item>TZ Pro-F</item>
+        <item>К1-Ф</item>
+        <item>ПэйМоб-Ф</item>
+        <item>MSPOS-E-Ф</item>
+        <item>IRAS-EM Ф</item>
+        <item>IRAS-E Ф</item>
+        <item>MSPOS-T-Ф</item>
+        <item>НКР-01-Ф</item>
+        <item>МТ01-Солитон mPOS-Ф</item>
+        <item>ЭЛВЕС-ФР-Ф</item>
+        <item>ЭЛВЕС-МИНИ-Ф</item>
+        <item>ЭЛВЕС-МФ</item>
+        <item>ЭЛВЕС-МИКРО-Ф</item>
+        <item>ПТК«IRAS 900 K»</item>
+        <item>ПТК«АЛЬФА-ТК-Ф»</item>
+        <item>Тактилион-А Ф</item>
+        <item>MSPOS-D-Ф</item>
+        <item>СТАРТ-ТК-Ф</item>
+        <item>СТАРТ 21 ФА</item>
+        <item>ПТК«MSTAR-TK»</item>
+        <item>ПТК«MSPOS-K»</item>
+        <item>ПТК«АЛЬФА-ТК»</item>
+        <item>Лимон БАНК-Ф</item>
+        <item>Лимон СМАРТ-Ф</item>
+        <item>Лимон МОБАЙЛ-Ф</item>
+        <item>УМКА-01-ФА</item>
+        <item>ОРИОН-100Ф</item>
+        <item>POSCENTER-A7L-Ф</item>
+        <item>POSCENTER-02Ф</item>
+        <item>РИТЕЙЛ-КОМБО-01Ф</item>
+        <item>ars.mobile Ф</item>
+        <item>ars.vera 01Ф</item>
+        <item>ars.evo 01Ф</item>
+        <item>MicroPay-ФС</item>
+        <item>MicroPay-ФАС</item>
+        <item>ПКТФ</item>
+        <item>Пионер-114Ф</item>
+        <item>PAYONLINE-01-ФА</item>
+        <item>NETPAY-ФС</item>
+        <item>AQSI5-Ф</item>
+        <item>PAY VKP-80K-ФА</item>
+        <item>MB Solution-F</item>
+        <item>МКАССА RS9000-Ф</item>
+        <item>МЕЩЕРА-01-Ф</item>
+        <item>РП Система 1ФС</item>
+        <item>Кассир 57Ф</item>
+        <item>КАССИР 80Ф</item>
+        <item>Кассатка-Мини-Ф</item>
+        <item>Кассатка-1Ф</item>
+        <item>РП Система 1ФА</item>
+        <item>РР-03Ф</item>
+        <item>РР-04Ф</item>
+        <item>РР-Микро-Ф</item>
+        <item>РР-01Ф</item>
+        <item>РР-02Ф</item>
+        <item>Эфир Pro ФС</item>
+        <item>СПЕКТР-ПС-Ф</item>
+        <item>СПЕКТР-Ф</item>
+        <item>ОКА-102Ф</item>
+        <item>Ока МФ</item>
+        <item>СП801-Ф</item>
+        <item>ЧекВей77-Ф</item>
+        <item>СП802-Ф</item>
+        <item>СП101-Ф</item>
+        <item>СП402-Ф</item>
+        <item>ЭКР 2102К-Ф</item>
+        <item>МИНИКА 1102МК-Ф</item>
+        <item>ФЕЛИКС-РМФ</item>
+        <item>МИНИКА 1105К-Ф</item>
+        <item>ПИКАССА-Ф</item>
+        <item>ПРИМ 06-Ф</item>
+        <item>МК 35-Ф</item>
+        <item>ПРИМ 07-Ф</item>
+        <item>ПРИМ 21-ФА</item>
+        <item>ПРИМ 08-Ф</item>
+        <item>ПРИМ 88-Ф</item>
+        <item>АК СМАРТ-01-Ф</item>
+        <item>POSCENTER BANK-Ф</item>
+        <item>МЁБИУС.NET.H21-Ф</item>
+        <item>ZEBRA-EZ320-Ф</item>
+        <item>МЁБИУС.NET.T18-Ф</item>
+        <item>РИТЕЙЛ-01Ф</item>
+        <item>АГАТ 1Ф</item>
+        <item>WAB57-FRФ</item>
+        <item>FIT-ONLINE-Ф</item>
+        <item>FIT-NEWLINE-F</item>
+        <item>SKY-PRINT 54-F</item>
+        <item>SKY-PRINT Mini-F</item>
+        <item>POSprint FP410-Ф</item>
+        <item>POSprint FP510-Ф</item>
+        <item>ШТРИХ-МИНИ-02Ф</item>
+        <item>ШТРИХ-МОБАЙЛ-Ф</item>
+        <item>ШТРИХ-ФР-02Ф</item>
+        <item>ШТРИХ-КАРТ-Ф</item>
+        <item>ШТРИХ-СИТИ-Ф</item>
+        <item>ШТРИХ-НАНО-Ф</item>
+        <item>ШТРИХ-СМАРТПОС-Ф</item>
+        <item>ШТРИХ-МПЕЙ-Ф</item>
+        <item>ШТРИХ-М-02Ф</item>
+        <item>ШТРИХ-М-01Ф</item>
+        <item>NCR-001Ф</item>
+        <item>ШТРИХ-ФР-01Ф</item>
+        <item>ШТРИХ-МИНИ-01Ф</item>
+        <item>ШТРИХ-ЛАЙТ-01Ф</item>
+        <item>ШТРИХ-ON-LINE</item>
+        <item>ШТРИХ-ЛАЙТ-02Ф</item>
+        <item>Эвотор СТ51Ф</item>
+        <item>Эвотор СТ5Ф</item>
+        <item>ЭВОТОР СТ3Ф</item>
+        <item>ЭВОТОР СТ2Ф</item>
+        <item>ЯРУС М2100Ф</item>
+        <item>ЯРУС ТФ</item>
+    </string-array>
     <string-array name="problem">
         <item>Выберите случившуюся проблему</item>
         <item>Чеки не отправляются в ОФД</item>

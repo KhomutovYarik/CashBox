@@ -50,16 +50,8 @@ public class ProfileFragment extends Fragment {
         editButton = view.findViewById(R.id.edit_button);
 
         //
-        final TextView txt = view.findViewById(R.id.textView2);
-        Document doc = null;
-        String title = null;
-        try {
-            doc = (Document) Jsoup.connect("https://kkt-online.nalog.ru/").get();
-            title = doc.title();
-            Toast.makeText(getActivity(), title, Toast.LENGTH_LONG).show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        TextView txt = view.findViewById(R.id.textView2);
+//        HttpReq.getHtml("https://kkt-online.nalog.ru/", txt, getContext(), getActivity());
 //        OkHttpClient client = new OkHttpClient();
 //        Request req = new Request.Builder()
 //                .addHeader("content-type", "text/html")

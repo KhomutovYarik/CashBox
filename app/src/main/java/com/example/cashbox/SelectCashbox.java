@@ -15,9 +15,11 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class SelectCashbox extends AppCompatActivity {
-    private ArrayList<String> cashboxModels, cashboxModelsCopy;
+    private List<String> models;
     private ListView listOfModels;
     private EditText filter;
     private ArrayAdapter<String> adapter;
@@ -30,23 +32,19 @@ public class SelectCashbox extends AppCompatActivity {
         prepare();
     }
     private void prepare() {
-        Intent myIntent = getIntent();
-        cashboxModels = myIntent.getStringArrayListExtra("cashboxModels");
-        //cashboxModels.add("Один"); cashboxModels.add("Два");
+        models = Arrays.asList(getResources().getStringArray(R.array.models));
         listOfModels = findViewById(R.id.listOfModels);
         filter = findViewById(R.id.input);
 
         adapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_1, cashboxModels);
+                android.R.layout.simple_list_item_1, models);
 
         listOfModels.setAdapter(adapter);
         listOfModels.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                //TODO Переделать эту хуйню на кастом адаптер
                 String s = adapter.getItem(position);
-                //Toast.makeText(SelectCashbox.this,s,Toast.LENGTH_SHORT).show();
-                intent = new Intent();
+                Intent intent = new Intent();
                 intent.putExtra("model_name", s);
                 setResult(RESULT_OK, intent);
                 finish();

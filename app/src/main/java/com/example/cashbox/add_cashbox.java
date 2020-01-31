@@ -24,7 +24,6 @@ import ru.tinkoff.decoro.watchers.FormatWatcher;
 import ru.tinkoff.decoro.watchers.MaskFormatWatcher;
 
 public class add_cashbox extends AppCompatActivity {
-    private ArrayList<String> cashboxModels;
     private MaskImpl mi;
     TextView cashbox_name_label, factory_number_label, model_label;
     EditText cashbox_name, factory_number;
@@ -38,11 +37,6 @@ public class add_cashbox extends AppCompatActivity {
     }
 
     private void prepare () {
-        cashboxModels = new ArrayList<>();
-        cashboxModels.add("АЗУР-01Ф"); cashboxModels.add("АМС-300.1Ф"); cashboxModels.add("АМС-300Ф");
-        cashboxModels.add("АМС-700Ф"); cashboxModels.add("АМС-100Ф"); cashboxModels.add("МЕРКУРИЙ-МФ");
-        cashboxModels.add("МЕРКУРИЙ-119Ф"); cashboxModels.add("МЕРКУРИЙ-130Ф"); cashboxModels.add("МЕРКУРИЙ-180Ф");
-        cashboxModels.add("МЕРКУРИЙ-115Ф"); cashboxModels.add("МЕРКУРИЙ-185Ф"); cashboxModels.add("АТОЛ 20Ф");
         cashbox_name = findViewById(R.id.cashboxName);
         cashbox_name_label = findViewById(R.id.cashboxName_label);
         factory_number = findViewById(R.id.factory_number);
@@ -63,7 +57,6 @@ public class add_cashbox extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(add_cashbox.this, SelectCashbox.class);
-                intent.putExtra("cashboxModels", cashboxModels);
                 startActivityForResult(intent, 1);
             }
         });

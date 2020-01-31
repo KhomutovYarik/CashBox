@@ -154,7 +154,10 @@ public class OrdersActivity extends AppCompatActivity {
 //                activeOrdersList.add(0, newOrder);
 //                ActiveOrdersFragment.adapter.notifyDataSetChanged();
                 if (User.email != null) {
-                    JavaMailAPI sendMessage = new JavaMailAPI(this, User.email, "Ваша заявка была создана", "Заявка была создана:\n\nОписание проблемы: " + data.getStringExtra("problem"));
+                    String name = "";
+                    if (User.name != null)
+                        name = User.name;
+                    JavaMailAPI sendMessage = new JavaMailAPI(this, User.email, "Ваша заявка была создана", "Здравствуйте, " + name + "!\nВаша заявка была оформлена:\n\nДанные заявки:\n\nАдрес: " + "г. " + data.getStringExtra("city") + ", " + data.getStringExtra("address") + "\n\nМодель ККТ: " + data.getStringExtra("model") + "\n\n" + "Описание проблемы: " + data.getStringExtra("problem"));
                     sendMessage.execute();
                 }
             }
