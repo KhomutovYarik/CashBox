@@ -58,6 +58,7 @@ public class OrdersActivity extends AppCompatActivity {
     }
 
     private void preparing() {
+
         User.phone = phoneTransform(FirebaseAuth.getInstance().getCurrentUser().getPhoneNumber());
 
         database = FirebaseDatabase.getInstance().getReference(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("orders");

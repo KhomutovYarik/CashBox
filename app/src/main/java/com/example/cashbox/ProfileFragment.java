@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -26,7 +27,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import org.w3c.dom.Text;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+
+import java.io.IOException;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -44,6 +48,47 @@ public class ProfileFragment extends Fragment {
         myStores = view.findViewById(R.id.my_stores);
         quit = view.findViewById(R.id.quit);
         editButton = view.findViewById(R.id.edit_button);
+
+        //
+        final TextView txt = view.findViewById(R.id.textView2);
+        Document doc = null;
+        String title = null;
+        try {
+            doc = (Document) Jsoup.connect("https://kkt-online.nalog.ru/").get();
+            title = doc.title();
+            Toast.makeText(getActivity(), title, Toast.LENGTH_LONG).show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+//        OkHttpClient client = new OkHttpClient();
+//        Request req = new Request.Builder()
+//                .addHeader("content-type", "text/html")
+//                .url("https://kkt-online.nalog.ru/")
+//                .build();
+//
+//        client.newCall(req).enqueue(new Callback() {
+//            @Override
+//            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+//                e.printStackTrace();
+//            }
+//
+//            @Override
+//            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+//                if (response.isSuccessful())
+//                {
+//                    final String resp = response.body().toString();
+//
+//                    getActivity().runOnUiThread(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            txt.setText(resp);
+//                        }
+//                    });
+//                }
+//            }
+//        });
+//            txt.setText(HttpReq.getHtml("https://kkt-online.nalog.ru/"));
+        //
 
         DatabaseReference userInfo = FirebaseDatabase.getInstance().getReference(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("userInfo");
 
