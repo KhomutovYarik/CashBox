@@ -158,8 +158,8 @@ public class OrdersActivity extends AppCompatActivity {
                 if (User.email != null) {
                     String name = "";
                     if (User.name != null)
-                        name = User.name;
-                    JavaMailAPI sendMessage = new JavaMailAPI(this, User.email, "Ваша заявка была создана", "Здравствуйте, " + name + "!\nВаша заявка была оформлена:\n\nДанные заявки:\n\nАдрес: " + "г. " + data.getStringExtra("city") + ", " + data.getStringExtra("address") + "\n\nМодель ККТ: " + data.getStringExtra("model") + "\n\n" + "Описание проблемы: " + data.getStringExtra("problem"));
+                        name = ", " + User.name;
+                    JavaMailAPI sendMessage = new JavaMailAPI(this, User.email, "Ваша заявка была создана", "Здравствуйте" + name + "!\nВаша заявка была оформлена:\n\nДанные заявки:\n\nАдрес: " + "г. " + data.getStringExtra("city") + ", " + data.getStringExtra("address") + "\n\nМодель ККТ: " + data.getStringExtra("model") + "\n\n" + "Описание проблемы: " + data.getStringExtra("problem"));
                     sendMessage.execute();
                 }
             }
