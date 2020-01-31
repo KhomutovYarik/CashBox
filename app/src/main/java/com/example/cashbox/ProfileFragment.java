@@ -27,8 +27,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
+//import org.jsoup.Jsoup;
+//import org.jsoup.nodes.Document;
 
 import java.io.IOException;
 
@@ -49,7 +49,7 @@ public class ProfileFragment extends Fragment {
         quit = view.findViewById(R.id.quit);
         editButton = view.findViewById(R.id.edit_button);
 
-        //
+//
 //        TextView txt = view.findViewById(R.id.textView2);
 //        HttpReq.getHtml("https://kkt-online.nalog.ru/", txt, getContext(), getActivity());
 //        OkHttpClient client = new OkHttpClient();

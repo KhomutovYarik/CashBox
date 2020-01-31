@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -40,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView phoneNumberLbl, codeLbl;
     private Button send, resend, signin;
     private MaskImpl inputMask;
+    private ProgressDialog mProgressDialog;
 
     FirebaseAuth fbauth;
     String sentCode;
@@ -129,14 +131,17 @@ public class MainActivity extends AppCompatActivity {
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                    sendVerificationCode();
+                //SMSAuth sms = new SMSAuth(MainActivity.this,phoneNumber.getText().toString());
+                sendVerificationCode();
             }
         });
 
         signin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                mProgressDialog = ProgressDialog.show(MainActivity.this,"Создание заявки", "Отправка E-mail...",false,false);
                 checkCode();
+                mProgressDialog.dismiss();
             }
         });
     }

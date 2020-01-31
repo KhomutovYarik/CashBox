@@ -14,9 +14,12 @@ import android.text.TextWatcher;
 import android.util.Patterns;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -36,6 +39,8 @@ public class ProfileEdit extends AppCompatActivity {
     String name;
     Intent intent;
     AppCompatImageView lock1, lock2, lock3;
+    Button test;
+    private ProgressBar progressBar;
 
     DatabaseReference userInfo;
 
@@ -46,7 +51,7 @@ public class ProfileEdit extends AppCompatActivity {
         prepare();
     }
 
-    private void prepare() {
+    private void findingViews() {
         profile_name = findViewById(R.id.profile_name);
         name = profile_name.getText().toString();
         phoneNumber = findViewById(R.id.phoneNumber);
@@ -58,14 +63,21 @@ public class ProfileEdit extends AppCompatActivity {
         lock1 = findViewById(R.id.lock);
         lock2 = findViewById(R.id.lock2);
         lock3 = findViewById(R.id.lock3);
+        progressBar = findViewById(R.id.progressBar);
+        test = findViewById(R.id.button);
+    }
 
+    private void getData() {
+        progressBar.setVisibility(View.VISIBLE);
         userInfo = FirebaseDatabase.getInstance().getReference(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("userInfo");
 
         userInfo.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.child("name").exists()) {
+                    //profile_name.setText("");
                     profile_name.setText(dataSnapshot.child("name").getValue().toString());
+                    profile_name.setSelection(profile_name.getText().length());
                 }
                 else {
                     profile_name.setText("");
@@ -74,6 +86,8 @@ public class ProfileEdit extends AppCompatActivity {
                     profile_email.setText(dataSnapshot.child("email").getValue().toString());
                 else
                     profile_email.setText("");
+                phoneNumber.setText(User.phone);
+                progressBar.setVisibility(View.INVISIBLE);
             }
 
             @Override
@@ -84,6 +98,18 @@ public class ProfileEdit extends AppCompatActivity {
 
         phoneNumber.setText(User.phone);
 
+    }
+
+    private void prepare() {
+        findingViews();
+        getData();
+        test.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ProfileEdit.this, TestDadata.class);
+                startActivity(intent);
+            }
+        });
         profile_email.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -123,11 +149,15 @@ public class ProfileEdit extends AppCompatActivity {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-            }
+                }
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
+//                if(profile_name.getText().length()>5)
+//                {
+//                    profile_name.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT));
+//                }
+//                else profile_name.setWidth(250);
             }
 
             @Override
