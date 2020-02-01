@@ -26,56 +26,77 @@ package com.example.cashbox.rest;
 
 import android.renderscript.ScriptIntrinsicYuvToRGB;
 
-import com.example.cashbox.test.Bound;
+import com.example.cashbox.utils.PropLocations;
+import com.example.cashbox.utils.Property;
+import com.google.gson.annotations.SerializedName;
 
-import org.json.JSONObject;
 
-/**
- * @author Savelii Zagurskii
- */
 public class DaDataBody {
-    private String query, from_bound, to_bound;
-    private int count;
-    private String temp;
-    private Bound from;
-    private Bound to;
 
-    public DaDataBody(String query, int count, Bound from, Bound to) {
-        this.query = query;
-        this.count = count;
-        this.from = from;
-        this.to = to;
+    @SerializedName("from_bound")
+    private Property fromBound;
+
+    @SerializedName("query")
+    private String query;
+
+    @SerializedName("count")
+    private int count;
+
+    @SerializedName("to_bound")
+    private Property toBound;
+
+    @SerializedName("restrict_value")
+    private boolean restrictValue;
+
+    @SerializedName("locations")
+    private PropLocations[] locations;
+
+
+    public void setFromBound(Property fromBound) {
+        this.fromBound = fromBound;
     }
 
-    public String getQuery() {
-        return query;
+    public Property getFromBound() {
+        return fromBound;
     }
 
     public void setQuery(String query) {
         this.query = query;
     }
 
-    public int getCount() {
-        return count;
+    public String getQuery() {
+        return query;
     }
 
     public void setCount(int count) {
         this.count = count;
     }
 
-    public Bound getFromV() {
-        return from;
+    public int getCount() {
+        return count;
     }
 
-    public void setFromV(Bound from) {
-        this.from = from;
+    public void setToBound(Property toBound) {
+        this.toBound = toBound;
     }
 
-    public Bound getToV() {
-        return to;
+    public Property getToBound() {
+        return toBound;
     }
 
-    public void setToV(Bound to) {
-        this.to = to;
+    public boolean getRestrictValue() {
+        return restrictValue;
+    }
+
+    public void setRestrictValue(boolean restrictValue) {
+        this.restrictValue = restrictValue;
+    }
+
+    public PropLocations[] getLocations() {
+        return locations;
+    }
+
+    public void setLocations(PropLocations[] locations) {
+        this.locations = locations;
     }
 }

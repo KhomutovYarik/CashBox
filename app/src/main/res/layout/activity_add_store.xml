@@ -49,8 +49,21 @@
         app:layout_constraintBottom_toTopOf="@+id/region"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Spinner
+    <AutoCompleteTextView
         android:id="@+id/region"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="30dp"
+        android:completionThreshold="2"
+        android:inputType="textCapWords|textAutoComplete"
+        android:background="@drawable/fields2_inactive"
+        android:hint="@string/region"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/storeName"/>
+
+    <Spinner
+        android:id="@+id/regionInvis"
         android:layout_width="0dp"
         android:layout_height="45dp"
         android:layout_marginTop="30dp"
@@ -58,6 +71,7 @@
         android:prompt="@string/select_hint"
         android:spinnerMode="dropdown"
         android:theme="@style/spinner"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/storeName" />
@@ -73,14 +87,29 @@
         app:layout_constraintBottom_toTopOf="@+id/city"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Spinner
+    <AutoCompleteTextView
         android:id="@+id/city"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="30dp"
+        android:completionThreshold="2"
+        android:enabled="false"
+        android:inputType="textCapWords|textAutoComplete"
+        android:background="@drawable/fields2_inactive"
+        android:hint="@string/city"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/region"/>
+
+    <Spinner
+        android:id="@+id/cityInvis"
         android:layout_width="0dp"
         android:layout_height="45dp"
         android:layout_marginTop="30dp"
         android:background="@drawable/spinner_inactive"
         android:spinnerMode="dropdown"
         android:theme="@style/spinner"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/region" />

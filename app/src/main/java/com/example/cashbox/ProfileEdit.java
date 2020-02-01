@@ -39,7 +39,6 @@ public class ProfileEdit extends AppCompatActivity {
     String name;
     Intent intent;
     AppCompatImageView lock1, lock2, lock3;
-    Button test;
     private ProgressBar progressBar;
 
     DatabaseReference userInfo;
@@ -64,7 +63,6 @@ public class ProfileEdit extends AppCompatActivity {
         lock2 = findViewById(R.id.lock2);
         lock3 = findViewById(R.id.lock3);
         progressBar = findViewById(R.id.progressBar);
-        test = findViewById(R.id.button);
     }
 
     private void getData() {
@@ -103,13 +101,6 @@ public class ProfileEdit extends AppCompatActivity {
     private void prepare() {
         findingViews();
         getData();
-        test.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(ProfileEdit.this, TestDadata.class);
-                startActivity(intent);
-            }
-        });
         profile_email.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {

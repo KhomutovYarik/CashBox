@@ -11,17 +11,30 @@
     tools:context=".TestDadata">
 
     <TextView
-        android:id="@+id/textview_activitymain_youraddress"
+        android:id="@+id/textview_region"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Введите адрес"/>
+        android:text="@string/region"/>
 
     <AutoCompleteTextView
-        android:id="@+id/autocompletetextview_activitymain"
+        android:id="@+id/region"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:completionThreshold="1"
-        android:hint="..."
+        android:completionThreshold="2"
+        android:inputType="textCapWords|textAutoComplete"/>
+
+    <TextView
+        android:id="@+id/textview_city"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/city"/>
+
+    <AutoCompleteTextView
+        android:id="@+id/city"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:completionThreshold="2"
+        android:enabled="false"
         android:inputType="textCapWords|textAutoComplete"/>
 
 </LinearLayout>

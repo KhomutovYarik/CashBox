@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
+apply plugin: 'realm-android'
 //apply plugin: 'com.google.gms.google-services'
 
 android {
@@ -11,10 +12,13 @@ android {
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
+        buildConfigField "String", "DADATA_API_KEY", "\"8cf2e25e7caaa431602586ae1d88841e4d00428b\""
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         resConfigs "en", "ru"
         vectorDrawables.useSupportLibrary = true
     }
+
+
     buildTypes {
         release {
             minifyEnabled false
@@ -44,7 +48,32 @@ dependencies {
     implementation 'ru.tinkoff.decoro:decoro:1.1.1'
     implementation 'com.android.support:design:28.0.0'
     implementation 'org.jsoup:jsoup:1.12.1'
+    //implementation 'org.jamel.kladr:kladr-core:0.0.2'
+    implementation 'com.squareup.retrofit:retrofit:1.9.0'
+    implementation 'com.squareup.okhttp:okhttp:2.4.0'
+    implementation 'com.squareup.okhttp:okhttp-urlconnection:2.4.0'
+    implementation 'com.squareup.okio:okio:1.6.0'
+    // Google Gson
+    implementation 'com.google.code.gson:gson:2.3.1'
+
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.2.1'
+    implementation 'com.squareup.retrofit2:retrofit:2.1.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.1.0'
+
     implementation files('libs/activation.jar')
     implementation files('libs/additionnal.jar')
     implementation files('libs/mail.jar')
+}
+
+buildscript {
+    repositories {
+        jcenter()
+        google()
+        maven {
+            url 'http://oss.jfrog.org/artifactory/oss-snapshot-local'
+        }
+    }
+    dependencies {
+        classpath "io.realm:realm-gradle-plugin:5.5.0"
+    }
 }

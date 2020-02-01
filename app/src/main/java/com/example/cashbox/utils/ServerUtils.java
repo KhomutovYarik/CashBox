@@ -45,7 +45,6 @@ import com.example.cashbox.realm.models.cache.Result;
 import com.example.cashbox.realm.models.dadata.RealmDaDataSuggestion;
 import com.example.cashbox.rest.DaDataBody;
 import com.example.cashbox.rest.DaDataRestClient;
-import com.example.cashbox.test.Bound;
 
 import org.json.JSONObject;
 
@@ -53,23 +52,16 @@ import org.json.JSONObject;
  * @author Savelii Zagurskii
  */
 public class ServerUtils {
+    private static String[] words;
+    private static boolean globalType;
     // Executor that runs queries in a queue
     private final static ExecutorService executor = Executors.newSingleThreadExecutor();
 
-    /**
-     * Query the DaData for current query.
-     *
-     * @param query    your query to process.
-     * @param listener listener to get callback on ready suggestions.
-     */
-    public static void query(final String query, final OnSuggestionsListener listener) {
+    public static void query(final String query, final OnSuggestionsListener listener, final boolean type, final String regionName) {
+        globalType=type;
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
-                HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-                interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-                OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
-                // Trim current query for ignoring whitespaces
                 String queryFromUser = query.replaceAll("\\s+", " ").trim();
 
                 // If the query is not empty, we proceed
@@ -93,18 +85,40 @@ public class ServerUtils {
                         RealmDaDataSuggestion suggestion = null;
                         try {
                             // Synchronously get the answer from DaData
-                            //String from_bound = "{ \"value\": \"region\" }";
-                            //String to_bound = "{ \"value\": \"region\" }";
-//                            JSONObject jsonObj = new JSONObject();
-//                            jsonObj.put("value","region");
-//                            JSONObject jsonObj2 = new JSONObject();
-//                            jsonObj.put("value","region");
-                            Bound from = new Bound();
-                            from.setValue("region");
-                            Bound to = new Bound();
-                            to.setValue("region");
-                            suggestion = DaDataRestClient.getInstance().suggestSync(new DaDataBody(queryFromUser, 10, from, to));
-                            Log.i("1337",suggestion.toString());
+                            DaDataBody body=new DaDataBody();
+                            body.setQuery(queryFromUser);
+                            Property fromBound, toBound, bounds;
+                            PropLocations[] region;
+                            PropertyForLocations locations;
+                            if (type) {
+                                body.setCount(10);
+                                bounds = new Property();
+                                bounds.setValue("region");
+                                body.setToBound(bounds);
+                                body.setFromBound(bounds);
+                            }
+                            else {
+                                words = regionName.split("\\s");
+                                body.setCount(10);
+                                fromBound = new Property();
+                                fromBound.setValue("city");
+                                body.setFromBound(fromBound);
+                                toBound = new Property();
+                                toBound.setValue("city");
+                                body.setToBound(toBound);
+                                region = new PropLocations[words.length];
+                                for (int i=0; i<words.length; i++)
+                                {
+                                    region[i] = new PropLocations();
+                                    region[i].setValue(words[i]);
+                                }
+                                body.setRestrictValue(true);
+
+
+                                body.setLocations(region);
+                            }
+
+                            suggestion = DaDataRestClient.getInstance().suggestSync(body);
                             success = true;
                         } catch (RetrofitError e) {
                             e.printStackTrace();
@@ -182,8 +196,11 @@ public class ServerUtils {
         RealmList<Result> resultsRealm = new RealmList<>();
         if (suggestion != null) {
             for (int i = 0; i < suggestion.getSuggestions().size(); i++) {
-                String suggestionResult = suggestion.getSuggestions().get(i).getValue();
-
+                String suggestionResult;
+                if (globalType)
+                    suggestionResult = suggestion.getSuggestions().get(i).getValue();
+                else
+                    suggestionResult = suggestion.getSuggestions().get(i).getRealmData().getCity_with_type();
                 suggestions.add(suggestionResult);
 
                 realm.beginTransaction();
