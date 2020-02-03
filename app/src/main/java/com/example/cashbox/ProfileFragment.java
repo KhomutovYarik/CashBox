@@ -1,6 +1,7 @@
 package com.example.cashbox;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -36,13 +37,17 @@ import static android.app.Activity.RESULT_OK;
 
 
 public class ProfileFragment extends Fragment {
-    private LinearLayout myStores, quit;
-    private ImageView editButton;
-    public TextView profileName;
-    private TextView profilePhone;
+    LinearLayout myStores, quit;
+    ImageView editButton;
+    TextView profileName;
+    TextView profilePhone;
+    ProgressDialog mProgressDialog;
 
     public View onCreateView (LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
+        mProgressDialog = new ProgressDialog(getActivity(), R.style.Theme_AppCompat_Light_NoActionBar_FullScreen);
+        mProgressDialog.show();
+        mProgressDialog.setContentView(R.layout.progress);
         profileName = view.findViewById(R.id.profile_name);
         profilePhone = view.findViewById(R.id.profile_phone);
         myStores = view.findViewById(R.id.my_stores);
@@ -99,6 +104,7 @@ public class ProfileFragment extends Fragment {
                     User.email = dataSnapshot.child("email").getValue().toString();
                 else
                     User.email = null;
+                mProgressDialog.dismiss();
             }
 
             @Override
@@ -159,6 +165,13 @@ public class ProfileFragment extends Fragment {
         //test.setText(name+" "+email+" "+new_password);
         return view;
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

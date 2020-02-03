@@ -1,6 +1,8 @@
 package com.example.cashbox;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,11 +32,29 @@ public class ActiveOrderAdapter extends ArrayAdapter<ActiveOrder> {
         this.resource = resource;
     }
 
-    private void setOnClick(final ImageView btn, final String id, final String number, final String cashboxName, final String storeName, final String problem, final String problemDesc){
+    private void setOnClick(final ImageView btn, final String ID, final String number, final String cashboxName, final String storeName, final String problem, final String problemDesc){
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FirebaseDatabase.getInstance().getReference(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("orders").child(id).setValue(new Order(id, number, cashboxName, storeName, problem, problemDesc, "2"));
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setTitle("Отмена заявки")
+                        .setMessage("Вы действительно хотите отменить заявку?")
+                        .setCancelable(false)
+                        .setPositiveButton("Да",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        FirebaseDatabase.getInstance().getReference(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("orders").child(ID).setValue(new Order(ID, number, cashboxName, storeName, problem, problemDesc, "2"));
+                                        dialog.cancel();
+                                    }
+                                })
+                        .setNegativeButton("Нет", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.cancel();
+                            }
+                        });
+                AlertDialog alert = builder.create();
+                alert.show();
             }
         });
     }

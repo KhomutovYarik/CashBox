@@ -50,7 +50,8 @@ public class ProfileEdit extends AppCompatActivity {
         prepare();
     }
 
-    private void findingViews() {
+    private void prepare() {
+
         profile_name = findViewById(R.id.profile_name);
         name = profile_name.getText().toString();
         phoneNumber = findViewById(R.id.phoneNumber);
@@ -63,9 +64,7 @@ public class ProfileEdit extends AppCompatActivity {
         lock2 = findViewById(R.id.lock2);
         lock3 = findViewById(R.id.lock3);
         progressBar = findViewById(R.id.progressBar);
-    }
-
-    private void getData() {
+        final CharSequence defHint = profile_name.getHint();
         progressBar.setVisibility(View.VISIBLE);
         userInfo = FirebaseDatabase.getInstance().getReference(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("userInfo");
 
@@ -96,11 +95,7 @@ public class ProfileEdit extends AppCompatActivity {
 
         phoneNumber.setText(User.phone);
 
-    }
 
-    private void prepare() {
-        findingViews();
-        getData();
         profile_email.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -153,6 +148,10 @@ public class ProfileEdit extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
+                if (profile_name.getText().length() == 0)
+                    profile_name.setHint(defHint);
+                else
+                    profile_name.setHint("");
                 if (profile_name.getText().length() > 15)
                 {
                     String str = String.valueOf(profile_name.getText());

@@ -1,9 +1,11 @@
 package com.example.cashbox;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -44,11 +46,15 @@ public class NewOrderActivity extends AppCompatActivity {
     ArrayList<Store> stores;
     ArrayList<String> cashboxes;
     ArrayAdapter<String> store_adapter, cashbox_adapter;
+    ProgressDialog mProgressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_order);
+        mProgressDialog = new ProgressDialog(this, R.style.Theme_AppCompat_Light_NoActionBar_FullScreen);
+        mProgressDialog.show();
+        mProgressDialog.setContentView(R.layout.progress);
         prepare();
     }
 
@@ -115,8 +121,10 @@ public class NewOrderActivity extends AppCompatActivity {
                     }
                     j++;
                 }
+                storesList.add("+ Добавить точку");
                 store_adapter.notifyDataSetChanged();
                 cashbox_adapter.notifyDataSetChanged();
+                mProgressDialog.dismiss();
             }
 
             @Override
@@ -203,14 +211,20 @@ public class NewOrderActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 cbsList.clear();
                 cbsList.add("Выберите кассовый аппарат");
-                if (i!=0) {
+                if (i!=0 && i!=storesList.size() - 1) {
                     cbsList.addAll(allLists[i - 1]);
+                    cbsList.add("+ Добавить ККТ");
                     cashbox.setEnabled(true);
                     check();
                 }
                 else
                 {
                     cashbox.setEnabled(false);
+                    if (i == storesList.size() - 1)
+                    {
+                        Intent newStore = new Intent(NewOrderActivity.this, AddStore.class);
+                        startActivityForResult(newStore, 1);
+                    }
                 }
                 cashbox_adapter.notifyDataSetChanged();
             }
@@ -308,5 +322,25 @@ public class NewOrderActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         finish();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1)
+        {
+            if (resultCode == RESULT_OK)
+            {
+                mProgressDialog.show();
+                String id = database.push().getKey();
+                Store newStore = new Store(id, data.getStringExtra("name"), data.getStringExtra("region"), data.getStringExtra("city"), data.getStringExtra("address"), data.getStringExtra("comment"));
+                database.child(id).setValue(newStore);
+                cashbox.setEnabled(true);
+            }
+            else
+            {
+                store.setSelection(0);
+            }
+        }
     }
 }

@@ -1,5 +1,6 @@
 package com.example.cashbox;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -42,12 +43,16 @@ public class OrdersActivity extends AppCompatActivity {
     LinearLayout ordersSection, profileSection;
     Button dada;
     DatabaseReference database;
+    ProgressDialog mProgressDialog;
 
     BottomNavigationView bottomNavigationView;
     LinearLayout ordersLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mProgressDialog = new ProgressDialog(this, R.style.Theme_AppCompat_Light_NoActionBar_FullScreen);
+        mProgressDialog.show();
+        mProgressDialog.setContentView(R.layout.progress);
         ActiveOrdersFragment.adapter = new ActiveOrderAdapter(this, R.layout.orderslistelement, activeOrdersList);
         FinishedOrdersFragment.adapter = new FinishedOrderAdapter(this, R.layout.finishorderslistelement, finishedOrdersList);
         setContentView(R.layout.activity_orders);
@@ -95,6 +100,7 @@ public class OrdersActivity extends AppCompatActivity {
                 Collections.reverse(finishedOrdersList);
                 ActiveOrdersFragment.adapter.notifyDataSetChanged();
                 FinishedOrdersFragment.adapter.notifyDataSetChanged();
+                mProgressDialog.dismiss();
             }
 
             @Override
