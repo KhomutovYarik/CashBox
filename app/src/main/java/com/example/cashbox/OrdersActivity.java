@@ -44,6 +44,7 @@ public class OrdersActivity extends AppCompatActivity {
     Button dada;
     DatabaseReference database;
     ProgressDialog mProgressDialog;
+    Fragment selectedFragment = null;
 
     BottomNavigationView bottomNavigationView;
     LinearLayout ordersLayout;
@@ -124,7 +125,6 @@ public class OrdersActivity extends AppCompatActivity {
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
                     @Override
                     public boolean onNavigationItemSelected(MenuItem item) {
-                        Fragment selectedFragment = null;
                         switch (item.getItemId()) {
                             case R.id.myOrders:
                                 ordersLayout.setVisibility(View.VISIBLE);
@@ -135,9 +135,11 @@ public class OrdersActivity extends AppCompatActivity {
                                 break;
                             case R.id.myProfile:
                                 ordersLayout.setVisibility(View.INVISIBLE);
-                                selectedFragment = new ProfileFragment();
-                                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                                        selectedFragment).commit();
+                                if (selectedFragment == null) {
+                                    selectedFragment = new ProfileFragment();
+                                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                                            selectedFragment).commit();
+                                }
                                 break;
                         }
 
