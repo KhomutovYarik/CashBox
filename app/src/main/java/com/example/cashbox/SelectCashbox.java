@@ -31,6 +31,7 @@ public class SelectCashbox extends AppCompatActivity {
         setContentView(R.layout.activity_select_cashbox);
         prepare();
     }
+
     private void prepare() {
         models = Arrays.asList(getResources().getStringArray(R.array.models));
         listOfModels = findViewById(R.id.listOfModels);

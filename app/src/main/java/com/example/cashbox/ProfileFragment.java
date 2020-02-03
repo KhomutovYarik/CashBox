@@ -41,13 +41,9 @@ public class ProfileFragment extends Fragment {
     ImageView editButton;
     TextView profileName;
     TextView profilePhone;
-    ProgressDialog mProgressDialog;
 
     public View onCreateView (LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
-        mProgressDialog = new ProgressDialog(getActivity(), R.style.Theme_AppCompat_Light_NoActionBar_FullScreen);
-        mProgressDialog.show();
-        mProgressDialog.setContentView(R.layout.progress);
         profileName = view.findViewById(R.id.profile_name);
         profilePhone = view.findViewById(R.id.profile_phone);
         myStores = view.findViewById(R.id.my_stores);
@@ -93,18 +89,12 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.child("name").exists()) {
-                    User.name = dataSnapshot.child("name").getValue().toString();
-                    profileName.setText(User.name);
+                    profileName.setText(dataSnapshot.child("name").getValue().toString());
                 }
                 else {
-                    User.name = null;
                     profileName.setText("Пользователь");
                 }
-                if (dataSnapshot.child("email").exists())
-                    User.email = dataSnapshot.child("email").getValue().toString();
-                else
-                    User.email = null;
-                mProgressDialog.dismiss();
+                OrdersActivity.profileProgress.dismiss();
             }
 
             @Override

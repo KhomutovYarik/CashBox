@@ -25,21 +25,37 @@ public class JavaMailAPI extends AsyncTask<Void,Void,Void>  {
     private String mSubject;
     private String mMessage;
 
+    private boolean action;
+
     private ProgressDialog mProgressDialog;
 
     //Constructor
-    public JavaMailAPI(Context mContext, String mEmail, String mSubject, String mMessage) {
+    public JavaMailAPI(Context mContext, String mEmail, String mSubject, String mMessage, boolean action) {
         this.mContext = mContext;
         this.mEmail = mEmail;
         this.mSubject = mSubject;
         this.mMessage = mMessage;
+        this.action = action;
     }
 
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
         //Show progress dialog while sending email
-        mProgressDialog = ProgressDialog.show(mContext,"Создание заявки", "Отправка E-mail...",false,false); //Статус отправки сообщения
+        mProgressDialog = new ProgressDialog(mContext);
+        if (action)
+        {
+            mProgressDialog.setTitle("Создание заявки");
+            mProgressDialog.setMessage("Отправка E-mail...");
+        }
+        else
+        {
+            mProgressDialog.setTitle("Отмена заявки");
+            mProgressDialog.setMessage("Отправка E-mail...");
+        }
+        mProgressDialog.setCancelable(false);
+        mProgressDialog.setIndeterminate(false);
+        mProgressDialog.show();
     }
 
     @Override
@@ -49,7 +65,10 @@ public class JavaMailAPI extends AsyncTask<Void,Void,Void>  {
         mProgressDialog.dismiss();
 
         //Show success toast
-        Toast.makeText(mContext,"Сообщение отправлено",Toast.LENGTH_SHORT).show();
+        if (action)
+            Toast.makeText(mContext,"Заявка оформлена",Toast.LENGTH_SHORT).show();
+        else
+            Toast.makeText(mContext,"Заявка отменена",Toast.LENGTH_SHORT).show();
     }
 
     @Override

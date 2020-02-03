@@ -44,7 +44,7 @@ public class NewOrderActivity extends AppCompatActivity {
     ArrayList<String> storesList, cbsList;
     ArrayList<String> [] allLists;
     ArrayList<Store> stores;
-    ArrayList<String> cashboxes;
+    ArrayList<Cashbox> cashboxes;
     ArrayAdapter<String> store_adapter, cashbox_adapter;
     ProgressDialog mProgressDialog;
 
@@ -117,7 +117,7 @@ public class NewOrderActivity extends AppCompatActivity {
                     for (DataSnapshot snap2 : dataSnapshot.child(id).child("cashboxes").getChildren())
                     {
                         allLists[j].add(snap2.child("name").getValue().toString());
-                        cashboxes.add(snap2.child("model").getValue().toString());
+                        cashboxes.add(new Cashbox(null, null, null, snap2.child("model").getValue().toString(), snap2.child("serialNumber").getValue().toString()));
                     }
                     j++;
                 }
@@ -227,6 +227,7 @@ public class NewOrderActivity extends AppCompatActivity {
                     }
                 }
                 cashbox_adapter.notifyDataSetChanged();
+                cashbox.setSelection(0);
             }
 
             @Override
@@ -286,7 +287,8 @@ public class NewOrderActivity extends AppCompatActivity {
                 allorders.putExtra("problemDesc", String.valueOf(problemDescription.getText()));
                 allorders.putExtra("city", stores.get(store.getSelectedItemPosition() - 1).getCity());
                 allorders.putExtra("address", stores.get(store.getSelectedItemPosition() - 1).getAddress());
-                allorders.putExtra("model", cashboxes.get(cashbox.getSelectedItemPosition() - 1));
+                allorders.putExtra("model", cashboxes.get(cashbox.getSelectedItemPosition() - 1).getModel());
+                allorders.putExtra("serialNumber", cashboxes.get(cashbox.getSelectedItemPosition() - 1).getSerialNumber());
                 setResult(RESULT_OK, allorders);
                 finish();
             }

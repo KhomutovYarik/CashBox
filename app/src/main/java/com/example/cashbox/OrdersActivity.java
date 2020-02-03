@@ -42,8 +42,9 @@ public class OrdersActivity extends AppCompatActivity {
     ImageView ordersIcon, profileIcon, addOrderButton;
     LinearLayout ordersSection, profileSection;
     Button dada;
-    DatabaseReference database;
+    DatabaseReference database, userInfo;
     ProgressDialog mProgressDialog;
+    public static ProgressDialog profileProgress;
     Fragment selectedFragment = null;
 
     BottomNavigationView bottomNavigationView;
@@ -70,6 +71,8 @@ public class OrdersActivity extends AppCompatActivity {
         User.phone = phoneTransform(FirebaseAuth.getInstance().getCurrentUser().getPhoneNumber());
 
         database = FirebaseDatabase.getInstance().getReference(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("orders");
+
+        userInfo = FirebaseDatabase.getInstance().getReference(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("userInfo");
 
         database.addValueEventListener(new ValueEventListener() {
 
@@ -98,10 +101,28 @@ public class OrdersActivity extends AppCompatActivity {
                     }
                 }
                 Collections.reverse(activeOrdersList);
-                Collections.reverse(finishedOrdersList);
                 ActiveOrdersFragment.adapter.notifyDataSetChanged();
                 FinishedOrdersFragment.adapter.notifyDataSetChanged();
                 mProgressDialog.dismiss();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        userInfo.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.child("name").exists())
+                    User.name = dataSnapshot.child("name").getValue().toString();
+                else
+                    User.name = null;
+                if (dataSnapshot.child("email").exists())
+                    User.email = dataSnapshot.child("email").getValue().toString();
+                else
+                    User.email = null;
             }
 
             @Override
@@ -134,12 +155,15 @@ public class OrdersActivity extends AppCompatActivity {
                                 addOrderButton.performClick();   //нажатие на пустое место за кнопкой
                                 break;
                             case R.id.myProfile:
-                                ordersLayout.setVisibility(View.INVISIBLE);
                                 if (selectedFragment == null) {
+                                    profileProgress = new ProgressDialog(OrdersActivity.this, R.style.Theme_AppCompat_Light_NoActionBar_FullScreen);
+                                    profileProgress.show();
+                                    profileProgress.setContentView(R.layout.progress);
                                     selectedFragment = new ProfileFragment();
                                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                                             selectedFragment).commit();
                                 }
+                                ordersLayout.setVisibility(View.INVISIBLE);
                                 break;
                         }
 
@@ -160,16 +184,17 @@ public class OrdersActivity extends AppCompatActivity {
                 String id = database.push().getKey();
                 Order newOrder = new Order(id, String.valueOf(num), data.getStringExtra("cashbox"), data.getStringExtra("store"), data.getStringExtra("problem"), data.getStringExtra("problemDesc"), "1");
                 database.child(id).setValue(newOrder);
-
 //                activeOrdersList.add(0, newOrder);
 //                ActiveOrdersFragment.adapter.notifyDataSetChanged();
-                if (User.email != null) {
-                    String name = "";
+                    String name = "", email = "", desc = "";
                     if (User.name != null)
-                        name = ", " + User.name;
-                    JavaMailAPI sendMessage = new JavaMailAPI(this, User.email, "Ваша заявка была создана", "Здравствуйте" + name + "!\nВаша заявка была оформлена:\n\nДанные заявки:\n\nАдрес: " + "г. " + data.getStringExtra("city") + ", " + data.getStringExtra("address") + "\n\nМодель ККТ: " + data.getStringExtra("model") + "\n\n" + "Описание проблемы: " + data.getStringExtra("problem"));
+                        name = "\n\nИмя пользователя: " + User.name;
+                    if (User.email != null)
+                        email = "\n\nE-mail пользователя: " + User.email;
+                    if (!data.getStringExtra("problemDesc").equals(""))
+                        desc = "\n\nПодробное описание проблемы: " + data.getStringExtra("problemDesc");
+                    JavaMailAPI sendMessage = new JavaMailAPI(this, "sos@cttp.ru", "Новая заявка", "Поступила новая заявка.\n\nДанные заявки:\n\nНомер заявки: " + num + "\n\nНомер телефона пользователя: " + User.phone + name + email + "\n\nАдрес пользователя: " + "г. " + data.getStringExtra("city") + ", " + data.getStringExtra("address") + "\n\nМодель ККТ: " + data.getStringExtra("model") + "\n\nСерийный номер ККТ: " + data.getStringExtra("serialNumber") + "\n\nОписание проблемы: " + data.getStringExtra("problem") + desc, true);
                     sendMessage.execute();
-                }
             }
         }
     }

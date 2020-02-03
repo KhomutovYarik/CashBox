@@ -44,6 +44,13 @@ public class ActiveOrderAdapter extends ArrayAdapter<ActiveOrder> {
                                 new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int id) {
                                         FirebaseDatabase.getInstance().getReference(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("orders").child(ID).setValue(new Order(ID, number, cashboxName, storeName, problem, problemDesc, "2"));
+                                        String name = "", email = "";
+                                        if (User.name != null)
+                                            name = "\n\nИмя пользователя: " + User.name;
+                                        if (User.email != null)
+                                            email = "\n\nE-mail пользователя: " + User.email;
+                                        JavaMailAPI sendMessage = new JavaMailAPI(context, "sos@cttp.ru", "Отмена заявки", "Заявка была отменена.\n\nНомер заявки: " + number + "\n\nТелефон пользователя: " + User.phone + name + email, false);
+                                        sendMessage.execute();
                                         dialog.cancel();
                                     }
                                 })
@@ -92,7 +99,10 @@ public class ActiveOrderAdapter extends ArrayAdapter<ActiveOrder> {
         numText.setText("#" + number + ". Активная заявка");
         cashboxText.setText(cashboxName + ", ");
         storeText.setText(storeName);
-        problemDescText.setText(problemDesc);
+        if (problem.length() < 30)
+            problemDescText.setText(problem);
+        else
+            problemDescText.setText(problemDesc);
         if (offersNumber == null)
         {
             offersImage.setImageResource(R.drawable.ic_waiting);
