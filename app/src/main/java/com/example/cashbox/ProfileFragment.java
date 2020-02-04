@@ -37,7 +37,7 @@ import static android.app.Activity.RESULT_OK;
 
 
 public class ProfileFragment extends Fragment {
-    LinearLayout myStores, quit;
+    LinearLayout myStores, quit, myCashboxes;
     ImageView editButton;
     TextView profileName;
     TextView profilePhone;
@@ -49,6 +49,7 @@ public class ProfileFragment extends Fragment {
         myStores = view.findViewById(R.id.my_stores);
         quit = view.findViewById(R.id.quit);
         editButton = view.findViewById(R.id.edit_button);
+        myCashboxes = view.findViewById(R.id.my_cashboxes);
 
 //
 //        TextView txt = view.findViewById(R.id.textView2);
@@ -110,6 +111,14 @@ public class ProfileFragment extends Fragment {
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), ProfileEdit.class);
                 startActivityForResult(intent, 1);
+            }
+        });
+
+        myCashboxes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), AllCashboxes.class);
+                startActivity(intent);
             }
         });
 
