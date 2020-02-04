@@ -13,7 +13,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme2">
-        <activity android:name=".AllCashboxes"></activity>
+        <activity android:name=".AllCashboxes"
+            android:parentActivityName=".OrdersActivity"
+            android:theme="@style/AppTheme"
+            android:label="@string/my_cashboxes"/>
+
         <activity android:name=".TestDadata" />
         <activity
             android:name=".MyCashboxes"
