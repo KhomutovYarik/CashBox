@@ -99,6 +99,7 @@ public class MyStores extends AppCompatActivity {
                 Intent myCashboxes = new Intent(MyStores.this, MyCashboxes.class);
                 myCashboxes.putExtra("parentId", adapter.getItem(i).getId());
                 myCashboxes.putExtra("title", adapter.getItem(i).getName());
+                myCashboxes.putExtra("selected", String.valueOf(i));
                 startActivity(myCashboxes);
             }
         });

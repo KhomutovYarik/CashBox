@@ -205,7 +205,7 @@ public class OrdersActivity extends AppCompatActivity {
                     images.add(Uri.parse(data.getStringExtra("photo" + i)));
                 }
                 if (images.size() == 0) {
-                    sendMessage(this, num, data.getStringExtra("city"), data.getStringExtra("address"), data.getStringExtra("model"), data.getStringExtra("serialNumber"), data.getStringExtra("problem"), data.getStringExtra("problemDesc"), null);
+                    sendMessage(this, num, data.getStringExtra("region"), data.getStringExtra("city"), data.getStringExtra("address"), data.getStringExtra("model"), data.getStringExtra("serialNumber"), data.getStringExtra("problem"), data.getStringExtra("problemDesc"), null);
                 }
                 else
                 {
@@ -228,7 +228,7 @@ public class OrdersActivity extends AppCompatActivity {
                                                 urls.add(uri);
                                                 if (k == images.size()) {
                                                     pg.dismiss();
-                                                    sendMessage(cont, num, DATA.getStringExtra("city"), DATA.getStringExtra("address"), DATA.getStringExtra("model"), DATA.getStringExtra("serialNumber"), DATA.getStringExtra("problem"), DATA.getStringExtra("problemDesc"), urls);
+                                                    sendMessage(cont, num, DATA.getStringExtra("region"), DATA.getStringExtra("city"), DATA.getStringExtra("address"), DATA.getStringExtra("model"), DATA.getStringExtra("serialNumber"), DATA.getStringExtra("problem"), DATA.getStringExtra("problemDesc"), urls);
                                                 }
                                             }
                                         });
@@ -238,7 +238,7 @@ public class OrdersActivity extends AppCompatActivity {
                                     @Override
                                     public void onFailure(@NonNull Exception exception) {
                                         pg.dismiss();
-                                        sendMessage(cont, num, DATA.getStringExtra("city"), DATA.getStringExtra("address"), DATA.getStringExtra("model"), DATA.getStringExtra("serialNumber"), DATA.getStringExtra("problem"), DATA.getStringExtra("problemDesc"), null);
+                                        sendMessage(cont, num, DATA.getStringExtra("region"), DATA.getStringExtra("city"), DATA.getStringExtra("address"), DATA.getStringExtra("model"), DATA.getStringExtra("serialNumber"), DATA.getStringExtra("problem"), DATA.getStringExtra("problemDesc"), null);
                                     }
                                 });
                     }
@@ -247,7 +247,7 @@ public class OrdersActivity extends AppCompatActivity {
         }
     }
 
-    private void sendMessage(Context cont, int num, String city, String address, String model, String serialNumber, String problem, String problemDesc, ArrayList<Uri> urls)
+    private void sendMessage(Context cont, int num, String region, String city, String address, String model, String serialNumber, String problem, String problemDesc, ArrayList<Uri> urls)
     {
         String name = "", email = "", desc = "";
         StringBuilder photos = new StringBuilder("");
@@ -263,7 +263,7 @@ public class OrdersActivity extends AppCompatActivity {
             for (int i = 0; i < urls.size(); i++)
                 photos.append("\n" + urls.get(i).toString());
         }
-        JavaMailAPI sendMessage = new JavaMailAPI(cont, "sos@cttp.ru", "Новая заявка", "Поступила новая заявка.\n\nДанные заявки:\n\nНомер заявки: " + num + "\n\nНомер телефона пользователя: " + User.phone + name + email + "\n\nАдрес пользователя: " + "г. " + city + ", " + address + "\n\nМодель ККТ: " + model + "\n\nСерийный номер ККТ: " + serialNumber + "\n\nОписание проблемы: " + problem + desc + photos.toString(), true);
+        JavaMailAPI sendMessage = new JavaMailAPI(cont, "sos@cttp.ru", "Новая заявка", "Поступила новая заявка.\n\nДанные заявки:\n\nНомер заявки: " + num + "\n\nНомер телефона пользователя: " + User.phone + name + email + "\n\nАдрес пользователя: " + region + ", г. " + city + ", " + address + "\n\nМодель ККТ: " + model + "\n\nСерийный номер ККТ: " + serialNumber + "\n\nОписание проблемы: " + problem + desc + photos.toString(), true);
         sendMessage.execute();
     }
 

@@ -1,5 +1,6 @@
 package com.example.cashbox;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -20,6 +21,13 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 
 import ru.tinkoff.decoro.MaskImpl;
@@ -38,6 +46,7 @@ public class add_cashbox extends AppCompatActivity {
     ArrayAdapter<String> store_adapter;
     ArrayList<String> storesList;
     ConstraintLayout myLayout;
+    DatabaseReference database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +56,8 @@ public class add_cashbox extends AppCompatActivity {
     }
 
     private void prepare () {
+        database = FirebaseDatabase.getInstance().getReference(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("stores");
+
         storeName_label = findViewById(R.id.storeName_label);
         storeName = findViewById(R.id.storeName);
         cashbox_name = findViewById(R.id.cashboxName);
@@ -58,13 +69,34 @@ public class add_cashbox extends AppCompatActivity {
         model_label = findViewById(R.id.model_label);
         myLayout = findViewById(R.id.constraintLayout);
 
-
         storesList = new ArrayList<>();
+        storesList.add("Выберите торговую точку");
         store_adapter = new ArrayAdapter<String>(add_cashbox.this,
                 android.R.layout.simple_list_item_1, storesList);
         store_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         storeName.setAdapter(store_adapter);
-        //TODO подгрузить торговые точки
+
+        database.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                storesList.clear();
+                storesList.add("Выберите торговую точку");
+                for (DataSnapshot data : dataSnapshot.getChildren())
+                {
+                    storesList.add(data.child("name").getValue().toString());
+                }
+                store_adapter.notifyDataSetChanged();
+                if (getIntent().getStringExtra("selected") != null) {
+                    storeName.setSelection(Integer.valueOf(getIntent().getStringExtra("selected")) + 1);
+                    storeName.setEnabled(false);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
         if (getIntent().getStringExtra("title") != null)
         {

@@ -126,7 +126,7 @@ public class NewOrderActivity extends AppCompatActivity {
                 {
                     String id = snap1.child("id").getValue().toString();
                     storesList.add(snap1.child("name").getValue().toString());
-                    stores.add(new Store(null, null, null, snap1.child("city").getValue().toString(), snap1.child("address").getValue().toString(), null));
+                    stores.add(new Store(null, null, snap1.child("region").getValue().toString(), snap1.child("city").getValue().toString(), snap1.child("address").getValue().toString(), null));
                     for (DataSnapshot snap2 : dataSnapshot.child(id).child("cashboxes").getChildren())
                     {
                         allLists[j].add(snap2.child("name").getValue().toString());
@@ -302,6 +302,7 @@ public class NewOrderActivity extends AppCompatActivity {
                 allorders.putExtra("cashbox", cashbox.getSelectedItem().toString());
                 allorders.putExtra("problem", problem.getSelectedItem().toString());
                 allorders.putExtra("problemDesc", String.valueOf(problemDescription.getText()));
+                allorders.putExtra("region", stores.get(store.getSelectedItemPosition() - 1).getRegion());
                 allorders.putExtra("city", stores.get(store.getSelectedItemPosition() - 1).getCity());
                 allorders.putExtra("address", stores.get(store.getSelectedItemPosition() - 1).getAddress());
                 allorders.putExtra("model", cashboxes.get(cashbox.getSelectedItemPosition() - 1).getModel());

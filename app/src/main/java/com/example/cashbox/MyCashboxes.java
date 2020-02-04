@@ -31,12 +31,14 @@ public class MyCashboxes extends AppCompatActivity {
     CashboxAdapter adapter;
     ListView cbListView;
     DatabaseReference database;
+    String storePos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_cashboxes);
         this.setTitle("ККТ " + getIntent().getStringExtra("title"));
+        storePos = getIntent().getStringExtra("selected");
         preparing();
     }
 
@@ -87,6 +89,7 @@ public class MyCashboxes extends AppCompatActivity {
                 return true;
             case R.id.action_add:
                 Intent newCashbox = new Intent(MyCashboxes.this, add_cashbox.class);
+                newCashbox.putExtra("selected", storePos);
                 startActivityForResult(newCashbox, 1);
                 break;
         }

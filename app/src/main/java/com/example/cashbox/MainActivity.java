@@ -136,12 +136,17 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        resend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sendVerificationCode();
+            }
+        });
+
         signin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mProgressDialog = ProgressDialog.show(MainActivity.this,"Создание заявки", "Отправка E-mail...",false,false);
                 checkCode();
-                mProgressDialog.dismiss();
             }
         });
     }
