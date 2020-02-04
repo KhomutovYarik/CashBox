@@ -1,11 +1,15 @@
 package com.example.cashbox;
 
 import android.app.ProgressDialog;
+import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -13,6 +17,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.util.Base64Utils;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
 
@@ -30,7 +36,11 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
+import java.util.ArrayList;
 import java.util.Collections;
 
 import static com.example.cashbox.ActiveOrdersFragment.activeOrdersList;
@@ -43,6 +53,8 @@ public class OrdersActivity extends AppCompatActivity {
     LinearLayout ordersSection, profileSection;
     Button dada;
     DatabaseReference database, userInfo;
+    StorageReference storage;
+
     ProgressDialog mProgressDialog;
     public static ProgressDialog profileProgress;
     Fragment selectedFragment = null;
@@ -73,6 +85,8 @@ public class OrdersActivity extends AppCompatActivity {
         database = FirebaseDatabase.getInstance().getReference(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("orders");
 
         userInfo = FirebaseDatabase.getInstance().getReference(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("userInfo");
+
+        storage = FirebaseStorage.getInstance().getReference(FirebaseAuth.getInstance().getCurrentUser().getUid());
 
         database.addValueEventListener(new ValueEventListener() {
 
@@ -179,24 +193,85 @@ public class OrdersActivity extends AppCompatActivity {
         {
             if (resultCode == RESULT_OK)
             {
+                final ProgressDialog pg = new ProgressDialog(this, R.style.Theme_AppCompat_Light_NoActionBar_FullScreen);
                 double number = Math.random() * 1000000;
-                int num = (int)number;
+                final int num = (int)number;
                 String id = database.push().getKey();
                 Order newOrder = new Order(id, String.valueOf(num), data.getStringExtra("cashbox"), data.getStringExtra("store"), data.getStringExtra("problem"), data.getStringExtra("problemDesc"), "1");
                 database.child(id).setValue(newOrder);
-//                activeOrdersList.add(0, newOrder);
-//                ActiveOrdersFragment.adapter.notifyDataSetChanged();
-                    String name = "", email = "", desc = "";
-                    if (User.name != null)
-                        name = "\n\nИмя пользователя: " + User.name;
-                    if (User.email != null)
-                        email = "\n\nE-mail пользователя: " + User.email;
-                    if (!data.getStringExtra("problemDesc").equals(""))
-                        desc = "\n\nПодробное описание проблемы: " + data.getStringExtra("problemDesc");
-                    JavaMailAPI sendMessage = new JavaMailAPI(this, "sos@cttp.ru", "Новая заявка", "Поступила новая заявка.\n\nДанные заявки:\n\nНомер заявки: " + num + "\n\nНомер телефона пользователя: " + User.phone + name + email + "\n\nАдрес пользователя: " + "г. " + data.getStringExtra("city") + ", " + data.getStringExtra("address") + "\n\nМодель ККТ: " + data.getStringExtra("model") + "\n\nСерийный номер ККТ: " + data.getStringExtra("serialNumber") + "\n\nОписание проблемы: " + data.getStringExtra("problem") + desc, true);
-                    sendMessage.execute();
+                final ArrayList<Uri> images = new ArrayList<>();
+                for (int i = 1; data.getStringExtra("photo" + i) != null; i++)
+                {
+                    images.add(Uri.parse(data.getStringExtra("photo" + i)));
+                }
+                if (images.size() == 0) {
+                    sendMessage(this, num, data.getStringExtra("city"), data.getStringExtra("address"), data.getStringExtra("model"), data.getStringExtra("serialNumber"), data.getStringExtra("problem"), data.getStringExtra("problemDesc"), null);
+                }
+                else
+                {
+                    pg.show();
+                    pg.setContentView(R.layout.progress);
+                    final Intent DATA = data;
+                    final Context cont = this;
+                    final ArrayList<Uri> urls = new ArrayList<Uri>();
+                    for (int n = 0; n < images.size(); n++) {
+                        final StorageReference ref = storage.child("orders").child(id).child("photo" + n + "." + getExtension(images.get(n)));
+                        final int k = n + 1;
+                        ref.putFile(images.get(n))
+                                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                    @Override
+                                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                        // Get a URL to the uploaded content
+                                        ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                            @Override
+                                            public void onSuccess(Uri uri) {
+                                                urls.add(uri);
+                                                if (k == images.size()) {
+                                                    pg.dismiss();
+                                                    sendMessage(cont, num, DATA.getStringExtra("city"), DATA.getStringExtra("address"), DATA.getStringExtra("model"), DATA.getStringExtra("serialNumber"), DATA.getStringExtra("problem"), DATA.getStringExtra("problemDesc"), urls);
+                                                }
+                                            }
+                                        });
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception exception) {
+                                        pg.dismiss();
+                                        sendMessage(cont, num, DATA.getStringExtra("city"), DATA.getStringExtra("address"), DATA.getStringExtra("model"), DATA.getStringExtra("serialNumber"), DATA.getStringExtra("problem"), DATA.getStringExtra("problemDesc"), null);
+                                    }
+                                });
+                    }
+                }
             }
         }
+    }
+
+    private void sendMessage(Context cont, int num, String city, String address, String model, String serialNumber, String problem, String problemDesc, ArrayList<Uri> urls)
+    {
+        String name = "", email = "", desc = "";
+        StringBuilder photos = new StringBuilder("");
+        if (User.name != null)
+            name = "\n\nИмя пользователя: " + User.name;
+        if (User.email != null)
+            email = "\n\nE-mail пользователя: " + User.email;
+        if (!problemDesc.equals(""))
+            desc = "\n\nПодробное описание проблемы: " + problemDesc;
+        if (urls != null)
+        {
+            photos.append("\n\nПрикреплённые фотографии:");
+            for (int i = 0; i < urls.size(); i++)
+                photos.append("\n" + urls.get(i).toString());
+        }
+        JavaMailAPI sendMessage = new JavaMailAPI(cont, "sos@cttp.ru", "Новая заявка", "Поступила новая заявка.\n\nДанные заявки:\n\nНомер заявки: " + num + "\n\nНомер телефона пользователя: " + User.phone + name + email + "\n\nАдрес пользователя: " + "г. " + city + ", " + address + "\n\nМодель ККТ: " + model + "\n\nСерийный номер ККТ: " + serialNumber + "\n\nОписание проблемы: " + problem + desc + photos.toString(), true);
+        sendMessage.execute();
+    }
+
+    private String getExtension(Uri uri)
+    {
+        ContentResolver cr = getContentResolver();
+        MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
+        return mimeTypeMap.getExtensionFromMimeType(cr.getType(uri));
     }
 
     private String phoneTransform(String number)

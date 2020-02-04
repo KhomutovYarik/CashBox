@@ -37,8 +37,6 @@ public class FinishedOrderAdapter extends ArrayAdapter<FinishedOrder> {
         String status = getItem(position).getStatus();
         int rating = getItem(position).getRating();
 
-        FinishedOrder order = new FinishedOrder(id, number, cashboxName, storeName, problem, problemDesc, status, rating);
-
         LayoutInflater inflater = LayoutInflater.from(context);
         convertView = inflater.inflate(resource, parent, false);
 

@@ -78,8 +78,6 @@ public class ActiveOrderAdapter extends ArrayAdapter<ActiveOrder> {
         String offersNumber = getItem(position).getOffersNumber();
         String minPrice = getItem(position).getMinPrice();
 
-        ActiveOrder order = new ActiveOrder(id, number, cashboxName, storeName, problem, problemDesc, "1", offersNumber, minPrice);
-
         LayoutInflater inflater = LayoutInflater.from(context);
         convertView = inflater.inflate(resource, parent, false);
 

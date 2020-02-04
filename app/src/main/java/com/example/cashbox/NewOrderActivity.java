@@ -8,6 +8,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -19,6 +20,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,16 +31,21 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class NewOrderActivity extends AppCompatActivity {
-    private TextView store_label, cashbox_label, problem_label, problemDescription_label;
-    private EditText problemDescription;
-    private Spinner cashbox, problem, store;
-    private Button continue_Button;
-    private ConstraintLayout myLayout;
+    TextView store_label, cashbox_label, problem_label, problemDescription_label;
+    EditText problemDescription;
+    Spinner cashbox, problem, store;
+    Button continue_Button;
+    ImageView [] addImage;
+    ConstraintLayout myLayout;
+    ArrayList<Uri> imguri;
 
     DatabaseReference database;
     ArrayList<String> storesList, cbsList;
@@ -63,6 +70,8 @@ public class NewOrderActivity extends AppCompatActivity {
         cbsList = new ArrayList<>();
         stores = new ArrayList<>();
         cashboxes = new ArrayList<>();
+        imguri = new ArrayList<>();
+        addImage = new ImageView[3];
 
         store_label = findViewById(R.id.problemStore_label);
         cashbox_label = findViewById(R.id.cashbox_label);
@@ -74,6 +83,9 @@ public class NewOrderActivity extends AppCompatActivity {
         cashbox.setEnabled(false);
         problem = findViewById(R.id.problem);
         continue_Button = findViewById(R.id.continueButton);
+        addImage[0] = findViewById(R.id.attachImg_icon1);
+        addImage[1] = findViewById(R.id.attachImg_icon2);
+        addImage[2] = findViewById(R.id.attachImg_icon3);
         myLayout = findViewById(R.id.constraintLayout);
 
         store_adapter = new ArrayAdapter<String>(NewOrderActivity.this,
@@ -277,6 +289,9 @@ public class NewOrderActivity extends AppCompatActivity {
             }
         });
 
+        for (int i = 0; i < 3; i++)
+            ImageSetOnClick(addImage[i], i);
+
         continue_Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -289,12 +304,31 @@ public class NewOrderActivity extends AppCompatActivity {
                 allorders.putExtra("address", stores.get(store.getSelectedItemPosition() - 1).getAddress());
                 allorders.putExtra("model", cashboxes.get(cashbox.getSelectedItemPosition() - 1).getModel());
                 allorders.putExtra("serialNumber", cashboxes.get(cashbox.getSelectedItemPosition() - 1).getSerialNumber());
+                for (int i = 0; i < imguri.size(); i++)
+                    allorders.putExtra("photo" + String.valueOf(i+1), imguri.get(i).toString());
                 setResult(RESULT_OK, allorders);
                 finish();
             }
         });
     }
 
+    void forImageAdd(final int i)
+    {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Выбрать фото"), 3 + i);
+    }
+
+    void ImageSetOnClick(final ImageView img, final int i)
+    {
+        img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                forImageAdd(i);
+            }
+        });
+    }
 
     private void check () {
         if (store.getSelectedItemId() != 0 && cashbox.getSelectedItemId() != 0 &&
@@ -342,6 +376,60 @@ public class NewOrderActivity extends AppCompatActivity {
             else
             {
                 store.setSelection(0);
+            }
+        }
+        else
+        {
+            if (requestCode == 2)
+            {
+                if (resultCode == RESULT_OK)
+                {
+
+                }
+            }
+            else
+            {
+                if (requestCode == 3)
+                {
+                    if (resultCode == RESULT_OK && data != null)
+                    {
+                        if (imguri.size() == 0)
+                            imguri.add(data.getData());
+                        else
+                            imguri.set(0, data.getData());
+                        addImage[0].setImageURI(imguri.get(0));
+                        addImage[1].setVisibility(View.VISIBLE);
+                    }
+                }
+                else
+                {
+                    if (requestCode == 4)
+                    {
+                        if (resultCode == RESULT_OK && data != null)
+                        {
+                            if (imguri.size() == 1)
+                                imguri.add(data.getData());
+                            else
+                                imguri.set(1, data.getData());
+                            addImage[1].setImageURI(imguri.get(1));
+                            addImage[2].setVisibility(View.VISIBLE);
+                        }
+                    }
+                    else
+                    {
+                        if (requestCode == 5)
+                        {
+                            if (resultCode == RESULT_OK && data != null)
+                            {
+                                if (imguri.size() == 2)
+                                    imguri.add(data.getData());
+                                else
+                                    imguri.set(2, data.getData());
+                                addImage[2].setImageURI(imguri.get(2));
+                            }
+                        }
+                    }
+                }
             }
         }
     }
