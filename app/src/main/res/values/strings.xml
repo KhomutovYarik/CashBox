@@ -182,7 +182,7 @@
         <item>ЯРУС ТФ</item>
     </string-array>
     <string-array name="problem">
-        <item>Выберите случившуюся проблему</item>
+        <item>Выберите случившуюся проблему…</item>
         <item>Чеки не отправляются в ОФД</item>
         <item>Чеки не отрезаются</item>
         <item>Компьютер не видит кассу</item>

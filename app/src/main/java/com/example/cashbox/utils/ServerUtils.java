@@ -200,7 +200,7 @@ public class ServerUtils {
                 if (globalType)
                     suggestionResult = suggestion.getSuggestions().get(i).getValue();
                 else
-                    suggestionResult = suggestion.getSuggestions().get(i).getRealmData().getCity_with_type();
+                    suggestionResult = suggestion.getSuggestions().get(i).getRealmData().getCity();
                 suggestions.add(suggestionResult);
 
                 realm.beginTransaction();

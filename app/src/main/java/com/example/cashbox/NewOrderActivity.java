@@ -31,12 +31,11 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
 public class NewOrderActivity extends AppCompatActivity {
     TextView store_label, cashbox_label, problem_label, problemDescription_label;
@@ -52,7 +51,7 @@ public class NewOrderActivity extends AppCompatActivity {
     ArrayList<String> [] allLists;
     ArrayList<Store> stores;
     ArrayList<Cashbox> cashboxes;
-    ArrayAdapter<String> store_adapter, cashbox_adapter;
+    CustomArrayAdapter store_adapter, cashbox_adapter, problem_adapter;
     ProgressDialog mProgressDialog;
 
     @Override
@@ -88,21 +87,23 @@ public class NewOrderActivity extends AppCompatActivity {
         addImage[2] = findViewById(R.id.attachImg_icon3);
         myLayout = findViewById(R.id.constraintLayout);
 
-        store_adapter = new ArrayAdapter<String>(NewOrderActivity.this,
-                android.R.layout.simple_list_item_1, storesList);
+        store_adapter = new CustomArrayAdapter(NewOrderActivity.this,
+                android.R.layout.simple_list_item_1, storesList, 0);
         store_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         store.setAdapter(store_adapter);
 
-        cashbox_adapter = new ArrayAdapter<String>(NewOrderActivity.this,
-                android.R.layout.simple_list_item_1, cbsList);
+        cashbox_adapter = new CustomArrayAdapter(NewOrderActivity.this,
+                android.R.layout.simple_list_item_1, cbsList,0);
         cashbox_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         cashbox.setAdapter(cashbox_adapter);
 
-        ArrayAdapter<String> problem_adapter = new ArrayAdapter<>(NewOrderActivity.this,
-                android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.problem));
+        ArrayList<String> problems = new ArrayList<>(Arrays.asList(getResources().getStringArray(R.array.problem)));
+
+        problem_adapter = new CustomArrayAdapter(NewOrderActivity.this,
+                android.R.layout.simple_list_item_1, problems,0);
         problem_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         problem.setAdapter(problem_adapter);
-
+        problem.setSelection(0);
         database = FirebaseDatabase.getInstance().getReference(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("stores");
 
         database.addValueEventListener(new ValueEventListener() {
@@ -133,6 +134,7 @@ public class NewOrderActivity extends AppCompatActivity {
                     }
                     j++;
                 }
+                cbsList.add("+ Добавить ККТ");
                 storesList.add("+ Добавить точку");
                 store_adapter.notifyDataSetChanged();
                 cashbox_adapter.notifyDataSetChanged();
