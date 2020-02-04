@@ -50,7 +50,7 @@
         android:id="@+id/cashboxName"
         android:layout_width="0dp"
         android:layout_height="45dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="105dp"
         android:autofillHints="address"
         android:background="@drawable/fields2_inactive"
         android:hint="@string/cashbox_name_hint"
@@ -58,7 +58,7 @@
         android:textColor="@color/textColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/storeName" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 

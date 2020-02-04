@@ -7,10 +7,12 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
+import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -44,7 +46,7 @@ public class add_cashbox extends AppCompatActivity {
     Button saveButton;
     EditText model;
     ArrayAdapter<String> store_adapter;
-    ArrayList<String> storesList;
+    ArrayList<String> storesList, ids;
     ConstraintLayout myLayout;
     DatabaseReference database;
 
@@ -56,7 +58,6 @@ public class add_cashbox extends AppCompatActivity {
     }
 
     private void prepare () {
-        database = FirebaseDatabase.getInstance().getReference(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("stores");
 
         storeName_label = findViewById(R.id.storeName_label);
         storeName = findViewById(R.id.storeName);
@@ -69,60 +70,78 @@ public class add_cashbox extends AppCompatActivity {
         model_label = findViewById(R.id.model_label);
         myLayout = findViewById(R.id.constraintLayout);
 
-        storesList = new ArrayList<>();
-        storesList.add("Выберите торговую точку");
-        store_adapter = new ArrayAdapter<String>(add_cashbox.this,
-                android.R.layout.simple_list_item_1, storesList);
-        store_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        storeName.setAdapter(store_adapter);
-
-        database.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                storesList.clear();
-                storesList.add("Выберите торговую точку");
-                for (DataSnapshot data : dataSnapshot.getChildren())
-                {
-                    storesList.add(data.child("name").getValue().toString());
-                }
-                store_adapter.notifyDataSetChanged();
-                if (getIntent().getStringExtra("selected") != null) {
-                    storeName.setSelection(Integer.valueOf(getIntent().getStringExtra("selected")) + 1);
-                    storeName.setEnabled(false);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
-        if (getIntent().getStringExtra("title") != null)
+        if (getIntent().getBooleanExtra("showName", true))
         {
-            this.setTitle(getIntent().getStringExtra("title"));
-            cashbox_name.setText(getIntent().getStringExtra("name"));
-            model.setText(getIntent().getStringExtra("model"));
-            factory_number.setText(getIntent().getStringExtra("serial"));
-        }
+            ids = new ArrayList<>();
+            storesList = new ArrayList<>();
+            storesList.add("Выберите торговую точку");
+            store_adapter = new ArrayAdapter<String>(add_cashbox.this,
+                    android.R.layout.simple_list_item_1, storesList);
+            store_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            storeName.setAdapter(store_adapter);
 
-        storeName.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                myLayout.requestFocus();
-                storeName_label.setTextColor(getResources().getColor(R.color.colorPrimary));
-                storeName.setBackground(getResources().getDrawable(R.drawable.spinner_active));
+            database = FirebaseDatabase.getInstance().getReference(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("stores");
+            database.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    storesList.clear();
+                    ids.clear();
+                    storesList.add("Выберите торговую точку");
+                    for (DataSnapshot data : dataSnapshot.getChildren()) {
+                        storesList.add(data.child("name").getValue().toString());
+                        ids.add(data.child("id").getValue().toString());
+                    }
+                    store_adapter.notifyDataSetChanged();
+                    int pos = getIntent().getIntExtra("selected", -1);
+                    if (pos != -1)
+                        storeName.setSelection(pos);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+
+            storeName.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View view, MotionEvent motionEvent) {
+                    myLayout.requestFocus();
+                    storeName_label.setTextColor(getResources().getColor(R.color.colorPrimary));
+                    storeName.setBackground(getResources().getDrawable(R.drawable.spinner_active));
 
 //              model_label.setTextColor(getResources().getColor(R.color.inactiveColor));
 //              cashbox_name_label.setTextColor(getResources().getColor(R.color.inactiveColor));
 //              factory_number_label.setTextColor(getResources().getColor(R.color.inactiveColor));
 //              cashbox_name.setBackground(getResources().getDrawable(R.drawable.fields2_inactive));
 //              factory_number.setBackground(getResources().getDrawable(R.drawable.fields2_inactive));
-                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-                return false;
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+                    return false;
+                }
+            });
+        }
+        else
+        {
+            storeName_label.setVisibility(View.INVISIBLE);
+            storeName.setVisibility(View.INVISIBLE);
+            Resources r = this.getResources();
+            int px = (int) TypedValue.applyDimension(
+                    TypedValue.COMPLEX_UNIT_DIP,
+                    30,
+                    r.getDisplayMetrics()
+            );
+            ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams)cashbox_name.getLayoutParams();
+            params.setMargins(0, px, 0, 0);
+            cashbox_name.setLayoutParams(params);
+            if (getIntent().getStringExtra("title") != null)
+            {
+                this.setTitle(getIntent().getStringExtra("title"));
+                cashbox_name.setText(getIntent().getStringExtra("name"));
+                model.setText(getIntent().getStringExtra("model"));
+                factory_number.setText(getIntent().getStringExtra("serial"));
             }
-        });
+        }
 
         model.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -202,9 +221,16 @@ public class add_cashbox extends AppCompatActivity {
                 allCashboxes.putExtra("name", cashbox_name.getText().toString());
                 allCashboxes.putExtra("model", model.getText().toString());
                 allCashboxes.putExtra("serial", mi.toUnformattedString());
-                if (getIntent().getStringExtra("id") != null)
+                if (getIntent().getBooleanExtra("showName", true))
                 {
-                    allCashboxes.putExtra("id", getIntent().getStringExtra("id"));
+                    allCashboxes.putExtra("parentId", ids.get(storeName.getSelectedItemPosition() - 1));
+                }
+                else
+                {
+                    if (getIntent().getStringExtra("id") != null)
+                    {
+                        allCashboxes.putExtra("id", getIntent().getStringExtra("id"));
+                    }
                 }
                 setResult(RESULT_OK, allCashboxes);
                 finish();

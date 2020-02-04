@@ -46,6 +46,7 @@ public class CashboxAdapter extends ArrayAdapter<Cashbox> {
             public void onClick(View view) {
                 Intent editCB = new Intent(context, add_cashbox.class);
                 editCB.putExtra("title", "Редактирование");
+                editCB.putExtra("showName", false);
                 editCB.putExtra("id", id);
                 editCB.putExtra("name", name);
                 editCB.putExtra("model", model);

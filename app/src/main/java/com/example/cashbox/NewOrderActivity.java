@@ -103,7 +103,6 @@ public class NewOrderActivity extends AppCompatActivity {
                 android.R.layout.simple_list_item_1, problems,0);
         problem_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         problem.setAdapter(problem_adapter);
-        problem.setSelection(0);
         database = FirebaseDatabase.getInstance().getReference(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("stores");
 
         database.addValueEventListener(new ValueEventListener() {
@@ -134,9 +133,11 @@ public class NewOrderActivity extends AppCompatActivity {
                     }
                     j++;
                 }
-                cbsList.add("+ Добавить ККТ");
                 storesList.add("+ Добавить точку");
                 store_adapter.notifyDataSetChanged();
+                if (store.getSelectedItemPosition() > 0)
+                    cbsList.addAll(allLists[store.getSelectedItemPosition() - 1]);
+                cbsList.add("+ Добавить ККТ");
                 cashbox_adapter.notifyDataSetChanged();
                 mProgressDialog.dismiss();
             }
@@ -241,7 +242,6 @@ public class NewOrderActivity extends AppCompatActivity {
                     }
                 }
                 cashbox_adapter.notifyDataSetChanged();
-                cashbox.setSelection(0);
             }
 
             @Override
@@ -253,6 +253,12 @@ public class NewOrderActivity extends AppCompatActivity {
         cashbox.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if (i == cbsList.size() - 1 && cashbox.isEnabled())
+                {
+                    Intent newCashbox = new Intent(NewOrderActivity.this, add_cashbox.class);
+                    newCashbox.putExtra("selected", store.getSelectedItemPosition());
+                    startActivityForResult(newCashbox, 2);
+                }
                 check();
             }
 
@@ -387,7 +393,15 @@ public class NewOrderActivity extends AppCompatActivity {
             {
                 if (resultCode == RESULT_OK)
                 {
-
+                    mProgressDialog.show();
+                    DatabaseReference newCB = database.child(data.getStringExtra("parentId")).child("cashboxes");
+                    String id = newCB.push().getKey();
+                    Cashbox newCashbox = new Cashbox(id, data.getStringExtra("parentId"), data.getStringExtra("name"), data.getStringExtra("model"), data.getStringExtra("serial"));
+                    newCB.child(id).setValue(newCashbox);
+                }
+                else
+                {
+                    cashbox.setSelection(0);
                 }
             }
             else
