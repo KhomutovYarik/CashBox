@@ -288,25 +288,27 @@ public class ProfileEdit extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (profile_name.getText().toString() != name) {
+                if (!profile_name.getText().toString().equals(name)) {
                     if (profile_name.getText().length() >= 3) {
                         //сохранить имя
                         intent.putExtra("name", profile_name.getText().toString());
                     }
                     else {
-                        AlertDialog.Builder builder = new AlertDialog.Builder(ProfileEdit.this);
-                        builder.setTitle("Вы ошиблись при вводе имени!")
-                                .setMessage("Имя должно содержать хотя бы 3 символа")
-                                .setCancelable(false)
-                                .setPositiveButton("ОК",
-                                        new DialogInterface.OnClickListener() {
-                                            public void onClick(DialogInterface dialog, int id) {
-                                                dialog.cancel();
-                                            }
-                                        });
-                        AlertDialog alert = builder.create();
-                        alert.show();
-                        return;
+                        if (profile_name.getText().length() != 0) {
+                            AlertDialog.Builder builder = new AlertDialog.Builder(ProfileEdit.this);
+                            builder.setTitle("Вы ошиблись при вводе имени!")
+                                    .setMessage("Имя должно содержать хотя бы 3 символа")
+                                    .setCancelable(false)
+                                    .setPositiveButton("ОК",
+                                            new DialogInterface.OnClickListener() {
+                                                public void onClick(DialogInterface dialog, int id) {
+                                                    dialog.cancel();
+                                                }
+                                            });
+                            AlertDialog alert = builder.create();
+                            alert.show();
+                            return;
+                        }
                     }
                 }
                 if (profile_email.getText().length() != 0) {

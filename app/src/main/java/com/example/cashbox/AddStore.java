@@ -95,6 +95,8 @@ public class AddStore extends AppCompatActivity implements OnSuggestionsListener
         });
 
         if (getIntent().getStringExtra("title") != null) {
+            citySelected = true;
+            regionSelected = true;
             this.setTitle(getIntent().getStringExtra("title"));
             storeName.setText(getIntent().getStringExtra("name"));
             region.setText(getIntent().getStringExtra("region"));
