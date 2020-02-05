@@ -45,7 +45,7 @@ public class add_cashbox extends AppCompatActivity {
     Spinner storeName;
     Button saveButton;
     EditText model;
-    ArrayAdapter<String> store_adapter;
+    CustomArrayAdapter store_adapter;
     ArrayList<String> storesList, ids;
     ConstraintLayout myLayout;
     DatabaseReference database;
@@ -75,8 +75,8 @@ public class add_cashbox extends AppCompatActivity {
             ids = new ArrayList<>();
             storesList = new ArrayList<>();
             storesList.add("Выберите торговую точку");
-            store_adapter = new ArrayAdapter<String>(add_cashbox.this,
-                    android.R.layout.simple_list_item_1, storesList);
+            store_adapter = new CustomArrayAdapter(add_cashbox.this,
+                    android.R.layout.simple_list_item_1, storesList,0);
             store_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             storeName.setAdapter(store_adapter);
 

@@ -79,7 +79,7 @@ public class AddStore extends AppCompatActivity implements OnSuggestionsListener
                 regionSelected = true;
                 regionAdapter.clear();
                 cityAdapter.clear();
-                city.setEnabled(true);
+                //city.setEnabled(true);
                 check();
             }
         });
@@ -103,7 +103,7 @@ public class AddStore extends AppCompatActivity implements OnSuggestionsListener
             city.setText(getIntent().getStringExtra("city"));
             address.setText(getIntent().getStringExtra("address"));
             addressComment.setText(getIntent().getStringExtra("comment"));
-            city.setEnabled(true);
+            //city.setEnabled(true);
         }
 
         saveButton.setOnClickListener(new View.OnClickListener() {
@@ -300,8 +300,8 @@ public class AddStore extends AppCompatActivity implements OnSuggestionsListener
     }
 
     private void check() {
-        if (storeName.getText().length() >= 3 && address.getText().length() >= 5 &&
-                regionSelected && citySelected) {
+        if (storeName.getText().length() >= 3 && address.getText().length() >= 5 && (
+                regionSelected && citySelected || region.getText().length() >= 5 && city.getText().length() >= 2)) {
             saveButton.setTextColor(getResources().getColor(R.color.colorPrimary));
             saveButton.setBackground(getResources().getDrawable(R.drawable.whitebuttonstyle));
             saveButton.setEnabled(true);
@@ -324,7 +324,7 @@ public class AddStore extends AppCompatActivity implements OnSuggestionsListener
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                city.setEnabled(false);
+                //city.setEnabled(false);
                 city.setText("");
                 regionSelected = false;
             }
@@ -350,8 +350,13 @@ public class AddStore extends AppCompatActivity implements OnSuggestionsListener
             @Override
             public void afterTextChanged(Editable s) {
                 check();
+                regionAdapter.clear();
+                cityAdapter.clear();
                 String regionName = region.getText().toString();
-                ServerUtils.query(s.toString(), listener, false, regionName);
+                if (regionSelected)
+                    ServerUtils.query(s.toString(), listener, false, regionName);
+                else
+                    ServerUtils.query(s.toString(), listener,false,null);
             }
         });
     }

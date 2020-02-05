@@ -93,7 +93,6 @@
         android:layout_height="45dp"
         android:layout_marginTop="30dp"
         android:completionThreshold="2"
-        android:enabled="false"
         android:inputType="textCapWords|textAutoComplete"
         android:background="@drawable/fields2_inactive"
         android:hint="@string/city"
