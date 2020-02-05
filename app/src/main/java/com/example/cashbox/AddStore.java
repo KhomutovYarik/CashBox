@@ -351,7 +351,6 @@ public class AddStore extends AppCompatActivity implements OnSuggestionsListener
             public void afterTextChanged(Editable s) {
                 check();
                 regionAdapter.clear();
-                cityAdapter.clear();
                 String regionName = region.getText().toString();
                 if (regionSelected)
                     ServerUtils.query(s.toString(), listener, false, regionName);
