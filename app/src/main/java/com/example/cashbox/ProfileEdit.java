@@ -36,7 +36,7 @@ public class ProfileEdit extends AppCompatActivity {
     EditText profile_name, profile_email, old_password, new_password, new_password_again;
     TextView phoneNumber;
     Button saveButton;
-    String name;
+    String name = "", email = "";
     Intent intent;
     AppCompatImageView lock1, lock2, lock3;
     private ProgressBar progressBar;
@@ -53,7 +53,6 @@ public class ProfileEdit extends AppCompatActivity {
     private void prepare() {
 
         profile_name = findViewById(R.id.profile_name);
-        name = profile_name.getText().toString();
         phoneNumber = findViewById(R.id.phoneNumber);
         saveButton = findViewById(R.id.saveButton);
         profile_email = findViewById(R.id.profile_email);
@@ -79,10 +78,12 @@ public class ProfileEdit extends AppCompatActivity {
                 else {
                     profile_name.setText("");
                 }
+                name = profile_name.getText().toString();
                 if (dataSnapshot.child("email").exists())
                     profile_email.setText(dataSnapshot.child("email").getValue().toString());
                 else
                     profile_email.setText("");
+                email = profile_email.getText().toString();
                 phoneNumber.setText(User.phone);
                 progressBar.setVisibility(View.INVISIBLE);
             }
@@ -428,8 +429,13 @@ public class ProfileEdit extends AppCompatActivity {
         return (!name.equals(profile_name.getText().toString()));
     }
 
+    private boolean isEmailChanged () {
+        return (!email.equals(profile_email.getText().toString()));
+    }
+
     private boolean check () {
-        return (isNameChanged() || profile_email.getText().length() >= 8 || isPassChanged());
+        return (isNameChanged() || (profile_email.getText().length() >= 8 || profile_email.getText().length() == 0)
+                && isEmailChanged());
     }
 
     private boolean isPassChanged () {
