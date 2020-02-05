@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -65,7 +67,7 @@ public class AllCashboxes extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (i != 0) {
                     cbArray.clear();
-                    cbArray.addAll(allLists[i-1]);
+                    cbArray.addAll(allLists[i - 1]);
                     adapter.notifyDataSetChanged();
                 }
             }
@@ -137,9 +139,26 @@ public class AllCashboxes extends AppCompatActivity {
                 onBackPressed();
                 return true;
             case R.id.action_add:
-                Intent newCashbox = new Intent(AllCashboxes.this, add_cashbox.class);
-                newCashbox.putExtra("selected", storeName.getSelectedItemPosition());
-                startActivityForResult(newCashbox, 1);
+                if (storesList.size() > 1) {
+                    Intent newCashbox = new Intent(AllCashboxes.this, add_cashbox.class);
+                    newCashbox.putExtra("selected", storeName.getSelectedItemPosition());
+                    startActivityForResult(newCashbox, 1);
+                }
+                else
+                {
+                    AlertDialog.Builder builder = new android.app.AlertDialog.Builder(AllCashboxes.this);
+                    builder.setTitle("Отсутствуют торговые точки")
+                            .setMessage("Сперва добавьте торговую точку")
+                            .setCancelable(false)
+                            .setPositiveButton("ОК",
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
+                                            dialog.cancel();
+                                        }
+                                    });
+                    AlertDialog alert = builder.create();
+                    alert.show();
+                }
                 break;
         }
         return false;
