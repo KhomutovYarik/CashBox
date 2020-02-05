@@ -28,7 +28,6 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.example.cashbox.DaDataApplication;
-import com.example.cashbox.TestDadata;
 import com.google.gson.ExclusionStrategy;
 import com.google.gson.FieldAttributes;
 import com.google.gson.Gson;

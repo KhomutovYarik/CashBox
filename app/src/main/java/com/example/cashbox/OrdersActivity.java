@@ -51,7 +51,6 @@ public class OrdersActivity extends AppCompatActivity {
     TextView ordersText, profileText;
     ImageView ordersIcon, profileIcon, addOrderButton;
     LinearLayout ordersSection, profileSection;
-    Button dada;
     DatabaseReference database, userInfo;
     StorageReference storage;
 

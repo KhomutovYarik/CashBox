@@ -16,63 +16,75 @@
         <activity android:name=".AllCashboxes"
             android:parentActivityName=".OrdersActivity"
             android:theme="@style/AppTheme"
-            android:label="@string/cashboxes"/>
-
-        <activity android:name=".TestDadata" />
+            android:label="@string/cashboxes"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".MyCashboxes"
             android:parentActivityName=".MyStores"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".SelectCashbox"
             android:label="@string/title_add_cashbox"
             android:parentActivityName=".add_cashbox"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ProfileEdit"
             android:label="@string/title_edit"
             android:parentActivityName=".OrdersActivity"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".MyStores"
             android:label="@string/stores"
             android:parentActivityName=".OrdersActivity"
-            android:theme="@style/AppTheme" />
-        <activity android:name=".OrdersFragment" />
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".OrdersFragment"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ProfileActivity"
             android:label="@string/profile_label"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".NewOrderActivity"
             android:label="Новая заявка"
             android:parentActivityName=".OrdersActivity"
             android:theme="@style/AppTheme"
-            android:windowSoftInputMode="stateHidden|adjustPan" />
+            android:windowSoftInputMode="stateHidden|adjustPan"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".add_cashbox"
             android:label="@string/title_add_cashbox"
             android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Register"
-            android:theme="@style/AppTheme2" />
+            android:theme="@style/AppTheme2"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ForgetPasswordActivity"
-            android:theme="@style/AppTheme2" />
+            android:theme="@style/AppTheme2"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".AddStore"
             android:label="@string/title_add_store"
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme"
-            android:windowSoftInputMode="stateHidden|adjustPan" />
+            android:windowSoftInputMode="stateHidden|adjustPan"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".OrdersActivity"
             android:label="@string/title_activity_orders"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".MainActivity"
-            android:theme="@style/AppTheme2">
+            android:theme="@style/AppTheme2"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
