@@ -98,28 +98,29 @@ public class ServerUtils {
                                 body.setFromBound(bounds);
                             }
                             else {
-                                words = regionName.split("\\s");
-                                body.setCount(10);
-                                fromBound = new Property();
-                                fromBound.setValue("city");
-                                body.setFromBound(fromBound);
-                                toBound = new Property();
-                                toBound.setValue("city");
-                                body.setToBound(toBound);
-                                region = new PropLocations[words.length];
-                                for (int i=0; i<words.length; i++)
-                                {
-                                    region[i] = new PropLocations();
-                                    region[i].setValue(words[i]);
+                                if (regionName!=null) {
+                                    words = regionName.split("\\s");
+                                    body.setCount(10);
+                                    fromBound = new Property();
+                                    fromBound.setValue("city");
+                                    body.setFromBound(fromBound);
+                                    toBound = new Property();
+                                    toBound.setValue("city");
+                                    body.setToBound(toBound);
+                                    region = new PropLocations[words.length];
+                                    for (int i = 0; i < words.length; i++) {
+                                        region[i] = new PropLocations();
+                                        region[i].setValue(words[i]);
+                                    }
+                                    body.setRestrictValue(true);
+                                    body.setLocations(region);
                                 }
-                                body.setRestrictValue(true);
-
-
-                                body.setLocations(region);
                             }
-
-                            suggestion = DaDataRestClient.getInstance().suggestSync(body);
-                            success = true;
+                            if (regionName!=null && type==false || type) {
+                                suggestion = DaDataRestClient.getInstance().suggestSync(body);
+                                success = true;
+                            }
+                            else suggestion = null;
                         } catch (RetrofitError e) {
                             e.printStackTrace();
 
