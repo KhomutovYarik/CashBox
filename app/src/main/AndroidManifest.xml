@@ -16,7 +16,7 @@
         <activity android:name=".AllCashboxes"
             android:parentActivityName=".OrdersActivity"
             android:theme="@style/AppTheme"
-            android:label="@string/my_cashboxes"/>
+            android:label="@string/cashboxes"/>
 
         <activity android:name=".TestDadata" />
         <activity
@@ -35,7 +35,7 @@
             android:theme="@style/AppTheme" />
         <activity
             android:name=".MyStores"
-            android:label="@string/my_stores"
+            android:label="@string/stores"
             android:parentActivityName=".OrdersActivity"
             android:theme="@style/AppTheme" />
         <activity android:name=".OrdersFragment" />

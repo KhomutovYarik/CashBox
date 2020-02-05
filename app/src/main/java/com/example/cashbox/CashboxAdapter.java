@@ -39,7 +39,7 @@ public class CashboxAdapter extends ArrayAdapter<Cashbox> {
         });
     }
 
-    private void editClick(final ImageView btn, final String id, final String name, final String model, final String serial)
+    private void editClick(final ImageView btn, final String id, final String parentId, final String name, final String model, final String serial)
     {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,6 +48,7 @@ public class CashboxAdapter extends ArrayAdapter<Cashbox> {
                 editCB.putExtra("title", "Редактирование");
                 editCB.putExtra("showName", false);
                 editCB.putExtra("id", id);
+                editCB.putExtra("parentId", parentId);
                 editCB.putExtra("name", name);
                 editCB.putExtra("model", model);
                 editCB.putExtra("serial", serial);
@@ -81,7 +82,7 @@ public class CashboxAdapter extends ArrayAdapter<Cashbox> {
         cbName.setText(name);
         cbModel.setText(model);
         removeClick(removeButton, id, parentId);
-        editClick(editButton, id, name, model, serialNumber);
+        editClick(editButton, id, parentId, name, model, serialNumber);
 
         return convertView;
     }

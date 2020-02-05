@@ -29,12 +29,12 @@ public class AllCashboxes extends AppCompatActivity {
     ArrayList<Cashbox> cbArray;
     CashboxAdapter adapter;
     ListView cbListView;
-    DatabaseReference database, databaseCB;
+    DatabaseReference database;
     ArrayAdapter<String> store_adapter;
     ArrayList<String> storesList;
     ArrayList<Cashbox> [] allLists;
-    ArrayList<Cashbox> cashboxes;
     Spinner storeName;
+    int afterAdd = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +45,6 @@ public class AllCashboxes extends AppCompatActivity {
 
     private void preparing()
     {
-        cashboxes = new ArrayList<>();
         storeName = findViewById(R.id.storeName);
         cbListView = findViewById(R.id.cbListView);
         storesList = new ArrayList<>();
@@ -65,8 +64,9 @@ public class AllCashboxes extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (i != 0) {
-                    adapter.clear();
-                    adapter.addAll(allLists[i-1]);
+                    cbArray.clear();
+                    cbArray.addAll(allLists[i-1]);
+                    adapter.notifyDataSetChanged();
                 }
             }
 
@@ -95,12 +95,16 @@ public class AllCashboxes extends AppCompatActivity {
                     storesList.add(snap1.child("name").getValue().toString());
                     for (DataSnapshot snap2 : dataSnapshot.child(id).child("cashboxes").getChildren())
                     {
-                        allLists[j].add(new Cashbox(null, null, snap2.child("name").getValue().toString(), snap2.child("model").getValue().toString(), snap2.child("serialNumber").getValue().toString()));
-                        cashboxes.add(new Cashbox(null, null, snap2.child("name").getValue().toString(), snap2.child("model").getValue().toString(), snap2.child("serialNumber").getValue().toString()));
+                        Cashbox newCashBox = new Cashbox(snap2.child("id").getValue().toString(), id, snap2.child("name").getValue().toString(), snap2.child("model").getValue().toString(), snap2.child("serialNumber").getValue().toString());
+                        allLists[j].add(newCashBox);
                     }
                     j++;
                 }
                 store_adapter.notifyDataSetChanged();
+                if (afterAdd > 0)
+                    storeName.setSelection(afterAdd);
+                if (storeName.getSelectedItemPosition() > 0)
+                    cbArray.addAll(allLists[storeName.getSelectedItemPosition() - 1]);
                 adapter.notifyDataSetChanged();
 //                for (DataSnapshot data : dataSnapshot.getChildren())
 //                {
@@ -124,8 +128,6 @@ public class AllCashboxes extends AppCompatActivity {
 
             }
         });
-
-
     }
 
     @Override
@@ -135,13 +137,9 @@ public class AllCashboxes extends AppCompatActivity {
                 onBackPressed();
                 return true;
             case R.id.action_add:
-                //TODO добавление кассового аппарата
-//                Intent newCashbox = new Intent(AllCashboxes.this, add_cashbox.class);
-//                if (storeName.getSelectedItemId() != 0) {
-//                    databaseCB = FirebaseDatabase.getInstance().getReference(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("stores").child(getIntent().getStringExtra("parentId")).child("cashboxes");
-//                    newCashbox.putExtra("selected", String.valueOf(storeName.getSelectedItemId() - 1));
-//                }
-//                startActivityForResult(newCashbox, 1);
+                Intent newCashbox = new Intent(AllCashboxes.this, add_cashbox.class);
+                newCashbox.putExtra("selected", storeName.getSelectedItemPosition());
+                startActivityForResult(newCashbox, 1);
                 break;
         }
         return false;
@@ -154,16 +152,17 @@ public class AllCashboxes extends AppCompatActivity {
         return true;
     }
 
-    //TODO скопировано
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1)
         {
             if (resultCode == RESULT_OK)
             {
-                String id = databaseCB.push().getKey();
-                Cashbox newCashbox = new Cashbox(id, getIntent().getStringExtra("parentId"), data.getStringExtra("name"), data.getStringExtra("model"), data.getStringExtra("serial"));
-                databaseCB.child(id).setValue(newCashbox);
+                DatabaseReference newCB = database.child(data.getStringExtra("parentId")).child("cashboxes");
+                String id = newCB.push().getKey();
+                Cashbox newCashbox = new Cashbox(id, data.getStringExtra("parentId"), data.getStringExtra("name"), data.getStringExtra("model"), data.getStringExtra("serial"));
+                newCB.child(id).setValue(newCashbox);
+                afterAdd = data.getIntExtra("number", -1);
             }
         }
         else
@@ -172,7 +171,7 @@ public class AllCashboxes extends AppCompatActivity {
             {
                 if (resultCode == RESULT_OK)
                 {
-                    databaseCB.child(data.getStringExtra("id")).setValue(new Cashbox(data.getStringExtra("id"), getIntent().getStringExtra("parentId"), data.getStringExtra("name"), data.getStringExtra("model"), data.getStringExtra("serial")));
+                    database.child(data.getStringExtra("parentId")).child("cashboxes").child(data.getStringExtra("id")).setValue(new Cashbox(data.getStringExtra("id"), data.getStringExtra("parentId"), data.getStringExtra("name"), data.getStringExtra("model"), data.getStringExtra("serial")));
                 }
             }
         }

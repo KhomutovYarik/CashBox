@@ -255,6 +255,8 @@
     <string name="profile_phone">"+7 (999) 777-77-77"</string>
     <string name="my_stores">"Мои торговые точки"</string>
     <string name="my_cashboxes">"Мои кассовые аппараты"</string>
+    <string name="stores">"Торговые точки"</string>
+    <string name="cashboxes">"Кассовые аппараты"</string>
     <string name="quit">"Выйти из профиля"</string>
     <string name="change_photo">"Изменить фото"</string>
     <string name="contacts">"Контактная информация"</string>

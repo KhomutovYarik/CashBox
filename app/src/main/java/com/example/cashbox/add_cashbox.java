@@ -224,12 +224,14 @@ public class add_cashbox extends AppCompatActivity {
                 if (getIntent().getBooleanExtra("showName", true))
                 {
                     allCashboxes.putExtra("parentId", ids.get(storeName.getSelectedItemPosition() - 1));
+                    allCashboxes.putExtra("number", storeName.getSelectedItemPosition());
                 }
                 else
                 {
                     if (getIntent().getStringExtra("id") != null)
                     {
                         allCashboxes.putExtra("id", getIntent().getStringExtra("id"));
+                        allCashboxes.putExtra("parentId", getIntent().getStringExtra("parentId"));
                     }
                 }
                 setResult(RESULT_OK, allCashboxes);
